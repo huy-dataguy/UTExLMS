@@ -50,6 +50,7 @@
             </Image>
         </Grid>
 
-        <ContentControl Grid.Row="1" Background="#EEF2F8" Content="{Binding Body}" />
+        <Frame Grid.Row="1" Background="#EEF2F8" Content="{Binding Body}" />
+
     </Grid>
 </Window>
