@@ -19,6 +19,8 @@ namespace UTExLMS
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModels.MainViewModel();
+
         }
     }
 }
