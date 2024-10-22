@@ -25,8 +25,7 @@ UTExLMS
 ### 1. HandyControl
 #####   https://handyorg.github.io/handycontrol/native_controls/
 #####   https://github.com/HandyOrg/HandyControl
-### 2. CommunityToolkit.Mvvm
-#####   https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/
+
 
 ## II. Figma
 #####   https://www.figma.com/design/LdiBMGbzy0crsmWN0ebeqv/UTExLMS?node-id=0-1&t=r2Vy5b9lVrbc8Dth-1
