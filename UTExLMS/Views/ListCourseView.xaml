@@ -9,45 +9,93 @@
       xmlns:vm="clr-namespace:UTExLMS.ViewModels"
       xmlns:img="clr-namespace:UTExLMS"
       mc:Ignorable="d" 
-      d:DesignHeight="964" d:DesignWidth="1340"
+      d:DesignHeight="964" d:DesignWidth="1350"
       Title="ListCourseView">
 
-    <Grid>
-        <Grid.Resources>
-            <vm:CourseCardViewModel x:Key="Card" />
-        </Grid.Resources>
-        <Grid.DataContext>
-            <Binding Source="{StaticResource Card}" />
-        </Grid.DataContext>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="900"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <ListBox Margin="32" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding DataList}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="data:CardModel">
-                    <hc:Card MaxWidth="360" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8" Footer="{Binding Footer}">
-                        <!--Card 的内容部分模板-->
-                        <Border CornerRadius="4,4,0,0" Width="360" Height="160">
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Content}"/>
-                            <!--<Image Source="{Binding Content}" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+        <Grid Grid.Column="1" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="210"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Hi, Quoc Huy!!👋" FontSize="30" VerticalAlignment="Bottom" Margin="50,0,-50,0" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock Text="Course Overview" FontSize="18" VerticalAlignment="Bottom" Margin="50,0,-50,0"/>
+                </Grid>
 
-                        </Border>
-                        <!--Card 的尾部部分模板-->
-                        <hc:Card.FooterTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="10" Width="160">
-                                    <!--Card 的一级内容-->
-                                    <TextBlock TextWrapping="NoWrap"  Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" 
-                           Text="{Binding DataContext.Header,RelativeSource={RelativeSource AncestorType=hc:Card}}" 
-                           HorizontalAlignment="Left"/>
-                                    <!--Card 的二级内容-->
-                                    <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefault}" TextTrimming="CharacterEllipsis" 
-                           Text="{Binding}" Margin="0,6,0,0"
-                           HorizontalAlignment="Left"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </hc:Card.FooterTemplate>
-                    </hc:Card>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox SelectedItem="{Binding SelectedFilter}" ItemsSource="{Binding Filters}" Margin="50,50,-50,5" BorderBrush="Black"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+
+                        <!--https://handyorg.github.io/handycontrol/extend_controls/searchBar/-->
+                        <hc:SearchBar Width="200" Height="35"  Margin="50,50,-50,5"  Command="{Binding SearchCmd}" CommandParameter="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"/>
+                    </Grid>
+
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.Resources>
+                    <vm:CourseCardViewModel x:Key="Card" />
+                </Grid.Resources>
+                <Grid.DataContext>
+                    <Binding Source="{StaticResource Card}" />
+                </Grid.DataContext>
+
+                <ListBox Margin="5" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding DataList}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="data:CardModel">
+                            <hc:Card  BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="5" Footer="{Binding Footer}">
+                                <!--Card 的内容部分模板-->
+                                <Border CornerRadius="6,6,0,0" Width="250" Height="110">
+                                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Content}"/>
+                                    <!--<Image Source="{Binding Content}" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+
+                                </Border>
+                                <!--Card 的尾部部分模板-->
+                                <hc:Card.FooterTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="5" Width="250" Height="150">
+                                            <!--Card 的一级内容-->
+                                            <TextBlock TextWrapping="NoWrap"  Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="{Binding DataContext.Header,RelativeSource={RelativeSource AncestorType=hc:Card}}" HorizontalAlignment="Left"/>
+                                            <!--Card 的二级内容-->
+                                            <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefault}" TextTrimming="CharacterEllipsis" Text="{Binding}" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </hc:Card.FooterTemplate>
+                            </hc:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Grid>
+
     </Grid>
+
+
 </Page>
