@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace UTExLMS.Models.DBContext
+namespace UTExLMS.Models
 {
     public partial class UTExLMSContext : DbContext
     {
