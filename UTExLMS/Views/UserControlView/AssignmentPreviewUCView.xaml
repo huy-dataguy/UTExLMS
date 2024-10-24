@@ -14,7 +14,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Column="0" Source="{Binding assignmentIcon}"></Image>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="5" Text="{Binding assignmentName}" Style="{StaticResource TextBlockDefaultBold}"/>
+        <TextBlock  Grid.Column="1" HorizontalAlignment="Left" Margin="5" Text="{Binding assignmentName}" Style="{StaticResource TextBlockDefaultBold}"/>
         <Button Command="{Binding toggleStatus}" Grid.Column="2" Height="30" Padding="10,0" Background="Black" Margin="5" Foreground="White" Content="{Binding status}" />
     </Grid>
     

@@ -23,8 +23,8 @@ namespace UTExLMS.ViewModels
             _student = new ObservableCollection<TestStudentViewModel>();
 
             _student.Add(new TestStudentViewModel(new TestStudent(1, "Huy", "Duyen Duyen")));
-            _student.Add(new TestStudentViewModel(new TestStudent(1, "Huy", "Na Na")));
-            _student.Add(new TestStudentViewModel(new TestStudent(1, "Huy", "Ni Ni")));
+            _student.Add(new TestStudentViewModel(new TestStudent(1, "Na", "Na Na")));
+            _student.Add(new TestStudentViewModel(new TestStudent(1, "Ni", "Ni Ni")));
             SubmitBtn = new TestButtonCommand();
         }
 

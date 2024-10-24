@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UTExLMS.Models;
+using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
 {
@@ -23,6 +25,8 @@ namespace UTExLMS.Views
         public ListCourseView()
         {
             InitializeComponent();
+            UTExLMSContext context = new UTExLMSContext(); 
+            this.DataContext = new StudentClassViewModel(context);
         }
     }
 }
