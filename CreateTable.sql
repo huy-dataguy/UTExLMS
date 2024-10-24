@@ -1,6 +1,6 @@
 ﻿create database UTExLMS
 
-use UTExLMS
+use UTExLMS;
 
 --1. Bảng Student và Role (n-1)
 

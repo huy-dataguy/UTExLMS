@@ -10,7 +10,20 @@ namespace UTExLMS.Models
         public string? LastName { get; set; }
         public string? NameClass { get; set; }
         public double? Progress { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+
+        // Chỉ lấy ngày, không lấy giờ
+        public DateTime? StartDate
+        {
+            get => _startDate?.Date;
+            set => _startDate = value;
+        }
+        private DateTime? _startDate;
+
+        public DateTime? EndDate
+        {
+            get => _endDate?.Date;
+            set => _endDate = value;
+        }
+        private DateTime? _endDate;
     }
 }
