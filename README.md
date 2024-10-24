@@ -32,3 +32,18 @@ UTExLMS
 
 ## III. Nguồn học WPF MVVM
 #####   https://youtu.be/fZxZswmC_BY?si=uD-yWHl6U_su3xEE
+
+## IV. NOTE!!!!!!
+```
+    You will need to install the following packages from NuGet:
+
+    Microsoft.EntityFrameworkCore.Design
+    Microsoft.EntityFrameworkCore.SqlServer
+    Microsoft.EntityFrameworkCore.Tools 
+
+    After that run the following command in the Package Manager Console: (Tools>Nuget Package Manager>Package Manager Console)
+    Scaffold-DbContext "Data Source=(localdb)\mssqllocaldb;Initial Catalog=UTExLMS;Integrated Security=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+    In case you need to update the DB, you can update your models by adding -Force  at the end.
+    Scaffold-DbContext "Data Source=(localdb)\mssqllocaldb;Initial Catalog=UTExLMS;Integrated Security=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+```
