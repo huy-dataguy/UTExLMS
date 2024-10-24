@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using UTExLMS.Models;
+using UTExLMS.Models.DBContext;
 using UTExLMS.Views.UserControlView;
 
 namespace UTExLMS.ViewModels

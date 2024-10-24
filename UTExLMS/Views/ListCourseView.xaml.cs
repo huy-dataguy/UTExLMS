@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.Models;
+using UTExLMS.Models.DBContext;
 using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
