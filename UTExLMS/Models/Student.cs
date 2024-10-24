@@ -22,6 +22,7 @@ namespace UTExLMS.Models
         public string? FirstName { get; set; }
         public string? PhoneNum { get; set; }
         public int? IdRole { get; set; }
+        public string? Password { get; set; }
 
         public virtual Role? IdRoleNavigation { get; set; }
         public virtual ICollection<AssignmentStudent> AssignmentStudents { get; set; }
