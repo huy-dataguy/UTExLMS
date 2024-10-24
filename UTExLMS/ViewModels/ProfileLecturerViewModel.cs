@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows.Input;
 using UTExLMS.Models;
-using UTExLMS.Models.DBContext;
+using UTExLMS.Models;
 using UTExLMS.Commands;
 using System.Windows;
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UTExLMS.Models;
 using UTExLMS.ViewModels;
-using UTExLMS.Models.DBContext;
+using UTExLMS.Models;
 
 
 namespace UTExLMS.Views
