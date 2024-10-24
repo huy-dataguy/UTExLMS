@@ -4,23 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System;
+using System.Windows.Input;
 
 namespace UTExLMS.Commands
 {
-    public abstract class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
-        public virtual bool CanExecute(object? parameter)
+        public event EventHandler CanExecuteChanged
         {
-            return true;
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public abstract void Execute(object? parameter);
-
-        protected void OnCanExecuteChanged()
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
         }
     }
 }
+
