@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace UTExLMS.Models
+namespace UTExLMS.Models.DBContext
 {
     public partial class UTExLMSContext : DbContext
     {
@@ -279,6 +279,11 @@ namespace UTExLMS.Models
                     .IsUnicode(false)
                     .HasColumnName("lastName");
 
+                entity.Property(e => e.Password)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
+
                 entity.Property(e => e.PhoneNum)
                     .HasMaxLength(15)
                     .IsUnicode(false)
@@ -496,6 +501,11 @@ namespace UTExLMS.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("lastName");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
 
                 entity.Property(e => e.PhoneNum)
                     .HasMaxLength(15)

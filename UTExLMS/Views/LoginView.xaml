@@ -3,10 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UTExLMS.Views"
         mc:Ignorable="d"
-        Title="LoginView" Height="450" Width="800">
+        Title="LoginView" Height="1024" Width="1440">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Content="Đăng nhập" HorizontalContentAlignment="Center" FontSize="72" FontFamily="Bahnschrift" Foreground="#FFEA5455" FontWeight="Bold"/>
+        <Label Grid.Row="2" Content="Chào mừng quay trở lại!" HorizontalContentAlignment="Center" FontSize="24" FontFamily="Bahnschrift" Foreground="#FF002B5B"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Tên tài khoản" FontFamily="Bahnschrift" FontSize="14"/>
+                <TextBox x:Name="txbUsername" Grid.Row="1" Height="40" Margin="0,0,0,10" FontSize="18" FontFamily="Bahnschrift" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Row="2" Content="Password" FontFamily="Bahnschrift" FontSize="14"/>
+                <PasswordBox x:Name="pwbPassword" Grid.Row="3" Height="40" FontSize="18" FontFamily="Bahnschrift" />
+
+                <Grid Grid.Row="4" Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnLogin" Grid.Column="0" Height="40" Margin="10" Content="Đăng nhập" FontSize="18" Command="{Binding LoginCommand}" FontFamily="Bahnschrift" Background="#FFEA5455" BorderBrush="#FFEA5455" Foreground="#FFF9F5EB"/>
+                    <Button x:Name="btnRegister" Grid.Column="1" Height="40" Margin="10" Content="Đăng ký" FontSize="18" Command="{Binding RegisterCommand}" FontFamily="Bahnschrift" BorderBrush="#FF002B5B" Background="#FF002B5B" Foreground="#FFF9F5EB"/>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
     </Grid>
 </Window>
