@@ -3,29 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:data="clr-namespace:UTExLMS.Models"
+             
             xmlns:vm="clr-namespace:UTExLMS.ViewModels"
 
              Height="230" Width="260">
 
-    <!--<UserControl.DataContext>
-        <vm:ImgCourseViewModel/>
-    </UserControl.DataContext>-->
-
-    <!-- Border with rounded corners and padding -->
-    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Padding="5">
-        <Grid Background="White">
+  
+    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="6">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <!-- Image for the course -->
-            <Grid Grid.Row="0">
-                <Image Source="{Binding Img}" Grid.Column="0" Margin="0, 10, 0, 10"/>
-
-            </Grid>
-
-            <!-- Course Information -->
+            <Border Grid.Row="0"  CornerRadius="6" >
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Img}" Stretch="Fill" />
+                </Border.Background>
+            </Border>
+                
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -33,15 +29,20 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <TextBlock Text="{Binding NameClass}" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding NameClass}" Padding="4" FontSize="16" FontWeight="Bold"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock Text="{Binding StartDate, StringFormat='Start: {0}'}" Margin="10,0,0,0"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"  Text="{Binding StartDate, StringFormat='Start: {0}'}" Margin="2,0,16,0"/>
+                    <TextBlock Grid.Column="1" Text="{Binding EndDate, StringFormat='End: {0}'}" Margin="5,0,2,0"/>
+
                 </Grid>
                 <Grid Grid.Row="2">
-                    <TextBlock Text="{Binding EndDate, StringFormat='End: {0}'}" Margin="10,0,0,0"/>
+                    <ProgressBar Height="15" Margin="2, 0, 2, 0" Style="{DynamicResource ProgressBarSuccess}" Value="{Binding Progress}"/>
                 </Grid>
-
             </Grid>
         </Grid>
     </Border>
