@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:UTExLMS.Views"
+      xmlns:local="clr-namespace:UTExLMS.Views.UserControlView"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:data="clr-namespace:UTExLMS.Models"
       xmlns:vm="clr-namespace:UTExLMS.ViewModels"
@@ -11,6 +11,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="964" d:DesignWidth="1350"
       Title="ListCourseView">
+
+    <Page.DataContext>
+        <vm:StudentClassViewModel/>
+    </Page.DataContext>
 
 
     <Grid >
@@ -60,38 +64,19 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
+
                 <ListBox Margin="5" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding StudentCourse}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="data:CardModel">
-                            <hc:Card  BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="5" Footer="{Binding StartDate}">
-                                <!--Card 的内容部分模板-->
-                                <!--<Border CornerRadius="6,6,0,0" Width="250" Height="110">-->
-                                    <!--<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FirstName}"/>-->
-                                    <!--<Image Source="{Binding Content}" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-
-                                <Border BorderBrush="Red" BorderThickness="2" Height="150">
-                                    <Image Grid.Column="0" Margin="0, 10, 0, 10">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="/Assets/ute_logo.png" />
-                                        </Image.Source>
-                                    </Image>
-                                </Border>
-                                <!--</Border>-->
-                                <!--Card 的尾部部分模板-->
-                                <hc:Card.FooterTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="5" Width="250" Height="90">
-                                            <!--Card 的一级内容-->
-                                            <TextBlock TextWrapping="NoWrap"  Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="{Binding DataContext.NameClass,RelativeSource={RelativeSource AncestorType=hc:Card}}" HorizontalAlignment="Left"/>
-                                            <!--Card 的二级内容-->
-                                            <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefault}" TextTrimming="CharacterEllipsis" Text="{Binding}" Margin="0,5,0,0" HorizontalAlignment="Left"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </hc:Card.FooterTemplate>
-                            </hc:Card>
+                            <local:CourseCardUCView DataContext="{Binding}" Margin="10" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    
                 </ListBox>
+
+                
+                
+
 
             </Grid>
         </Grid>

@@ -51,6 +51,8 @@ CREATE TABLE Subject (
 );
 
 --2. Bảng Class, Student 1-n
+
+
 CREATE TABLE Class (
     idClass INT PRIMARY KEY,
     nameClass VARCHAR(100),
@@ -58,10 +60,12 @@ CREATE TABLE Class (
     idStudent INT,
     idSubject INT,
     idLecturer INT,  
+    img VARCHAR(255),  -- URL or file path to the image
     FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
-    FOREIGN KEY (idSubject) REFERENCES Subject(idSubject),  -- Khóa ngoại cho Subject
-    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
+    FOREIGN KEY (idSubject) REFERENCES Subject(idSubject),
+    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)
 );
+
 
 
 
@@ -225,7 +229,8 @@ SELECT
     s.firstName, 
     s.lastName, 
     c.nameClass, 
-    c.progress,             
+    c.progress, 
+	c.img,
     sem.startDate,          
     sem.endDate            
 FROM 
@@ -236,6 +241,7 @@ JOIN
     Subject sub ON c.idSubject = sub.idSubject
 JOIN 
     Semester sem ON sub.idSemester = sem.idSemester; 
+
 
 
 
