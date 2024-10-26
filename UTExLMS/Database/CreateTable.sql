@@ -2,7 +2,6 @@
 
 use UTExLMS;
 
---1. Bảng Student và Role (n-1)
 
 CREATE TABLE Role (
     idRole INT PRIMARY KEY,
@@ -18,9 +17,11 @@ CREATE TABLE Student (
     firstName VARCHAR(50),
     phoneNum VARCHAR(15),
     idRole INT,
-    password VARCHAR(15),  -- Thêm cột password ở đây
+    password VARCHAR(15),  
     FOREIGN KEY (idRole) REFERENCES Role(idRole)
 );
+
+
 CREATE TABLE Lecturer (
     idLecturer INT PRIMARY KEY,
     email VARCHAR(100),
@@ -30,7 +31,7 @@ CREATE TABLE Lecturer (
     firstName VARCHAR(50),
     phoneNum VARCHAR(15),
     idRole INT,
-    password VARCHAR(255),  -- Thêm cột password ở đây với chiều dài 255 cho an toàn
+    password VARCHAR(15),  
     FOREIGN KEY (idRole) REFERENCES Role(idRole)
 );
 
@@ -53,21 +54,25 @@ CREATE TABLE Subject (
 --2. Bảng Class, Student 1-n
 
 
+
 CREATE TABLE Class (
     idClass INT PRIMARY KEY,
     nameClass VARCHAR(100),
     progress FLOAT,
-    idStudent INT,
     idSubject INT,
     idLecturer INT,  
     img VARCHAR(255),  -- URL or file path to the image
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
     FOREIGN KEY (idSubject) REFERENCES Subject(idSubject),
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)
 );
 
-
-
+CREATE TABLE StudentClass (
+    idStudent INT,
+    idClass INT,
+    PRIMARY KEY (idStudent, idClass),
+    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
+    FOREIGN KEY (idClass) REFERENCES Class(idClass)
+);
 
 --5. Bảng Section và Material (1-n)
 CREATE TABLE Section (
@@ -147,7 +152,7 @@ CREATE TABLE Assignment (
 );
 
 
-CREATE TABLE Assignment_Student (
+CREATE TABLE AssignmentStudent (
     idAssign INT,
     idStudent INT,
     numAttempts INT,
@@ -305,3 +310,5 @@ BEGIN
         Password = @Password  -- Nên mã hóa trước khi lưu
     WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
 END
+
+
