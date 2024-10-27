@@ -1,4 +1,4 @@
-﻿create database UTExLMS
+create database UTExLMS
 
 use UTExLMS;
 
@@ -61,7 +61,9 @@ CREATE TABLE Class (
     idLecturer INT,  
     FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject),  -- Khóa ngoại cho Subjects
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
+
 );
+
 
 
 
@@ -200,12 +202,6 @@ CREATE TABLE ClassStudent (
     FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
     FOREIGN KEY (idClass) REFERENCES Class(idClass)
 );
-
-
-
-
-
-
 
 CREATE PROCEDURE UpdateLecturerInfo
     @IdLecturer INT,

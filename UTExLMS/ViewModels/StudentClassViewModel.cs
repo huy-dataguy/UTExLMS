@@ -1,13 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using UTExLMS.Models;
 using UTExLMS.Models;
 using UTExLMS.Views.UserControlView;
 
@@ -17,16 +13,11 @@ namespace UTExLMS.ViewModels
     {
         private readonly UTExLMSContext _context;
 
-
         public ObservableCollection<VwStudentCourse> _studentCourses { get; set; }
 
-
-        //public IEnumerable<VwStudentCourse> StudentCourse => _studentCourses;
         public ObservableCollection<VwStudentCourse> StudentCourse => _studentCourses;
 
-
-
-        public StudentClassViewModel (UTExLMSContext context)
+        public StudentClassViewModel(UTExLMSContext context)
         {
             _context = context;
             _studentCourses = LoadStudentCourses();
@@ -38,7 +29,6 @@ namespace UTExLMS.ViewModels
         {
             ObservableCollection<VwStudentCourse> _studentCourses = new ObservableCollection<VwStudentCourse>();
             var studentId = 1;
-
 
             try
             {
@@ -53,6 +43,8 @@ namespace UTExLMS.ViewModels
 
                 foreach (var course in courses)
                 {
+                    // Assign the image path to the Img property of each course
+                    course.Img = GetImagePath();
                     _studentCourses.Add(course);
                 }
             }
@@ -63,7 +55,12 @@ namespace UTExLMS.ViewModels
             return _studentCourses;
         }
 
-
-
+        // Helper method to retrieve the image path
+        private string GetImagePath()
+        {
+            string path = Environment.CurrentDirectory;
+            string path1 = Directory.GetParent(path).Parent.Parent.FullName;
+            return Path.Combine(path1, "Assets", "course.png");
+        }
     }
 }

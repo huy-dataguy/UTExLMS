@@ -49,7 +49,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Assignment>(entity =>
             {
                 entity.HasKey(e => e.IdAssign)
-                    .HasName("PK__Assignme__64CD3ADFBAE86707");
+                    .HasName("PK__Assignme__64CD3ADFC98B730E");
 
                 entity.ToTable("Assignment");
 
@@ -95,7 +95,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<AssignmentStudent>(entity =>
             {
                 entity.HasKey(e => new { e.IdAssign, e.IdStudent })
-                    .HasName("PK__Assignme__D796255761A8DFFA");
+                    .HasName("PK__Assignme__D7962557658BA81E");
 
                 entity.ToTable("Assignment_Student");
 
@@ -125,7 +125,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Class>(entity =>
             {
                 entity.HasKey(e => e.IdClass)
-                    .HasName("PK__Class__17317A5AF926CA7F");
+                    .HasName("PK__Class__17317A5ACD84F2C8");
 
                 entity.ToTable("Class");
 
@@ -138,6 +138,11 @@ namespace UTExLMS.Models
                 entity.Property(e => e.IdStudent).HasColumnName("idStudent");
 
                 entity.Property(e => e.IdSubject).HasColumnName("idSubject");
+
+                entity.Property(e => e.Img)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("img");
 
                 entity.Property(e => e.NameClass)
                     .HasMaxLength(100)
@@ -165,7 +170,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.IdCmt)
-                    .HasName("PK__Comment__398F2EDC3064042F");
+                    .HasName("PK__Comment__398F2EDC9C12B1EB");
 
                 entity.ToTable("Comment");
 
@@ -203,7 +208,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Discussion>(entity =>
             {
                 entity.HasKey(e => e.IdDiscuss)
-                    .HasName("PK__Discussi__99B6A08BFB4EFD18");
+                    .HasName("PK__Discussi__99B6A08B2E69EAF5");
 
                 entity.ToTable("Discussion");
 
@@ -239,7 +244,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Lecturer>(entity =>
             {
                 entity.HasKey(e => e.IdLecturer)
-                    .HasName("PK__Lecturer__5BC7EC9E13AB3562");
+                    .HasName("PK__Lecturer__5BC7EC9E3338B31F");
 
                 entity.ToTable("Lecturer");
 
@@ -280,7 +285,7 @@ namespace UTExLMS.Models
                     .HasColumnName("lastName");
 
                 entity.Property(e => e.Password)
-                    .HasMaxLength(15)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("password");
 
@@ -298,7 +303,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Material>(entity =>
             {
                 entity.HasKey(e => e.IdMaterial)
-                    .HasName("PK__Material__6AC7E3EB607A2A0E");
+                    .HasName("PK__Material__6AC7E3EBB6E2961B");
 
                 entity.ToTable("Material");
 
@@ -339,7 +344,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.HasKey(e => e.IdQues)
-                    .HasName("PK__Question__D037C50030CF5D18");
+                    .HasName("PK__Question__D037C50017B7EB3F");
 
                 entity.ToTable("Question");
 
@@ -384,7 +389,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Role__E5045C54BB5C6435");
+                    .HasName("PK__Role__E5045C54ED4ACB93");
 
                 entity.ToTable("Role");
 
@@ -401,7 +406,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Section>(entity =>
             {
                 entity.HasKey(e => e.IdSection)
-                    .HasName("PK__Section__53793649D15AFBED");
+                    .HasName("PK__Section__53793649E595CE5C");
 
                 entity.ToTable("Section");
 
@@ -437,7 +442,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Semester>(entity =>
             {
                 entity.HasKey(e => e.IdSemester)
-                    .HasName("PK__Semester__C6BE1497EE9B232E");
+                    .HasName("PK__Semester__C6BE14970DDE1C17");
 
                 entity.ToTable("Semester");
 
@@ -462,7 +467,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(e => e.IdStudent)
-                    .HasName("PK__Student__35B1F88AD1F9D625");
+                    .HasName("PK__Student__35B1F88AEB4A3037");
 
                 entity.ToTable("Student");
 
@@ -521,7 +526,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<StudentAn>(entity =>
             {
                 entity.HasKey(e => e.IdAns)
-                    .HasName("PK__StudentA__3E0F126ED335DD69");
+                    .HasName("PK__StudentA__3E0F126EA97AD646");
 
                 entity.Property(e => e.IdAns)
                     .ValueGeneratedNever()
@@ -550,7 +555,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Subject>(entity =>
             {
                 entity.HasKey(e => e.IdSubject)
-                    .HasName("PK__Subject__A324CF9EA59AD1F5");
+                    .HasName("PK__Subject__A324CF9E494B2726");
 
                 entity.ToTable("Subject");
 
@@ -574,7 +579,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Submission>(entity =>
             {
                 entity.HasKey(e => e.IdSubmiss)
-                    .HasName("PK__Submissi__423E86D575A930D6");
+                    .HasName("PK__Submissi__423E86D51CFA1A8D");
 
                 entity.ToTable("Submission");
 
@@ -619,7 +624,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Test>(entity =>
             {
                 entity.HasKey(e => e.IdTest)
-                    .HasName("PK__Test__BCD9141A55C85A0C");
+                    .HasName("PK__Test__BCD9141A0E1669DA");
 
                 entity.ToTable("Test");
 
@@ -683,6 +688,11 @@ namespace UTExLMS.Models
                     .HasColumnName("firstName");
 
                 entity.Property(e => e.IdStudent).HasColumnName("idStudent");
+
+                entity.Property(e => e.Img)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("img");
 
                 entity.Property(e => e.LastName)
                     .HasMaxLength(50)

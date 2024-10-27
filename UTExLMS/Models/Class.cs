@@ -16,6 +16,7 @@ namespace UTExLMS.Models
         public int? IdStudent { get; set; }
         public int? IdSubject { get; set; }
         public int? IdLecturer { get; set; }
+        public string? Img { get; set; }
 
         public virtual Lecturer? IdLecturerNavigation { get; set; }
         public virtual Student? IdStudentNavigation { get; set; }
