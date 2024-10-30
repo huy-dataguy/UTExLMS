@@ -1,38 +1,42 @@
-﻿create database UTExLMS
+create database UTExLMS
 
 use UTExLMS;
 
 
-CREATE TABLE Role (
+CREATE TABLE Roles (
     idRole INT PRIMARY KEY,
     nameRole VARCHAR(100)
 );
 
 CREATE TABLE Student (
     idStudent INT PRIMARY KEY,
-    email VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
     birthday DATE,
     gender VARCHAR(10),
     lastName VARCHAR(50),
     firstName VARCHAR(50),
-    phoneNum VARCHAR(15),
+    phoneNum VARCHAR(15) UNIQUE,
     idRole INT,
-    password VARCHAR(15),  
-    FOREIGN KEY (idRole) REFERENCES Role(idRole)
+
+    pass VARCHAR(15),  -- Thêm cột pass ở đây
+    FOREIGN KEY (idRole) REFERENCES Roles(idRole),
+	CHECK (gender IN ('Male', 'Female', 'Other'))
 );
 
 
 CREATE TABLE Lecturer (
     idLecturer INT PRIMARY KEY,
-    email VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
     birthday DATE,
     gender VARCHAR(10),
     lastName VARCHAR(50),
     firstName VARCHAR(50),
-    phoneNum VARCHAR(15),
+    phoneNum VARCHAR(15) UNIQUE,
     idRole INT,
-    password VARCHAR(15),  
-    FOREIGN KEY (idRole) REFERENCES Role(idRole)
+
+    pass VARCHAR(255),  -- Thêm cột pass ở đây với chiều dài 255 cho an toàn
+    FOREIGN KEY (idRole) REFERENCES Roles(idRole),
+	CHECK (gender IN ('Male', 'Female', 'Other'))
 );
 
 
@@ -44,7 +48,7 @@ CREATE TABLE Semester (
 );
 
 
-CREATE TABLE Subject (
+CREATE TABLE Subjects (
     idSubject INT PRIMARY KEY,
     nameSubject VARCHAR(100),
     idSemester INT,  
@@ -53,17 +57,14 @@ CREATE TABLE Subject (
 
 --2. Bảng Class, Student 1-n
 
-
-
 CREATE TABLE Class (
     idClass INT PRIMARY KEY,
     nameClass VARCHAR(100),
-    progress FLOAT,
     idSubject INT,
     idLecturer INT,  
-    img VARCHAR(255),  -- URL or file path to the image
-    FOREIGN KEY (idSubject) REFERENCES Subject(idSubject),
-    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)
+    FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject),  -- Khóa ngoại cho Subjects
+    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
+
 );
 
 CREATE TABLE StudentClass (
@@ -78,7 +79,7 @@ CREATE TABLE StudentClass (
 CREATE TABLE Section (
     idSection INT PRIMARY KEY,
     nameSection VARCHAR(100),
-    description VARCHAR(255),
+    descript VARCHAR(255),
     idClass INT,
     idLecturer INT,  -- Thêm thuộc tính idLecturer ở đây
     FOREIGN KEY (idClass) REFERENCES Class(idClass),
@@ -89,6 +90,7 @@ CREATE TABLE Section (
 CREATE TABLE Material (
     idMaterial INT PRIMARY KEY,
     filePath VARCHAR(255),
+	statu BIT default 0,
     nameMaterial VARCHAR(100),
     typeMaterial VARCHAR(50),
     idSection INT,
@@ -100,11 +102,11 @@ CREATE TABLE Material (
 CREATE TABLE Test (
     idTest INT PRIMARY KEY,
     nameTest VARCHAR(100),
-    startDate DATE,
+    statu BIT default 0,
+	startDate DATE,
     endDate DATE,
     timeLimit INT,
-    status VARCHAR(20),
-    description VARCHAR(255),
+    descript VARCHAR(255),
     idSection INT,
     idLecturer INT,  -- Thêm thuộc tính idLecturer ở đây
     FOREIGN KEY (idSection) REFERENCES Section(idSection),
@@ -141,9 +143,10 @@ CREATE TABLE StudentAns (
 CREATE TABLE Assignment (
     idAssign INT PRIMARY KEY,
     nameAssign VARCHAR(100),
-    startDate DATE,
+    statu BIT default 0,
+	startDate DATE,
     endDate DATE,
-    description VARCHAR(255),
+    descript VARCHAR(255),
     grade FLOAT,
     idSection INT,
     idLecturer INT,  -- Thêm thuộc tính idLecturer ở đây
@@ -180,7 +183,7 @@ CREATE TABLE Submission (
 --9. Bảng Discussion, Comment, và quan hệ n-n với Student
 CREATE TABLE Discussion (
     idDiscuss INT PRIMARY KEY,
-    description VARCHAR(255),
+    descript VARCHAR(255),
     nameDiscuss VARCHAR(100),
     idSection INT,
     idLecturer INT,  -- Thêm thuộc tính idLecturer ở đây
@@ -199,116 +202,37 @@ CREATE TABLE Comment (
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
 );
 
---10. Bảng Lecturer và quan hệ 1-n với nhiều thực thể
+CREATE TABLE ClassStudent (
+    idStudent INT,
+    idClass INT,
+    progress FLOAT,
+    PRIMARY KEY (idStudent, idClass),
+    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
+    FOREIGN KEY (idClass) REFERENCES Class(idClass)
+);
 
---Contraints
+--CREATE PROCEDURE UpdateLecturerInfo
+--    @IdLecturer INT,
+--    @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
+--    @LastName NVARCHAR(50),
+--    @Email NVARCHAR(100),
+--    @Birthday DATE,
+--    @Gender NVARCHAR(10),
+--    @PhoneNum NVARCHAR(15),
+--    @pass NVARCHAR(15)  -- Cập nhật kích thước để phù hợp với bảng
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
 
-ALTER TABLE Student ADD CONSTRAINT UC_StudentEmail UNIQUE (email);
-ALTER TABLE Lecturer ADD CONSTRAINT UC_LecturerEmail UNIQUE (email);
-ALTER TABLE Student ADD CONSTRAINT UC_StudentPhone UNIQUE (phoneNum);
-ALTER TABLE Lecturer ADD CONSTRAINT UC_LecturerPhone UNIQUE (phoneNum);
-
-
-ALTER TABLE Student ADD CONSTRAINT CK_StudentGender CHECK (gender IN ('Male', 'Female', 'Other'));
-ALTER TABLE Lecturer ADD CONSTRAINT CK_LecturerGender CHECK (gender IN ('Male', 'Female', 'Other'));
-ALTER TABLE Test ADD CONSTRAINT CK_TestStatus CHECK (status IN ('Open', 'Closed'));
-ALTER TABLE Material ADD CONSTRAINT CK_MaterialType CHECK (typeMaterial IN ('pdf', 'doc', 'image', 'link'));
-
---View
---Danh sách khóa học của sinh viên:
-
---Danh sách bài kiểm tra theo tuần, tháng:
-
-CREATE VIEW vw_StudentTests AS
-SELECT s.idStudent, s.firstName, s.lastName, t.nameTest, t.startDate, t.endDate
-FROM Student s
-JOIN Class c ON s.idStudent = c.idStudent
-JOIN Section sec ON c.idClass = sec.idClass
-JOIN Test t ON sec.idSection = t.idSection
-WHERE t.startDate >= GETDATE() AND t.endDate <= DATEADD(week, 1, GETDATE());  -- Lọc bài kiểm tra theo tuần
-
---ds khóa học
-CREATE VIEW vw_StudentCourses AS
-SELECT 
-    s.idStudent, 
-    s.firstName, 
-    s.lastName, 
-    c.nameClass, 
-    c.progress, 
-	c.img,
-    sem.startDate,          
-    sem.endDate            
-FROM 
-    Student s
-JOIN 
-    Class c ON s.idStudent = c.idStudent
-JOIN 
-    Subject sub ON c.idSubject = sub.idSubject
-JOIN 
-    Semester sem ON sub.idSemester = sem.idSemester; 
-
-
-
-
---Function
---Tính điểm trung bình của sinh viên
-CREATE FUNCTION fn_CalculateAvgGrade(@idStudent INT)
-RETURNS FLOAT
-AS
-BEGIN
-    DECLARE @avgGrade FLOAT;
-    SELECT @avgGrade = AVG(totalScore) FROM Assignment_Student WHERE idStudent = @idStudent;
-    RETURN @avgGrade;
-END;
-
---Procedure
---thêm sinh viên vô lớp
-CREATE PROCEDURE sp_AddStudentToClass
-    @idStudent INT,
-    @idClass INT
-AS
-BEGIN
-    INSERT INTO Class (idStudent, idClass)
-    VALUES (@idStudent, @idClass);
-END;
-
-CREATE TRIGGER trg_UpdateTestStatus
-ON Test
-AFTER UPDATE
-AS
-BEGIN
-    UPDATE Test
-    SET status = 'Closed'
-    FROM Test t
-    INNER JOIN inserted i ON t.idTest = i.idTest
-    WHERE GETDATE() > i.endDate;
-END;
-
-
-
-
-CREATE PROCEDURE UpdateLecturerInfo
-    @IdLecturer INT,
-    @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
-    @LastName NVARCHAR(50),
-    @Email NVARCHAR(100),
-    @Birthday DATE,
-    @Gender NVARCHAR(10),
-    @PhoneNum NVARCHAR(15),
-    @Password NVARCHAR(15)  -- Cập nhật kích thước để phù hợp với bảng
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    UPDATE Lecturer
-    SET FirstName = @FirstName,
-        LastName = @LastName,
-        Email = @Email,
-        Birthday = @Birthday,
-        Gender = @Gender,
-        PhoneNum = @PhoneNum,
-        Password = @Password  -- Nên mã hóa trước khi lưu
-    WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
-END
+--    UPDATE Lecturer
+--    SET FirstName = @FirstName,
+--        LastName = @LastName,
+--        Email = @Email,
+--        Birthday = @Birthday,
+--        Gender = @Gender,
+--        PhoneNum = @PhoneNum,
+--        pass = @pass  -- Nên mã hóa trước khi lưu
+--    WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
+--END
 
 
