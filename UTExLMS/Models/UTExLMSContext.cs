@@ -16,9 +16,14 @@ namespace UTExLMS.Models
         {
         }
 
+
+        public virtual DbSet<OverviewClass> OverviewClasses { get; set; }
+    
+
         public virtual DbSet<Assignment> Assignments { get; set; } = null!;
         public virtual DbSet<AssignmentStudent> AssignmentStudents { get; set; } = null!;
         public virtual DbSet<Class> Classes { get; set; } = null!;
+        public virtual DbSet<ClassStudent> ClassStudents { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Discussion> Discussions { get; set; } = null!;
         public virtual DbSet<Lecturer> Lecturers { get; set; } = null!;
@@ -32,8 +37,6 @@ namespace UTExLMS.Models
         public virtual DbSet<Subject> Subjects { get; set; } = null!;
         public virtual DbSet<Submission> Submissions { get; set; } = null!;
         public virtual DbSet<Test> Tests { get; set; } = null!;
-        public virtual DbSet<VwStudentCourse> VwStudentCourses { get; set; } = null!;
-        public virtual DbSet<VwStudentTest> VwStudentTests { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,10 +49,17 @@ namespace UTExLMS.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<OverviewClass>()
+            .HasKey(oc => new {
+                oc.IdStudent,
+                oc.IdClass
+            });
+
             modelBuilder.Entity<Assignment>(entity =>
             {
                 entity.HasKey(e => e.IdAssign)
-                    .HasName("PK__Assignme__64CD3ADFC98B730E");
+                    .HasName("PK__Assignme__64CD3ADF147393C9");
 
                 entity.ToTable("Assignment");
 
@@ -57,10 +67,10 @@ namespace UTExLMS.Models
                     .ValueGeneratedNever()
                     .HasColumnName("idAssign");
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Descript)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("description");
+                    .HasColumnName("descript");
 
                 entity.Property(e => e.EndDate)
                     .HasColumnType("date")
@@ -81,23 +91,27 @@ namespace UTExLMS.Models
                     .HasColumnType("date")
                     .HasColumnName("startDate");
 
+                entity.Property(e => e.Statu)
+                    .HasColumnName("statu")
+                    .HasDefaultValueSql("((0))");
+
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Assignments)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Assignmen__idLec__5AEE82B9");
+                    .HasConstraintName("FK__Assignmen__idLec__628FA481");
 
                 entity.HasOne(d => d.IdSectionNavigation)
                     .WithMany(p => p.Assignments)
                     .HasForeignKey(d => d.IdSection)
-                    .HasConstraintName("FK__Assignmen__idSec__59FA5E80");
+                    .HasConstraintName("FK__Assignmen__idSec__619B8048");
             });
 
             modelBuilder.Entity<AssignmentStudent>(entity =>
             {
                 entity.HasKey(e => new { e.IdAssign, e.IdStudent })
-                    .HasName("PK__Assignme__D7962557658BA81E");
+                    .HasName("PK__Assignme__D79625579211D73D");
 
-                entity.ToTable("Assignment_Student");
+                entity.ToTable("AssignmentStudent");
 
                 entity.Property(e => e.IdAssign).HasColumnName("idAssign");
 
@@ -113,19 +127,19 @@ namespace UTExLMS.Models
                     .WithMany(p => p.AssignmentStudents)
                     .HasForeignKey(d => d.IdAssign)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Assignmen__idAss__5DCAEF64");
+                    .HasConstraintName("FK__Assignmen__idAss__656C112C");
 
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.AssignmentStudents)
                     .HasForeignKey(d => d.IdStudent)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Assignmen__idStu__5EBF139D");
+                    .HasConstraintName("FK__Assignmen__idStu__66603565");
             });
 
             modelBuilder.Entity<Class>(entity =>
             {
                 entity.HasKey(e => e.IdClass)
-                    .HasName("PK__Class__17317A5ACD84F2C8");
+                    .HasName("PK__Class__17317A5AECDEBCFA");
 
                 entity.ToTable("Class");
 
@@ -135,42 +149,59 @@ namespace UTExLMS.Models
 
                 entity.Property(e => e.IdLecturer).HasColumnName("idLecturer");
 
-                entity.Property(e => e.IdStudent).HasColumnName("idStudent");
-
                 entity.Property(e => e.IdSubject).HasColumnName("idSubject");
 
-                entity.Property(e => e.Img)
+                entity.Property(e => e.ImgClass)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("img");
+                    .HasColumnName("imgClass");
 
                 entity.Property(e => e.NameClass)
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("nameClass");
 
-                entity.Property(e => e.Progress).HasColumnName("progress");
-
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Class__idLecture__44FF419A");
-
-                entity.HasOne(d => d.IdStudentNavigation)
-                    .WithMany(p => p.Classes)
-                    .HasForeignKey(d => d.IdStudent)
-                    .HasConstraintName("FK__Class__idStudent__4316F928");
+                    .HasConstraintName("FK__Class__idLecture__49C3F6B7");
 
                 entity.HasOne(d => d.IdSubjectNavigation)
                     .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.IdSubject)
-                    .HasConstraintName("FK__Class__idSubject__440B1D61");
+                    .HasConstraintName("FK__Class__idSubject__48CFD27E");
+            });
+
+            modelBuilder.Entity<ClassStudent>(entity =>
+            {
+                entity.HasKey(e => new { e.IdStudent, e.IdClass })
+                    .HasName("PK__ClassStu__84C2EF2F0559BFC9");
+
+                entity.ToTable("ClassStudent");
+
+                entity.Property(e => e.IdStudent).HasColumnName("idStudent");
+
+                entity.Property(e => e.IdClass).HasColumnName("idClass");
+
+                entity.Property(e => e.Progress).HasColumnName("progress");
+
+                entity.HasOne(d => d.IdClassNavigation)
+                    .WithMany(p => p.ClassStudents)
+                    .HasForeignKey(d => d.IdClass)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ClassStud__idCla__76969D2E");
+
+                entity.HasOne(d => d.IdStudentNavigation)
+                    .WithMany(p => p.ClassStudents)
+                    .HasForeignKey(d => d.IdStudent)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ClassStud__idStu__75A278F5");
             });
 
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.IdCmt)
-                    .HasName("PK__Comment__398F2EDC9C12B1EB");
+                    .HasName("PK__Comment__398F2EDC7C04377A");
 
                 entity.ToTable("Comment");
 
@@ -192,23 +223,23 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdDiscussNavigation)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.IdDiscuss)
-                    .HasConstraintName("FK__Comment__idDiscu__693CA210");
+                    .HasConstraintName("FK__Comment__idDiscu__70DDC3D8");
 
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Comment__idLectu__6B24EA82");
+                    .HasConstraintName("FK__Comment__idLectu__72C60C4A");
 
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.IdStudent)
-                    .HasConstraintName("FK__Comment__idStude__6A30C649");
+                    .HasConstraintName("FK__Comment__idStude__71D1E811");
             });
 
             modelBuilder.Entity<Discussion>(entity =>
             {
                 entity.HasKey(e => e.IdDiscuss)
-                    .HasName("PK__Discussi__99B6A08B2E69EAF5");
+                    .HasName("PK__Discussi__99B6A08B137C4CEC");
 
                 entity.ToTable("Discussion");
 
@@ -216,10 +247,10 @@ namespace UTExLMS.Models
                     .ValueGeneratedNever()
                     .HasColumnName("idDiscuss");
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Descript)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("description");
+                    .HasColumnName("descript");
 
                 entity.Property(e => e.IdLecturer).HasColumnName("idLecturer");
 
@@ -233,25 +264,25 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Discussions)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Discussio__idLec__66603565");
+                    .HasConstraintName("FK__Discussio__idLec__6E01572D");
 
                 entity.HasOne(d => d.IdSectionNavigation)
                     .WithMany(p => p.Discussions)
                     .HasForeignKey(d => d.IdSection)
-                    .HasConstraintName("FK__Discussio__idSec__656C112C");
+                    .HasConstraintName("FK__Discussio__idSec__6D0D32F4");
             });
 
             modelBuilder.Entity<Lecturer>(entity =>
             {
                 entity.HasKey(e => e.IdLecturer)
-                    .HasName("PK__Lecturer__5BC7EC9E3338B31F");
+                    .HasName("PK__Lecturer__5BC7EC9E52BC7CFD");
 
                 entity.ToTable("Lecturer");
 
-                entity.HasIndex(e => e.Email, "UC_LecturerEmail")
+                entity.HasIndex(e => e.Email, "UQ__Lecturer__AB6E6164C55A1EBA")
                     .IsUnique();
 
-                entity.HasIndex(e => e.PhoneNum, "UC_LecturerPhone")
+                entity.HasIndex(e => e.PhoneNum, "UQ__Lecturer__F62ADD6476DE9F7F")
                     .IsUnique();
 
                 entity.Property(e => e.IdLecturer)
@@ -284,10 +315,10 @@ namespace UTExLMS.Models
                     .IsUnicode(false)
                     .HasColumnName("lastName");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Pass)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("password");
+                    .HasColumnName("pass");
 
                 entity.Property(e => e.PhoneNum)
                     .HasMaxLength(15)
@@ -297,13 +328,13 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.Lecturers)
                     .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK__Lecturer__idRole__3B75D760");
+                    .HasConstraintName("FK__Lecturer__idRole__403A8C7D");
             });
 
             modelBuilder.Entity<Material>(entity =>
             {
                 entity.HasKey(e => e.IdMaterial)
-                    .HasName("PK__Material__6AC7E3EBB6E2961B");
+                    .HasName("PK__Material__6AC7E3EBA203CAFF");
 
                 entity.ToTable("Material");
 
@@ -325,6 +356,10 @@ namespace UTExLMS.Models
                     .IsUnicode(false)
                     .HasColumnName("nameMaterial");
 
+                entity.Property(e => e.Statu)
+                    .HasColumnName("statu")
+                    .HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.TypeMaterial)
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -333,18 +368,18 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Material__idLect__4CA06362");
+                    .HasConstraintName("FK__Material__idLect__52593CB8");
 
                 entity.HasOne(d => d.IdSectionNavigation)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.IdSection)
-                    .HasConstraintName("FK__Material__idSect__4BAC3F29");
+                    .HasConstraintName("FK__Material__idSect__5165187F");
             });
 
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.HasKey(e => e.IdQues)
-                    .HasName("PK__Question__D037C50017B7EB3F");
+                    .HasName("PK__Question__D037C5000F980AED");
 
                 entity.ToTable("Question");
 
@@ -383,15 +418,13 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdTestNavigation)
                     .WithMany(p => p.Questions)
                     .HasForeignKey(d => d.IdTest)
-                    .HasConstraintName("FK__Question__idTest__534D60F1");
+                    .HasConstraintName("FK__Question__idTest__59FA5E80");
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Role__E5045C54ED4ACB93");
-
-                entity.ToTable("Role");
+                    .HasName("PK__Roles__E5045C541B765B6F");
 
                 entity.Property(e => e.IdRole)
                     .ValueGeneratedNever()
@@ -406,7 +439,7 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Section>(entity =>
             {
                 entity.HasKey(e => e.IdSection)
-                    .HasName("PK__Section__53793649E595CE5C");
+                    .HasName("PK__Section__53793649281628BA");
 
                 entity.ToTable("Section");
 
@@ -414,10 +447,10 @@ namespace UTExLMS.Models
                     .ValueGeneratedNever()
                     .HasColumnName("idSection");
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Descript)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("description");
+                    .HasColumnName("descript");
 
                 entity.Property(e => e.IdClass).HasColumnName("idClass");
 
@@ -431,18 +464,18 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdClassNavigation)
                     .WithMany(p => p.Sections)
                     .HasForeignKey(d => d.IdClass)
-                    .HasConstraintName("FK__Section__idClass__47DBAE45");
+                    .HasConstraintName("FK__Section__idClass__4CA06362");
 
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Sections)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Section__idLectu__48CFD27E");
+                    .HasConstraintName("FK__Section__idLectu__4D94879B");
             });
 
             modelBuilder.Entity<Semester>(entity =>
             {
                 entity.HasKey(e => e.IdSemester)
-                    .HasName("PK__Semester__C6BE14970DDE1C17");
+                    .HasName("PK__Semester__C6BE1497EF888D0C");
 
                 entity.ToTable("Semester");
 
@@ -467,14 +500,14 @@ namespace UTExLMS.Models
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(e => e.IdStudent)
-                    .HasName("PK__Student__35B1F88AEB4A3037");
+                    .HasName("PK__Student__35B1F88ADDC58294");
 
                 entity.ToTable("Student");
 
-                entity.HasIndex(e => e.Email, "UC_StudentEmail")
+                entity.HasIndex(e => e.Email, "UQ__Student__AB6E6164234312D1")
                     .IsUnique();
 
-                entity.HasIndex(e => e.PhoneNum, "UC_StudentPhone")
+                entity.HasIndex(e => e.PhoneNum, "UQ__Student__F62ADD64F76489E2")
                     .IsUnique();
 
                 entity.Property(e => e.IdStudent)
@@ -507,10 +540,10 @@ namespace UTExLMS.Models
                     .IsUnicode(false)
                     .HasColumnName("lastName");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Pass)
                     .HasMaxLength(15)
                     .IsUnicode(false)
-                    .HasColumnName("password");
+                    .HasColumnName("pass");
 
                 entity.Property(e => e.PhoneNum)
                     .HasMaxLength(15)
@@ -520,13 +553,13 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK__Student__idRole__38996AB5");
+                    .HasConstraintName("FK__Student__idRole__3A81B327");
             });
 
             modelBuilder.Entity<StudentAn>(entity =>
             {
                 entity.HasKey(e => e.IdAns)
-                    .HasName("PK__StudentA__3E0F126EA97AD646");
+                    .HasName("PK__StudentA__3E0F126E11E9B166");
 
                 entity.Property(e => e.IdAns)
                     .ValueGeneratedNever()
@@ -544,20 +577,18 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdQuesNavigation)
                     .WithMany(p => p.StudentAns)
                     .HasForeignKey(d => d.IdQues)
-                    .HasConstraintName("FK__StudentAn__idQue__571DF1D5");
+                    .HasConstraintName("FK__StudentAn__idQue__5DCAEF64");
 
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.StudentAns)
                     .HasForeignKey(d => d.IdStudent)
-                    .HasConstraintName("FK__StudentAn__idStu__5629CD9C");
+                    .HasConstraintName("FK__StudentAn__idStu__5CD6CB2B");
             });
 
             modelBuilder.Entity<Subject>(entity =>
             {
                 entity.HasKey(e => e.IdSubject)
-                    .HasName("PK__Subject__A324CF9E494B2726");
-
-                entity.ToTable("Subject");
+                    .HasName("PK__Subjects__A324CF9EA1581AF0");
 
                 entity.Property(e => e.IdSubject)
                     .ValueGeneratedNever()
@@ -573,13 +604,13 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdSemesterNavigation)
                     .WithMany(p => p.Subjects)
                     .HasForeignKey(d => d.IdSemester)
-                    .HasConstraintName("FK__Subject__idSemes__403A8C7D");
+                    .HasConstraintName("FK__Subjects__idSeme__45F365D3");
             });
 
             modelBuilder.Entity<Submission>(entity =>
             {
                 entity.HasKey(e => e.IdSubmiss)
-                    .HasName("PK__Submissi__423E86D51CFA1A8D");
+                    .HasName("PK__Submissi__423E86D5BA2B15B6");
 
                 entity.ToTable("Submission");
 
@@ -613,18 +644,18 @@ namespace UTExLMS.Models
                 entity.HasOne(d => d.IdAssignNavigation)
                     .WithMany(p => p.Submissions)
                     .HasForeignKey(d => d.IdAssign)
-                    .HasConstraintName("FK__Submissio__idAss__619B8048");
+                    .HasConstraintName("FK__Submissio__idAss__693CA210");
 
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.Submissions)
                     .HasForeignKey(d => d.IdStudent)
-                    .HasConstraintName("FK__Submissio__idStu__628FA481");
+                    .HasConstraintName("FK__Submissio__idStu__6A30C649");
             });
 
             modelBuilder.Entity<Test>(entity =>
             {
                 entity.HasKey(e => e.IdTest)
-                    .HasName("PK__Test__BCD9141A0E1669DA");
+                    .HasName("PK__Test__BCD9141A04C5AB13");
 
                 entity.ToTable("Test");
 
@@ -632,10 +663,10 @@ namespace UTExLMS.Models
                     .ValueGeneratedNever()
                     .HasColumnName("idTest");
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Descript)
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("description");
+                    .HasColumnName("descript");
 
                 entity.Property(e => e.EndDate)
                     .HasColumnType("date")
@@ -654,93 +685,21 @@ namespace UTExLMS.Models
                     .HasColumnType("date")
                     .HasColumnName("startDate");
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .HasColumnName("status");
+                entity.Property(e => e.Statu)
+                    .HasColumnName("statu")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.TimeLimit).HasColumnName("timeLimit");
 
                 entity.HasOne(d => d.IdLecturerNavigation)
                     .WithMany(p => p.Tests)
                     .HasForeignKey(d => d.IdLecturer)
-                    .HasConstraintName("FK__Test__idLecturer__5070F446");
+                    .HasConstraintName("FK__Test__idLecturer__571DF1D5");
 
                 entity.HasOne(d => d.IdSectionNavigation)
                     .WithMany(p => p.Tests)
                     .HasForeignKey(d => d.IdSection)
-                    .HasConstraintName("FK__Test__idSection__4F7CD00D");
-            });
-
-            modelBuilder.Entity<VwStudentCourse>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vw_StudentCourses");
-
-                entity.Property(e => e.EndDate)
-                    .HasColumnType("date")
-                    .HasColumnName("endDate");
-
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("firstName");
-
-                entity.Property(e => e.IdStudent).HasColumnName("idStudent");
-
-                entity.Property(e => e.Img)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("img");
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("lastName");
-
-                entity.Property(e => e.NameClass)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("nameClass");
-
-                entity.Property(e => e.Progress).HasColumnName("progress");
-
-                entity.Property(e => e.StartDate)
-                    .HasColumnType("date")
-                    .HasColumnName("startDate");
-            });
-
-            modelBuilder.Entity<VwStudentTest>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vw_StudentTests");
-
-                entity.Property(e => e.EndDate)
-                    .HasColumnType("date")
-                    .HasColumnName("endDate");
-
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("firstName");
-
-                entity.Property(e => e.IdStudent).HasColumnName("idStudent");
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("lastName");
-
-                entity.Property(e => e.NameTest)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("nameTest");
-
-                entity.Property(e => e.StartDate)
-                    .HasColumnType("date")
-                    .HasColumnName("startDate");
+                    .HasConstraintName("FK__Test__idSection__5629CD9C");
             });
 
             OnModelCreatingPartial(modelBuilder);

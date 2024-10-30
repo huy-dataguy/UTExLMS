@@ -18,7 +18,7 @@
 
             <Border Grid.Row="0"  CornerRadius="6" >
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding Img}" Stretch="Fill" />
+                    <ImageBrush ImageSource="{Binding ImgClass}" Stretch="Fill" />
                 </Border.Background>
             </Border>
                 
@@ -36,8 +36,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"  Text="{Binding StartDate, StringFormat='Start: {0}'}" Margin="2,0,16,0"/>
-                    <TextBlock Grid.Column="1" Text="{Binding EndDate, StringFormat='End: {0}'}" Margin="5,0,2,0"/>
+                    <TextBlock Grid.Column="0"  Text="{Binding StartDate, StringFormat='Start: {0}'}" Margin="2,0,13,0"/>
+                    <TextBlock Grid.Column="1" Text="{Binding EndDate, StringFormat='End: {0}'}" Margin="5,0,10,0"/>
 
                 </Grid>
                 <Grid Grid.Row="2">

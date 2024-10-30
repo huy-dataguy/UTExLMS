@@ -12,11 +12,11 @@ namespace UTExLMS.Models
 
         public int IdTest { get; set; }
         public string? NameTest { get; set; }
+        public bool? Statu { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? TimeLimit { get; set; }
-        public string? Status { get; set; }
-        public string? Description { get; set; }
+        public string? Descript { get; set; }
         public int? IdSection { get; set; }
         public int? IdLecturer { get; set; }
 

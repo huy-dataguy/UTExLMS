@@ -1,85 +1,109 @@
-﻿use UTExLMS;
+﻿
 
-INSERT INTO Role (idRole, nameRole) VALUES 
+use UTExLMS
+-- Insert sample data into Roles
+
+INSERT INTO Roles (idRole, nameRole) VALUES 
 (1, 'Student'),
-(2, 'Lecturer'),
-(3, 'Admin');
+(2, 'Lecturer');
 
--- Thêm sinh viên
-INSERT INTO Student (idStudent, email, birthday, gender, lastName, firstName, phoneNum, idRole, password) VALUES 
-(1, 'student1@example.com', '2001-01-15', 'Male', 'Nguyen', 'An', '0901123456', 1, 'Password1!'),
-(2, 'student2@example.com', '2002-02-20', 'Female', 'Le', 'Binh', '0902987654', 1, 'Password2!');
+-- Insert sample data into Student
+INSERT INTO Student (idStudent, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
+(1, 'student1@example.com', '2001-01-01', 'Male', 'Nguyen', 'Van A', '1234567890', 1, 'password1'),
+(2, 'student2@example.com', '2002-02-02', 'Female', 'Le', 'Thi B', '0987654321', 1, 'password2');
 
+-- Insert sample data into Lecturer
+INSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
+(1, 'lecturer1@example.com', '1980-01-01', 'Male', 'Tran', 'Van C', '1234509876', 2, 'securepass1'),
+(2, 'lecturer2@example.com', '1985-02-02', 'Female', 'Pham', 'Thi D', '0987651234', 2, 'securepass2');
 
--- Thêm giảng viên
-INSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, idRole, password) VALUES 
-(1, 'lecturer1@example.com', '1980-03-10', 'Male', 'Tran', 'Cuong', '0903344556', 2, 'LecturerPass1!'),
-(2, 'lecturer2@example.com', '1975-07-22', 'Female', 'Pham', 'Duyen', '0909876543', 2, 'LecturerPass2!');
+-- Insert sample data into Semester
+INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
+(1, 'Fall 2024', '2024-09-01', '2024-12-31'),
+(2, 'Spring 2025', '2025-01-15', '2025-05-31');
+INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
+(3, 'Fall 2024', '2023-09-01', '2023-12-31'),
+(4, 'Spring 2025', '2025-01-15', '2025-05-31');
 
 
 INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
-(1, 'Fall 2024', '2024-09-01', '2024-12-31'),
-(2, 'Spring 2025', '2025-01-01', '2025-05-31');
+
+(5, 'Spring 2022', '2024-01-15', '2024-12-31');
 
 
-
-INSERT INTO Subject (idSubject, nameSubject, idSemester) VALUES 
+-- Insert sample data into Subjects
+INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
 (1, 'Mathematics', 1),
 (2, 'Physics', 1),
-(3, 'Computer Science', 2);
+(3, 'Chemistry', 2);
+INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
+(4, 'Mathematics', 3),
+(5, 'Physics', 4),
+(6, 'Chemistry', 3);
+
+INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
+(7, 'Mathematics', 5);
+
+select * from Subjects
 
 
-INSERT INTO Class (idClass, nameClass, progress, idStudent, idSubject, idLecturer) VALUES 
-(1, 'Math Class A', 0.75, 1, 1, 1),
-(2, 'Physics Class B', 0.60, 1, 2, 1),
-(3, 'Chemistry Class C', 0.80, 1, 2, 1),
-(4, 'Biology Class D', 0.85, 1, 2, 1);
+
+-- Insert sample data into Class
+INSERT INTO Class (idClass, nameClass, idSubject, idLecturer, imgClass) VALUES 
+(1, 'Math Class A', 3, 1, '/images/math_class_a.jpg'),
+(2, 'Physics Class B', 4, 2, '/images/math_class_a.jpg'),
+(3, 'Math Class B', 4, 1, '/images/math_class_a.jpg'),
+(4, 'Math Class C', 3, 1, '/images/math_class_a.jpg'),
+(5, 'Math Class D', 4, 1, '/images/math_class_a.jpg'),
+(6, 'Math Class E', 3, 1, '/images/math_class_a.jpg');
 
 
-INSERT INTO Section (idSection, nameSection, description, idClass, idLecturer) VALUES 
-(1, 'Chapter 1: Algebra', 'Introduction to Algebra', 1, 1),
-(2, 'Chapter 2: Mechanics', 'Physics mechanics basics', 2, 2);
+INSERT INTO Class (idClass, nameClass, idSubject, idLecturer, imgClass) VALUES 
+(7, 'Math Class EE', 7, 1, '/images/math_class_a.jpg'),
+(8, 'Physics Class EE', 7, 2, '/images/math_class_a.jpg');
 
-INSERT INTO Material (idMaterial, filePath, nameMaterial, typeMaterial, idSection, idLecturer) VALUES 
-(1, '/materials/math_algebra.pdf', 'Algebra Basics', 'pdf', 1, 1),
-(2, '/materials/physics_mechanics.pdf', 'Mechanics Concepts', 'pdf', 2, 2);
-
-INSERT INTO Test (idTest, nameTest, startDate, endDate, timeLimit, status, description, idSection, idLecturer) VALUES 
-(1, 'Algebra Test', '2024-10-25', '2024-10-30', 60, 'Open', 'Basic algebra concepts', 1, 1),
-(2, 'Mechanics Test', '2024-11-05', '2024-11-10', 90, 'Open', 'Fundamentals of mechanics', 2, 2);
+select * from Class
 
 
-INSERT INTO Question (idQues, nameQues, A, B, C, D, trueAns, idTest) VALUES 
-(1, 'What is 2 + 2?', '3', '4', '5', '6', 'B', 1),
-(2, 'What is Newton\ first law?', 'Inertia', 'Gravity', 'Friction', 'Mass', 'A', 2);
+INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+(1, 2, 80.0),
+(2, 2, 90.0),
+(2, 3, 95.0),
+(2, 4, 33.0),
+(1, 3, 90.0),
+(1, 1, 90.0),
+(1, 4, 33),
+(1, 5, 22),
+(1, 6, 5);
+
+INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+(1, 7, 23.0),
+(2, 8, 20.0);
+
+INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+(1, 8, 20.0);
+select * from ClassStudent
 
 
-INSERT INTO StudentAns (idAns, studentAns, idStudent, idQues) VALUES 
-(1, 'B', 1, 1),
-(2, 'A', 2, 2);
+USE UTExLMS;
 
+-- Xóa tất cả bản ghi trong bảng ClassStudent
+DELETE FROM ClassStudent;
 
-INSERT INTO Assignment (idAssign, nameAssign, startDate, endDate, description, grade, idSection, idLecturer) VALUES 
-(1, 'Algebra Assignment', '2024-10-15', '2024-10-25', 'Solve algebra problems', 100, 1, 1),
-(2, 'Mechanics Assignment', '2024-11-01', '2024-11-10', 'Mechanics problem set', 100, 2, 2);
+-- Xóa tất cả bản ghi trong bảng Class
+DELETE FROM Class;
 
-INSERT INTO Assignment_Student (idAssign, idStudent, numAttempts, totalScore, totalTimeSpent) VALUES 
-(1, 1, 1, 90, 120),
-(2, 2, 2, 85, 180);
+-- Xóa tất cả bản ghi trong bảng Subjects
+DELETE FROM Subjects;
 
+-- Xóa tất cả bản ghi trong bảng Semester
+DELETE FROM Semester;
 
-INSERT INTO Submission (idSubmiss, nameFile, pathFile, typeFile, dateSubmit, idAssign, idStudent) VALUES 
-(1, 'algebra_assignment.pdf', '/submissions/algebra_assignment.pdf', 'pdf', '2024-10-24', 1, 1),
-(2, 'mechanics_assignment.docx', '/submissions/mechanics_assignment.docx', 'docx', '2024-11-09', 2, 2);
+-- Xóa tất cả bản ghi trong bảng Lecturer
+DELETE FROM Lecturer;
 
+-- Xóa tất cả bản ghi trong bảng Student
+DELETE FROM Student;
 
-INSERT INTO Discussion (idDiscuss, description, nameDiscuss, idSection, idLecturer) VALUES 
-(1, 'Discuss algebra topics', 'Algebra Discussion', 1, 1),
-(2, 'Discuss mechanics concepts', 'Mechanics Discussion', 2, 2);
-
-INSERT INTO Comment (idCmt, content, idDiscuss, idStudent, idLecturer) VALUES 
-(1, 'This topic is difficult.', 1, 1, NULL),
-(2, 'Can you explain more about Newton\law?', 2, 2, NULL);
-
-
-select * from class
+-- Xóa tất cả bản ghi trong bảng Roles
+DELETE FROM Roles;

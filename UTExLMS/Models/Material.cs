@@ -7,6 +7,7 @@ namespace UTExLMS.Models
     {
         public int IdMaterial { get; set; }
         public string? FilePath { get; set; }
+        public bool? Statu { get; set; }
         public string? NameMaterial { get; set; }
         public string? TypeMaterial { get; set; }
         public int? IdSection { get; set; }

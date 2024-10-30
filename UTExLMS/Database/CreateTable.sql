@@ -2,7 +2,7 @@ create database UTExLMS
 
 use UTExLMS;
 
---1. Bảng Student và Role (n-1)
+
 
 CREATE TABLE Roles (
     idRole INT PRIMARY KEY,
@@ -18,6 +18,7 @@ CREATE TABLE Student (
     firstName VARCHAR(50),
     phoneNum VARCHAR(15) UNIQUE,
     idRole INT,
+
     pass VARCHAR(15),  -- Thêm cột pass ở đây
     FOREIGN KEY (idRole) REFERENCES Roles(idRole),
 	CHECK (gender IN ('Male', 'Female', 'Other'))
@@ -31,6 +32,7 @@ CREATE TABLE Lecturer (
     firstName VARCHAR(50),
     phoneNum VARCHAR(15) UNIQUE,
     idRole INT,
+
     pass VARCHAR(255),  -- Thêm cột pass ở đây với chiều dài 255 cho an toàn
     FOREIGN KEY (idRole) REFERENCES Roles(idRole),
 	CHECK (gender IN ('Male', 'Female', 'Other'))
@@ -63,6 +65,10 @@ CREATE TABLE Class (
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
 
 );
+
+ALTER TABLE Class
+ADD imgClass VARCHAR(255); 
+
 
 
 
@@ -203,26 +209,28 @@ CREATE TABLE ClassStudent (
     FOREIGN KEY (idClass) REFERENCES Class(idClass)
 );
 
-CREATE PROCEDURE UpdateLecturerInfo
-    @IdLecturer INT,
-    @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
-    @LastName NVARCHAR(50),
-    @Email NVARCHAR(100),
-    @Birthday DATE,
-    @Gender NVARCHAR(10),
-    @PhoneNum NVARCHAR(15),
-    @pass NVARCHAR(15)  -- Cập nhật kích thước để phù hợp với bảng
-AS
-BEGIN
-    SET NOCOUNT ON;
+--CREATE PROCEDURE UpdateLecturerInfo
+--    @IdLecturer INT,
+--    @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
+--    @LastName NVARCHAR(50),
+--    @Email NVARCHAR(100),
+--    @Birthday DATE,
+--    @Gender NVARCHAR(10),
+--    @PhoneNum NVARCHAR(15),
+--    @pass NVARCHAR(15)  -- Cập nhật kích thước để phù hợp với bảng
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
 
-    UPDATE Lecturer
-    SET FirstName = @FirstName,
-        LastName = @LastName,
-        Email = @Email,
-        Birthday = @Birthday,
-        Gender = @Gender,
-        PhoneNum = @PhoneNum,
-        pass = @pass  -- Nên mã hóa trước khi lưu
-    WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
-END
+--    UPDATE Lecturer
+--    SET FirstName = @FirstName,
+--        LastName = @LastName,
+--        Email = @Email,
+--        Birthday = @Birthday,
+--        Gender = @Gender,
+--        PhoneNum = @PhoneNum,
+--        pass = @pass  -- Nên mã hóa trước khi lưu
+--    WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
+--END
+
+

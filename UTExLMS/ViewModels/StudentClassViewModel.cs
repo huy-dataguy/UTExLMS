@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using UTExLMS.Models;
-using UTExLMS.Views.UserControlView;
+using UTExLMS.Service;
+using UTExLMS.Views;
 
 namespace UTExLMS.ViewModels
 {
@@ -13,54 +15,69 @@ namespace UTExLMS.ViewModels
     {
         private readonly UTExLMSContext _context;
 
-        public ObservableCollection<VwStudentCourse> _studentCourses { get; set; }
+        private StudentClassService _studentClasses;
 
-        public ObservableCollection<VwStudentCourse> StudentCourse => _studentCourses;
+        public ObservableCollection<OverviewClass> StudentClasses {  get; private set; }
+
+        public FilterListClass FilterOption { get; private set; }
+
+
+        private int _id = 1;
+        private string _selectedFilter;
+        private string _searchTerm;
+        public string SelectedFilter
+        {
+            get => _selectedFilter;
+            set
+            {
+                if (SetProperty(ref _selectedFilter, value))
+                {
+                    PendingSearchTerm = string.Empty;
+                    SearchTerm = null;
+                    UpdateStudentClasses();  
+                }
+            }
+        }
+
+
+        private string _pendingSearchTerm;
+        public string PendingSearchTerm  
+        {
+            get => _pendingSearchTerm;
+            set => SetProperty(ref _pendingSearchTerm, value);
+        }
+        public string SearchTerm { get; private set;}
+        public ICommand SearchCmd { get; }
+
 
         public StudentClassViewModel(UTExLMSContext context)
         {
             _context = context;
-            _studentCourses = LoadStudentCourses();
+            FilterOption = new FilterListClass();
+
+            _selectedFilter = FilterOption.SelectedName[0];
+            SearchCmd = new RelayCommand(OnSearch);
+
+            UpdateStudentClasses();
         }
 
+        private void UpdateStudentClasses()
+        {
+            _studentClasses = new StudentClassService(_context, _id, SelectedFilter, SearchTerm);
+            StudentClasses = new ObservableCollection<OverviewClass>(_studentClasses.OverviewClasses);
+            OnPropertyChanged(nameof(StudentClasses));
+        }
         public StudentClassViewModel() { }
 
-        private ObservableCollection<VwStudentCourse> LoadStudentCourses()
+
+
+        private void OnSearch()
         {
-            ObservableCollection<VwStudentCourse> _studentCourses = new ObservableCollection<VwStudentCourse>();
-            var studentId = 1;
+            SearchTerm = string.IsNullOrWhiteSpace(PendingSearchTerm) ? null : PendingSearchTerm;
+            UpdateStudentClasses();
 
-            try
-            {
-                var courses = _context.VwStudentCourses
-                    .Where(c => c.IdStudent == studentId)
-                    .ToList();
-
-                if (courses.Count == 0)
-                {
-                    MessageBox.Show("No courses found for the selected student.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                foreach (var course in courses)
-                {
-                    // Assign the image path to the Img property of each course
-                    course.Img = GetImagePath();
-                    _studentCourses.Add(course);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while loading courses: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            return _studentCourses;
         }
 
-        // Helper method to retrieve the image path
-        private string GetImagePath()
-        {
-            string path = Environment.CurrentDirectory;
-            string path1 = Directory.GetParent(path).Parent.Parent.FullName;
-            return Path.Combine(path1, "Assets", "course.png");
-        }
+
     }
 }
