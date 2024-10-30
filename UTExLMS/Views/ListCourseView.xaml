@@ -40,8 +40,8 @@
                     <emoji:TextBlock FontSize="30" VerticalAlignment="Bottom" Margin="5">
                         <TextBlock.Text>
                             <MultiBinding StringFormat="Hi, {0} {1}!👋">
-                                <Binding Path="StudentCourse[0].FirstName" />
-                                <Binding Path="StudentCourse[0].LastName" />
+                                <Binding Path="StudentClasses[0].FirstName" />
+                                <Binding Path="StudentClasses[0].LastName" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </emoji:TextBlock>
@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <ComboBox SelectedItem="{Binding SelectedFilter}" ItemsSource="{Binding Filters.Name}" Text="{Binding Filters.Name[0]}" Width="120" Height="40" BorderBrush="Gray" BorderThickness="2" HorizontalAlignment="Right" FontSize="16">
+                        <ComboBox SelectedItem="{Binding SelectedFilter}" ItemsSource="{Binding FilterOption.SelectedName}" Text="{Binding FilterOption.SelectedName[0]}" Width="120" Height="40" BorderBrush="Gray" BorderThickness="2" HorizontalAlignment="Right" FontSize="16">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding}"/>
@@ -66,12 +66,14 @@
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <hc:SearchBar Width="400" Height="40"  Command="{Binding SearchCmd}" BorderThickness="2"  BorderBrush="Gray" CommandParameter="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Margin="10, 0, 0, 0" HorizontalAlignment="Left" FontSize="16"/>
+                        <hc:SearchBar Width="400" Height="40"  Command="{Binding SearchCmd}" BorderThickness="2"  BorderBrush="Gray" 
+                                      Text="{Binding PendingSearchTerm, UpdateSourceTrigger=PropertyChanged}" 
+                                      Margin="10, 0, 0, 0" HorizontalAlignment="Left" FontSize="16"/>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
-                <ListBox Margin="0, 5, 0, 0" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding StudentCourse}">
+                <ListBox Margin="0, 5, 0, 0" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding StudentClasses}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="data:CardModel">
                             <local:CourseCardUCView DataContext="{Binding}" Margin="5"/>

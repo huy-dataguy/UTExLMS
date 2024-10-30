@@ -13,9 +13,10 @@ namespace UTExLMS.Models
 
         public int IdAssign { get; set; }
         public string? NameAssign { get; set; }
+        public bool? Statu { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public string? Description { get; set; }
+        public string? Descript { get; set; }
         public double? Grade { get; set; }
         public int? IdSection { get; set; }
         public int? IdLecturer { get; set; }

@@ -49,7 +49,7 @@ namespace UTExLMS.ViewModels
                 new SqlParameter("Birthday", lecturer.Birthday),
                 new SqlParameter("Gender", lecturer.Gender),
                 new SqlParameter("PhoneNum", lecturer.PhoneNum),
-                new SqlParameter("Password", lecturer.Password) 
+                new SqlParameter("Password", lecturer.Pass) 
             );
             MessageBox.Show("Save success!!!");
         }

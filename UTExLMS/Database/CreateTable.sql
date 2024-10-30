@@ -3,6 +3,7 @@ create database UTExLMS
 use UTExLMS;
 
 
+
 CREATE TABLE Roles (
     idRole INT PRIMARY KEY,
     nameRole VARCHAR(100)
@@ -22,8 +23,6 @@ CREATE TABLE Student (
     FOREIGN KEY (idRole) REFERENCES Roles(idRole),
 	CHECK (gender IN ('Male', 'Female', 'Other'))
 );
-
-
 CREATE TABLE Lecturer (
     idLecturer INT PRIMARY KEY,
     email VARCHAR(100) UNIQUE,
@@ -67,13 +66,12 @@ CREATE TABLE Class (
 
 );
 
-CREATE TABLE StudentClass (
-    idStudent INT,
-    idClass INT,
-    PRIMARY KEY (idStudent, idClass),
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
-    FOREIGN KEY (idClass) REFERENCES Class(idClass)
-);
+ALTER TABLE Class
+ADD imgClass VARCHAR(255); 
+
+
+
+
 
 --5. Bảng Section và Material (1-n)
 CREATE TABLE Section (

@@ -8,13 +8,13 @@ namespace UTExLMS.Models
 {
     public class FilterListClass
     {
-        public List<string> Name { get; }
+        public List<string> SelectedName { get; }
         public FilterListClass()
         {
-            this.Name = new List<string>{
+            this.SelectedName = new List<string>{
                 "All",
                 "Past",
-                "In progress"
+                "In Progress"
             };
         }
     }

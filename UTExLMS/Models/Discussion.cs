@@ -11,7 +11,7 @@ namespace UTExLMS.Models
         }
 
         public int IdDiscuss { get; set; }
-        public string? Description { get; set; }
+        public string? Descript { get; set; }
         public string? NameDiscuss { get; set; }
         public int? IdSection { get; set; }
         public int? IdLecturer { get; set; }
