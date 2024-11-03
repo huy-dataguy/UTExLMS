@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace UTExLMS.Models
 {
-    public class OverviewClass
+    public class OverviewCourse
     {
         public int IdStudent { get; set; }
-        public int IdClass { get; set; }
-        public string NameClass { get; set; }
+        public int IdCourse { get; set; }
+        public string NameCourse { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -20,11 +20,11 @@ namespace UTExLMS.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public double Progress { get; set; }
-        public string ImgClass { get; set; }
+        public string ImgCourse { get; set; }
 
 
 
-        public OverviewClass() { }
+        public OverviewCourse() { }
 
         //public virtual DbSet<OverviewClass> OverviewClasses { get; set; }
 

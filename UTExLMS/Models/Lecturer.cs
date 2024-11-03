@@ -8,8 +8,8 @@ namespace UTExLMS.Models
         public Lecturer()
         {
             Assignments = new HashSet<Assignment>();
-            Classes = new HashSet<Class>();
             Comments = new HashSet<Comment>();
+            Courses = new HashSet<Course>();
             Discussions = new HashSet<Discussion>();
             Materials = new HashSet<Material>();
             Sections = new HashSet<Section>();
@@ -28,8 +28,8 @@ namespace UTExLMS.Models
 
         public virtual Role? IdRoleNavigation { get; set; }
         public virtual ICollection<Assignment> Assignments { get; set; }
-        public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Discussion> Discussions { get; set; }
         public virtual ICollection<Material> Materials { get; set; }
         public virtual ICollection<Section> Sections { get; set; }

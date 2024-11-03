@@ -25,8 +25,12 @@ namespace UTExLMS.Views
         public ListCourseView()
         {
             InitializeComponent();
-            UTExLMSContext context = new UTExLMSContext(); 
-            this.DataContext = new StudentClassViewModel(context);
+            this.DataContext = new StudentCourseViewModel();
+        }
+        public ListCourseView(MainViewModel mainViewModel)
+        {
+            InitializeComponent();
+            this.DataContext = new StudentCourseViewModel(mainViewModel);
         }
     }
 }

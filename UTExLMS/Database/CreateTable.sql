@@ -54,11 +54,11 @@ CREATE TABLE Subjects (
     FOREIGN KEY (idSemester) REFERENCES Semester(idSemester)
 );
 
---2. Bảng Class, Student 1-n
+--2. Bảng Course, Student 1-n
 
-CREATE TABLE Class (
-    idClass INT PRIMARY KEY,
-    nameClass VARCHAR(100),
+CREATE TABLE Course (
+    idCourse INT PRIMARY KEY,
+    nameCourse VARCHAR(100),
     idSubject INT,
     idLecturer INT,  
     FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject),  -- Khóa ngoại cho Subjects
@@ -66,8 +66,8 @@ CREATE TABLE Class (
 
 );
 
-ALTER TABLE Class
-ADD imgClass VARCHAR(255); 
+ALTER TABLE Course
+ADD imgCourse VARCHAR(255); 
 
 
 
@@ -78,13 +78,13 @@ CREATE TABLE Section (
     idSection INT PRIMARY KEY,
     nameSection VARCHAR(100),
     descript VARCHAR(255),
-    idClass INT,
+    idCourse INT,
     idLecturer INT,  -- Thêm thuộc tính idLecturer ở đây
-    FOREIGN KEY (idClass) REFERENCES Class(idClass),
+    FOREIGN KEY (idCourse) REFERENCES Course(idCourse),
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
 );
 
---Thế thì biết ở Class nào? có thể truy vấn thông qua idSection, nhưng idSection...
+--Thế thì biết ở Course nào? có thể truy vấn thông qua idSection, nhưng idSection...
 CREATE TABLE Material (
     idMaterial INT PRIMARY KEY,
     filePath VARCHAR(255),
@@ -200,37 +200,13 @@ CREATE TABLE Comment (
     FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)  -- Khóa ngoại cho Lecturer
 );
 
-CREATE TABLE ClassStudent (
+CREATE TABLE CourseStudent (
     idStudent INT,
-    idClass INT,
+    idCourse INT,
     progress FLOAT,
-    PRIMARY KEY (idStudent, idClass),
+    PRIMARY KEY (idStudent, idCourse),
     FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
-    FOREIGN KEY (idClass) REFERENCES Class(idClass)
+    FOREIGN KEY (idCourse) REFERENCES Course(idCourse)
 );
-
---CREATE PROCEDURE UpdateLecturerInfo
---    @IdLecturer INT,
---    @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
---    @LastName NVARCHAR(50),
---    @Email NVARCHAR(100),
---    @Birthday DATE,
---    @Gender NVARCHAR(10),
---    @PhoneNum NVARCHAR(15),
---    @pass NVARCHAR(15)  -- Cập nhật kích thước để phù hợp với bảng
---AS
---BEGIN
---    SET NOCOUNT ON;
-
---    UPDATE Lecturer
---    SET FirstName = @FirstName,
---        LastName = @LastName,
---        Email = @Email,
---        Birthday = @Birthday,
---        Gender = @Gender,
---        PhoneNum = @PhoneNum,
---        pass = @pass  -- Nên mã hóa trước khi lưu
---    WHERE idLecturer = @IdLecturer;  -- Sử dụng tham số đúng
---END
 
 

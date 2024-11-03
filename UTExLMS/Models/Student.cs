@@ -8,8 +8,8 @@ namespace UTExLMS.Models
         public Student()
         {
             AssignmentStudents = new HashSet<AssignmentStudent>();
-            ClassStudents = new HashSet<ClassStudent>();
             Comments = new HashSet<Comment>();
+            CourseStudents = new HashSet<CourseStudent>();
             StudentAns = new HashSet<StudentAn>();
             Submissions = new HashSet<Submission>();
         }
@@ -26,8 +26,8 @@ namespace UTExLMS.Models
 
         public virtual Role? IdRoleNavigation { get; set; }
         public virtual ICollection<AssignmentStudent> AssignmentStudents { get; set; }
-        public virtual ICollection<ClassStudent> ClassStudents { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<CourseStudent> CourseStudents { get; set; }
         public virtual ICollection<StudentAn> StudentAns { get; set; }
         public virtual ICollection<Submission> Submissions { get; set; }
     }
