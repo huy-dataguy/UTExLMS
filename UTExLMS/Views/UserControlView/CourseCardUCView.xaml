@@ -5,12 +5,9 @@
              xmlns:data="clr-namespace:UTExLMS.Models"
              
             xmlns:vm="clr-namespace:UTExLMS.ViewModels"
-
              Height="230" Width="260">
-
-  
     <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="6">
-        <Grid >
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition/>
@@ -18,7 +15,7 @@
 
             <Border Grid.Row="0"  CornerRadius="6" >
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding ImgClass}" Stretch="Fill" />
+                    <ImageBrush ImageSource="{Binding ImgCourse}" Stretch="Fill" />
                 </Border.Background>
             </Border>
                 
@@ -29,7 +26,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <TextBlock Text="{Binding NameClass}" Padding="4" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding NameCourse}" Padding="4" FontSize="16" FontWeight="Bold"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

@@ -48,24 +48,24 @@ select * from Subjects
 
 
 
--- Insert sample data into Class
-INSERT INTO Class (idClass, nameClass, idSubject, idLecturer, imgClass) VALUES 
-(1, 'Math Class A', 3, 1, '/images/math_class_a.jpg'),
-(2, 'Physics Class B', 4, 2, '/images/math_class_a.jpg'),
-(3, 'Math Class B', 4, 1, '/images/math_class_a.jpg'),
-(4, 'Math Class C', 3, 1, '/images/math_class_a.jpg'),
-(5, 'Math Class D', 4, 1, '/images/math_class_a.jpg'),
-(6, 'Math Class E', 3, 1, '/images/math_class_a.jpg');
+-- Insert sample data into Course
+INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse) VALUES 
+(1, 'Math Course A', 3, 1, '/images/math_Course_a.jpg'),
+(2, 'Physics Course B', 4, 2, '/images/math_Course_a.jpg'),
+(3, 'Math Course B', 4, 1, '/images/math_Course_a.jpg'),
+(4, 'Math Course C', 3, 1, '/images/math_Course_a.jpg'),
+(5, 'Math Course D', 4, 1, '/images/math_Course_a.jpg'),
+(6, 'Math Course E', 3, 1, '/images/math_Course_a.jpg');
 
 
-INSERT INTO Class (idClass, nameClass, idSubject, idLecturer, imgClass) VALUES 
-(7, 'Math Class EE', 7, 1, '/images/math_class_a.jpg'),
-(8, 'Physics Class EE', 7, 2, '/images/math_class_a.jpg');
+INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse) VALUES 
+(7, 'Math Course EE', 7, 1, '/images/math_Course_a.jpg'),
+(8, 'Physics Course EE', 7, 2, '/images/math_Course_a.jpg');
 
-select * from Class
+select * from Course
 
 
-INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
 (1, 2, 80.0),
 (2, 2, 90.0),
 (2, 3, 95.0),
@@ -76,22 +76,22 @@ INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES
 (1, 5, 22),
 (1, 6, 5);
 
-INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
 (1, 7, 23.0),
 (2, 8, 20.0);
 
-INSERT INTO ClassStudent (idStudent, idClass, progress) VALUES 
+INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
 (1, 8, 20.0);
-select * from ClassStudent
+select * from CourseStudent
 
 
 USE UTExLMS;
 
--- Xóa tất cả bản ghi trong bảng ClassStudent
-DELETE FROM ClassStudent;
+-- Xóa tất cả bản ghi trong bảng CourseStudent
+DELETE FROM CourseStudent;
 
--- Xóa tất cả bản ghi trong bảng Class
-DELETE FROM Class;
+-- Xóa tất cả bản ghi trong bảng Course
+DELETE FROM Course;
 
 -- Xóa tất cả bản ghi trong bảng Subjects
 DELETE FROM Subjects;

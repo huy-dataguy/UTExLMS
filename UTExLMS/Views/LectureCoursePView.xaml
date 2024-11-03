@@ -30,7 +30,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <TextBlock Text="Mooc DBMS Course" FontSize="30" VerticalAlignment="Bottom" Margin="50,0,50,0"/>
+                        <TextBlock Text="{Binding ClassName}" FontSize="30" VerticalAlignment="Bottom" Margin="50,0,50,0"/>
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -47,7 +47,7 @@
                         
                     </StackPanel>
                     <StackPanel Margin="0,30,0,10">
-                        <Button Style="{StaticResource ButtonPrimary}" Command="{Binding addSection}" Content="Add section"/>
+                        <Button Style="{StaticResource ButtonPrimary}" Command="{Binding addSection}"  Content="Add section"/>
                     </StackPanel>
                 </StackPanel>
                 

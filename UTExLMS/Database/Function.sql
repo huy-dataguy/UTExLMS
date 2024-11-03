@@ -1,91 +1,47 @@
 ﻿USE UTExLMS
 
 
-drop function GetStudentCoursesByStatus
+DROP FUNCTION IF EXISTS GetCoursees;
 
---CREATE FUNCTION GetStudentCoursesByStatus (
---    @studentId INT,
---    @status VARCHAR(20)
---)
---RETURNS TABLE
---AS
---RETURN (
---    SELECT 
---        s.idStudent,
---        c.idClass,
---		s.firstName,
---		s.lastName,
---        c.nameClass,
---        sem.startDate,
---        sem.endDate,
---		cs.progress,
---		c.imgClass
---    FROM 
---        ClassStudent cs
---        JOIN Class c ON cs.idClass = c.idClass
---        JOIN Subjects sub ON c.idSubject = sub.idSubject
---        JOIN Semester sem ON sub.idSemester = sem.idSemester
---        JOIN Student s ON cs.idStudent = s.idStudent
---    WHERE 
---        s.idStudent = @studentId
---        AND (
---            @status = 'All' 
---            OR (@status = 'Past' AND GETDATE() > sem.endDate)
---            OR (@status = 'In Progress' AND GETDATE() BETWEEN sem.startDate AND sem.endDate)
---        )
---);
-
-
-
-
-
---SELECT * FROM GetStudentCoursesByStatus(1, 'Past');
-
---SELECT * FROM GetStudentCoursesByStatus(1, 'All');
---SELECT * FROM GetStudentCoursesByStatus(1, 'In Progress');
-
-DROP FUNCTION IF EXISTS GetStudentCoursesByStatus;
-
-CREATE FUNCTION GetStudentCoursesByStatus (
+CREATE FUNCTION GetCourses (
     @studentId INT,
-    @status VARCHAR(20),
-    @searchTerm NVARCHAR(100)  -- Thêm tham số search term
+    @searchTerm NVARCHAR(100),
+    @selectedFilter VARCHAR(20)-- Thêm tham số search term
 )
 RETURNS TABLE
 AS
 RETURN (
     SELECT 
         s.idStudent,
-        c.idClass,
+        c.idCourse,
         s.firstName,
         s.lastName,
-        c.nameClass,
+        c.nameCourse,
         sem.startDate,
         sem.endDate,
         cs.progress,
-        c.imgClass
+        c.imgCourse
     FROM 
-        ClassStudent cs
-        JOIN Class c ON cs.idClass = c.idClass
+        CourseStudent cs
+        JOIN Course c ON cs.idCourse = c.idCourse
         JOIN Subjects sub ON c.idSubject = sub.idSubject  -- Liên kết bảng Subjects bằng idSubject
         JOIN Semester sem ON sub.idSemester = sem.idSemester
         JOIN Student s ON cs.idStudent = s.idStudent
     WHERE 
         s.idStudent = @studentId
         AND (
-            @status = 'All' 
-            OR (@status = 'Past' AND GETDATE() > sem.endDate)
-            OR (@status = 'In Progress' AND GETDATE() BETWEEN sem.startDate AND sem.endDate)
+            @selectedFilter = 'All' 
+            OR (@selectedFilter = 'Past' AND GETDATE() > sem.endDate)
+            OR (@selectedFilter = 'In Progress' AND GETDATE() BETWEEN sem.startDate AND sem.endDate)
         )
         AND (
             @searchTerm IS NULL
-            OR c.nameClass LIKE '%' + @searchTerm + '%'
+            OR c.nameCourse LIKE '%' + @searchTerm + '%'
         )
 );
 
-SELECT * FROM GetStudentCoursesByStatus(1, 'All', 'c');
-SELECT * FROM GetStudentCoursesByStatus(1, 'All', NULL);
 
+select * from GetCourses(1,'Math','All');
 
 
 

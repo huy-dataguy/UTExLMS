@@ -8,15 +8,14 @@
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:data="clr-namespace:UTExLMS.Models"
       xmlns:vm="clr-namespace:UTExLMS.ViewModels"
+      xmlns:cm="clr-namespace:UTExLMS.Commands"
       xmlns:img="clr-namespace:UTExLMS"
       mc:Ignorable="d" 
       d:DesignHeight="964" d:DesignWidth="1350"
       Title="ListCourseView">
-
-    <Page.DataContext>
-        <vm:StudentClassViewModel/>
-    </Page.DataContext>
-
+    <Page.Resources>
+        <cm:MyConverter x:Key="MyConverter"/>
+    </Page.Resources>
 
     <Grid >
         <Grid.ColumnDefinitions>
@@ -37,14 +36,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" >
+
                     <emoji:TextBlock FontSize="30" VerticalAlignment="Bottom" Margin="5">
                         <TextBlock.Text>
+
                             <MultiBinding StringFormat="Hi, {0} {1}!👋">
-                                <Binding Path="StudentClasses[0].FirstName" />
-                                <Binding Path="StudentClasses[0].LastName" />
+                                <Binding Path="StudentCourses[0].FirstName" />
+                                <Binding Path="StudentCourses[0].LastName" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </emoji:TextBlock>
+
                 </Grid>
                 <Grid Grid.Row="1">
                     <TextBlock Text="Course Overview" FontSize="18" VerticalAlignment="Center" Margin="50, 0, 0, 0"/>
@@ -57,36 +59,39 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <ComboBox SelectedItem="{Binding SelectedFilter}" ItemsSource="{Binding FilterOption.SelectedName}" Text="{Binding FilterOption.SelectedName[0]}" Width="120" Height="40" BorderBrush="Gray" BorderThickness="2" HorizontalAlignment="Right" FontSize="16">
+                        <ComboBox SelectedItem="{Binding SelectedFilter, Mode=TwoWay}" ItemsSource="{Binding FilterOption.SelectedName}" Text="{Binding FilterOption.SelectedName[0]}"  
+                                  Width="120" Height="40" BorderBrush="Gray" BorderThickness="2" HorizontalAlignment="Right" FontSize="16">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}"/>
+                                    <TextBlock Text="{Binding}"></TextBlock>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <hc:SearchBar Width="400" Height="40"  Command="{Binding SearchCmd}" BorderThickness="2"  BorderBrush="Gray" 
-                                      Text="{Binding PendingSearchTerm, UpdateSourceTrigger=PropertyChanged}" 
-                                      Margin="10, 0, 0, 0" HorizontalAlignment="Left" FontSize="16"/>
+                        <hc:SearchBar Width="400" Height="40" Command="{Binding SearchCmd}" Text="{Binding SearchTerm ,UpdateSourceTrigger=PropertyChanged}"  BorderThickness="2" BorderBrush="Gray" 
+              Margin="10, 0, 0, 0" HorizontalAlignment="Left" 
+              FontSize="16">
+                        </hc:SearchBar>
+
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
-                <ListBox Margin="0, 5, 0, 0" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding StudentClasses}">
+                <ListBox Margin="0, 5, 0, 0" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}" ItemsSource="{Binding StudentCourses}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="data:CardModel">
-                            <local:CourseCardUCView DataContext="{Binding}" Margin="5"/>
+                            <Button Height="240" Width="270" 
+                    Command="{Binding DataContext.GoToCourse, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                    CommandParameter="{Binding}">
+                                <local:CourseCardUCView DataContext="{Binding}" Margin="5"/>
+                            </Button>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                    
                 </ListBox>
 
-                
-                
-
-
             </Grid>
+
         </Grid>
 
     </Grid>

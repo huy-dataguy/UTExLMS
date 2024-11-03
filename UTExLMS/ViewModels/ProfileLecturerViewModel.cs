@@ -22,7 +22,7 @@ namespace UTExLMS.ViewModels
             _context = context;
             Profile = LoadProfile();
 
-            SaveProfile = new RelayCommand(ExecuteSaveProfile, CanExecuteSaveProfile);
+            SaveProfile = new RelayCommand<Lecturer>(UpdateLecturer);
         }
 
         // Tải thông tin giảng viên từ cơ sở dữ liệu
@@ -54,18 +54,6 @@ namespace UTExLMS.ViewModels
             MessageBox.Show("Save success!!!");
         }
 
-        private void ExecuteSaveProfile(object parameter)
-        {
-            if (Profile != null)
-            {
-                UpdateLecturer(Profile);
-            }
-        }
-
-        // Kiểm tra điều kiện thực thi lệnh SaveProfile
-        private bool CanExecuteSaveProfile(object parameter)
-        {
-            return Profile != null; // Chỉ thực thi nếu có thông tin Profile
-        }
+        
     }
 }
