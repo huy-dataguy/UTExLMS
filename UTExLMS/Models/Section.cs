@@ -14,13 +14,11 @@ namespace UTExLMS.Models
         }
 
         public int IdSection { get; set; }
+        public int IdCourse { get; set; }
         public string? NameSection { get; set; }
         public string? Descript { get; set; }
-        public int? IdCourse { get; set; }
-        public int? IdLecturer { get; set; }
 
-        public virtual Course? IdCourseNavigation { get; set; }
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
+        public virtual Course IdCourseNavigation { get; set; } = null!;
         public virtual ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<Discussion> Discussions { get; set; }
         public virtual ICollection<Material> Materials { get; set; }

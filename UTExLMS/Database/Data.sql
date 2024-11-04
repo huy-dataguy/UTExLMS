@@ -58,11 +58,10 @@ INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse) VALU
 (6, 'Math Course E', 3, 1, '/images/math_Course_a.jpg');
 
 
-INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse) VALUES 
-(7, 'Math Course EE', 7, 1, '/images/math_Course_a.jpg'),
-(8, 'Physics Course EE', 7, 2, '/images/math_Course_a.jpg');
+INSERT INTO Course (idCourse, nameCourse, idSubject, imgCourse) VALUES 
+(7, 'Math Course EE', 7, '/images/math_Course_a.jpg'),
+(8, 'Physics Course EE', 7, '/images/math_Course_a.jpg');
 
-select * from Course
 
 
 INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
