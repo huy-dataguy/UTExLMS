@@ -19,10 +19,9 @@ namespace UTExLMS.Models
         public string? Descript { get; set; }
         public double? Grade { get; set; }
         public int? IdSection { get; set; }
-        public int? IdLecturer { get; set; }
+        public int? IdCourse { get; set; }
 
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
-        public virtual Section? IdSectionNavigation { get; set; }
+        public virtual Section? Id { get; set; }
         public virtual ICollection<AssignmentStudent> AssignmentStudents { get; set; }
         public virtual ICollection<Submission> Submissions { get; set; }
     }

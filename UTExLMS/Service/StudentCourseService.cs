@@ -12,18 +12,18 @@ namespace UTExLMS.Service
 {
     public class StudentCourseService
     {
-        private readonly UTExLMSContext _context;
+        private readonly Addition _addition;
         
 
 
         public StudentCourseService()
         {
-            _context = new UTExLMSContext();
+            _addition = new Addition();
         }
 
         public ObservableCollection<OverviewCourse> GetCourses(int idstudent, string searchTerm = "", string selectedFilter = "All")
         {
-            var courses = _context.OverviewCourses
+            var courses = _addition.OverviewCourses
                 .FromSqlRaw($"SELECT * FROM GetCourses({idstudent}, '{searchTerm}', '{selectedFilter}')")
                 .ToList();
 

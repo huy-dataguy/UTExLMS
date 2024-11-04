@@ -7,13 +7,8 @@ namespace UTExLMS.Models
     {
         public Lecturer()
         {
-            Assignments = new HashSet<Assignment>();
             Comments = new HashSet<Comment>();
             Courses = new HashSet<Course>();
-            Discussions = new HashSet<Discussion>();
-            Materials = new HashSet<Material>();
-            Sections = new HashSet<Section>();
-            Tests = new HashSet<Test>();
         }
 
         public int IdLecturer { get; set; }
@@ -27,12 +22,7 @@ namespace UTExLMS.Models
         public string? Pass { get; set; }
 
         public virtual Role? IdRoleNavigation { get; set; }
-        public virtual ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
-        public virtual ICollection<Discussion> Discussions { get; set; }
-        public virtual ICollection<Material> Materials { get; set; }
-        public virtual ICollection<Section> Sections { get; set; }
-        public virtual ICollection<Test> Tests { get; set; }
     }
 }

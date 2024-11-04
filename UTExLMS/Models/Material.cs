@@ -11,9 +11,8 @@ namespace UTExLMS.Models
         public string? NameMaterial { get; set; }
         public string? TypeMaterial { get; set; }
         public int? IdSection { get; set; }
-        public int? IdLecturer { get; set; }
+        public int? IdCourse { get; set; }
 
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
-        public virtual Section? IdSectionNavigation { get; set; }
+        public virtual Section? Id { get; set; }
     }
 }
