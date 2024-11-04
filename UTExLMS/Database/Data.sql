@@ -13,7 +13,7 @@ INSERT INTO Student (idStudent, email, birthday, gender, lastName, firstName, ph
 (2, 'student2@example.com', '2002-02-02', 'Female', 'Le', 'Thi B', '0987654321', 1, 'password2');
 
 -- Insert sample data into Lecturer
-INSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
+0I0 NSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
 (1, 'lecturer1@example.com', '1980-01-01', 'Male', 'Tran', 'Van C', '1234509876', 2, 'securepass1'),
 (2, 'lecturer2@example.com', '1985-02-02', 'Female', 'Pham', 'Thi D', '0987651234', 2, 'securepass2');
 
