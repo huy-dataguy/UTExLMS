@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UTExLMS.Models;
 using UTExLMS.Service;
+using UTExLMS.ViewModels.UCViewModel;
 using UTExLMS.Views;
 
 namespace UTExLMS.ViewModels
 {
-    class LectureCourseViewModel: ViewModelBase
+    class LectureCourseViewModel : ViewModelBase
     {
-        private OverviewCourse _overviewCourse  { get; set; }
+        private OverviewCourse _overviewCourse { get; set; }
 
         public ObservableCollection<Section> Sections { get; set; }
 
-
+        public ObservableCollection<SectionUCViewModel>SectionUCs {get; set;}
 
         public ICommand AddSection { get; set; }
 
@@ -32,17 +33,28 @@ namespace UTExLMS.ViewModels
         {
             AddSection = new RelayCommand(AddNewSection);
             SectionService sectionService = new SectionService();
-            Sections = sectionService.GetSections(idCourse) ;
-            OnPropertyChanged(nameof(Sections));
+            Sections = sectionService.GetSections(idCourse);
+            UpdateSections();
+
         }
 
-        
+        public void UpdateSections()
+        {
+            SectionUCs = new ObservableCollection<SectionUCViewModel>();
+            foreach (Section section in Sections)
+            {
+                SectionUCs.Add(new SectionUCViewModel(section));
+            }
+            OnPropertyChanged(nameof(SectionUCs));
+        }
+
         private void AddNewSection()
         {
             SectionService sectionService = new SectionService();
             sectionService.AddNewSection(idCourse);
             Sections = sectionService.GetSections(idCourse);
-            OnPropertyChanged(nameof(Sections));
+            UpdateSections();
         }
+
     }
 }

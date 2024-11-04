@@ -30,6 +30,10 @@ namespace UTExLMS.Service
         {
             _addition.Database.ExecuteSqlRaw($"EXEC AddNewSection @idCourse = {idCourse}");
         }
-
+        public void UpdateSection(int idCourse, int idSection, string nameSection, string descript)
+        {
+       
+            _addition.Database.ExecuteSqlRaw($"EXEC UpdateSection @idCourse={idCourse}, @idSection = {idSection}, @nameSection ='{nameSection}', @descript = '{descript}'");
+        }
     }
 }
