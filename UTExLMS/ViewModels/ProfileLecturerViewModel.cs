@@ -20,40 +20,40 @@ namespace UTExLMS.ViewModels
         public ProfileLecturerViewModel(UTExLMSContext context)
         {
             _context = context;
-            Profile = LoadProfile();
+            //Profile = LoadProfile();
 
-            SaveProfile = new RelayCommand<Lecturer>(UpdateLecturer);
+            //SaveProfile = new RelayCommand<Lecturer>(UpdateLecturer);
         }
 
         // Tải thông tin giảng viên từ cơ sở dữ liệu
-        private Lecturer LoadProfile()
-        {
-            var idLecturer = 1; // Thay đổi ID theo yêu cầu
+        //private Lecturer LoadProfile()
+        //{
+        //    var idLecturer = 1; // Thay đổi ID theo yêu cầu
 
-            // Lấy thông tin giảng viên
-            Lecturer profile = _context.Lecturers
-                    .Where(c => c.IdLecturer == idLecturer)
-                    .FirstOrDefault();
+        //    // Lấy thông tin giảng viên
+        //    Lecturer profile = _context.Persons
+        //            .Where(c => c.IdLecturer == idLecturer)
+        //            .FirstOrDefault();
 
-            return profile;
-        }
+        //    return profile;
+        //}
 
         public void UpdateLecturer(Lecturer lecturer)
         {
             _context.Database.ExecuteSqlRaw(
                 "EXEC UpdateLecturerInfo @IdLecturer, @FirstName, @LastName, @Email, @Birthday, @Gender, @PhoneNum, @Password",
-                new SqlParameter("IdLecturer", lecturer.IdLecturer),
+                new SqlParameter("IdLecturer", lecturer.IdPerson),
                 new SqlParameter("FirstName", lecturer.FirstName),
                 new SqlParameter("LastName", lecturer.LastName),
                 new SqlParameter("Email", lecturer.Email),
                 new SqlParameter("Birthday", lecturer.Birthday),
                 new SqlParameter("Gender", lecturer.Gender),
                 new SqlParameter("PhoneNum", lecturer.PhoneNum),
-                new SqlParameter("Password", lecturer.Pass) 
+                new SqlParameter("Password", lecturer.Pass)
             );
             MessageBox.Show("Save success!!!");
         }
 
-        
+
     }
 }

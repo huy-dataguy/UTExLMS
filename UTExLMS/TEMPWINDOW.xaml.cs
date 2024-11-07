@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UTExLMS.Views.UserControlView
+namespace UTExLMS
 {
     /// <summary>
-    /// Interaction logic for TestUCView.xaml
+    /// Interaction logic for TEMPWINDOW.xaml
     /// </summary>
-    public partial class TestUCView : UserControl
+    public partial class TEMPWINDOW : Window
     {
-        public TestUCView()
+        public TEMPWINDOW()
         {
             InitializeComponent();
         }

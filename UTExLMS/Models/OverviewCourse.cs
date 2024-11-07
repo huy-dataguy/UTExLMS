@@ -9,7 +9,7 @@ namespace UTExLMS.Models
 {
     public class OverviewCourse
     {
-        public int IdStudent { get; set; }
+        public int IdPerson { get; set; }
         public int IdCourse { get; set; }
         public string NameCourse { get; set; }
         public string FirstName { get; set; }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 using UTExLMS.Service;
 using UTExLMS.Models;
+using UTExLMS.Views;
+using UTExLMS.ViewModels;
 using System.Windows;
+using System.Windows.Input;
+using UTExLMS.Commands;
 
 
 namespace UTExLMS.ViewModels.UCViewModel
@@ -14,7 +18,7 @@ namespace UTExLMS.ViewModels.UCViewModel
     public class SectionUCViewModel : ViewModelBase
     {
 
-        private Section _section { get; set; }
+        public Section _section { get; set; }
 
         private string _nameSection;
 
@@ -55,6 +59,7 @@ namespace UTExLMS.ViewModels.UCViewModel
             }
         }
 
+        public ICommand AddNewElement {  get; set; }   
 
         public SectionUCViewModel() { }
 
@@ -68,18 +73,22 @@ namespace UTExLMS.ViewModels.UCViewModel
             _idCourse= section.IdCourse;
             _nameSection = _section.NameSection;
             _descript = _section.Descript;
-
+            AddNewElement = new RelayCommand(_ => AddElement());
         }
 
         private void UpdateSection()
         {
             SectionService sectionService = new SectionService();
-            //MessageBox.Show(_nameSection);
             sectionService.UpdateSection(_idCourse, _idSection, _nameSection, _descript);
             OnPropertyChanged(nameof(NameSection));
             OnPropertyChanged(nameof(Descript));
             OnPropertyChanged(nameof(IdCourse));
             OnPropertyChanged(nameof(IdSection));
+        }
+        private void AddElement()
+        {
+            ElementChosenWView elementChosenWView = new ElementChosenWView(_section);
+            elementChosenWView.Show();
         }
     }
 }

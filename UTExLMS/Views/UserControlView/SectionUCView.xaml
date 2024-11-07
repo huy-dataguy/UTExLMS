@@ -40,6 +40,6 @@
 
 
         </StackPanel>
-        <Button Grid.Row="4" Content="Thêm bài" Command="{Binding AddNewLectureCommand}" Width="100" Height="30" Margin="10" />
+        <Button Grid.Row="4" Content="Thêm bài" Command="{Binding AddNewElement}" Width="100" Height="30" Margin="10" />
     </Grid>
 </UserControl>

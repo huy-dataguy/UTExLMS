@@ -7,14 +7,12 @@ namespace UTExLMS.Models
     {
         public Role()
         {
-            Lecturers = new HashSet<Lecturer>();
-            Students = new HashSet<Student>();
+            People = new HashSet<Person>();
         }
 
         public int IdRole { get; set; }
-        public string? NameRole { get; set; }
+        public string? RoleName { get; set; }
 
-        public virtual ICollection<Lecturer> Lecturers { get; set; }
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Person> People { get; set; }
     }
 }
