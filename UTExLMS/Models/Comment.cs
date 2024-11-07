@@ -7,12 +7,13 @@ namespace UTExLMS.Models
     {
         public int IdCmt { get; set; }
         public string? Content { get; set; }
+        public DateTime? CommentDate { get; set; }
+        public int? IdCourse { get; set; }
+        public int? IdSection { get; set; }
         public int? IdDiscuss { get; set; }
-        public int? IdStudent { get; set; }
-        public int? IdLecturer { get; set; }
+        public int? IdPerson { get; set; }
 
-        public virtual Discussion? IdDiscussNavigation { get; set; }
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
-        public virtual Student? IdStudentNavigation { get; set; }
+        public virtual Discussion? Id { get; set; }
+        public virtual Person? IdPersonNavigation { get; set; }
     }
 }

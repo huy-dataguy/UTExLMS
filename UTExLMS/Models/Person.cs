@@ -3,18 +3,21 @@ using System.Collections.Generic;
 
 namespace UTExLMS.Models
 {
-    public partial class Student
+    public partial class Person
     {
-        public Student()
+        public Person()
         {
-            AssignmentStudents = new HashSet<AssignmentStudent>();
             Comments = new HashSet<Comment>();
             CourseStudents = new HashSet<CourseStudent>();
+            Courses = new HashSet<Course>();
             StudentAns = new HashSet<StudentAn>();
-            Submissions = new HashSet<Submission>();
+            StudentAssignments = new HashSet<StudentAssignment>();
+            StudentTests = new HashSet<StudentTest>();
+            IdCourses = new HashSet<Course>();
+            Ids = new HashSet<Element>();
         }
 
-        public int IdStudent { get; set; }
+        public int IdPerson { get; set; }
         public string? Email { get; set; }
         public DateTime? Birthday { get; set; }
         public string? Gender { get; set; }
@@ -25,10 +28,14 @@ namespace UTExLMS.Models
         public string? Pass { get; set; }
 
         public virtual Role? IdRoleNavigation { get; set; }
-        public virtual ICollection<AssignmentStudent> AssignmentStudents { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<StudentAn> StudentAns { get; set; }
-        public virtual ICollection<Submission> Submissions { get; set; }
+        public virtual ICollection<StudentAssignment> StudentAssignments { get; set; }
+        public virtual ICollection<StudentTest> StudentTests { get; set; }
+
+        public virtual ICollection<Course> IdCourses { get; set; }
+        public virtual ICollection<Element> Ids { get; set; }
     }
 }

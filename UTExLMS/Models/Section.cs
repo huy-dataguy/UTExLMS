@@ -9,8 +9,7 @@ namespace UTExLMS.Models
         {
             Assignments = new HashSet<Assignment>();
             Discussions = new HashSet<Discussion>();
-            Materials = new HashSet<Material>();
-            Tests = new HashSet<Test>();
+            Elements = new HashSet<Element>();
         }
 
         public int IdSection { get; set; }
@@ -21,7 +20,6 @@ namespace UTExLMS.Models
         public virtual Course IdCourseNavigation { get; set; } = null!;
         public virtual ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<Discussion> Discussions { get; set; }
-        public virtual ICollection<Material> Materials { get; set; }
-        public virtual ICollection<Test> Tests { get; set; }
+        public virtual ICollection<Element> Elements { get; set; }
     }
 }

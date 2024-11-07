@@ -21,10 +21,10 @@ namespace UTExLMS.Service
             _addition = new Addition();
         }
 
-        public ObservableCollection<OverviewCourse> GetCourses(int idstudent, string searchTerm = "", string selectedFilter = "All")
+        public ObservableCollection<OverviewCourse> GetCourses(int idStudent, string searchTerm = "", string selectedFilter = "All")
         {
             var courses = _addition.OverviewCourses
-                .FromSqlRaw($"SELECT * FROM GetCourses({idstudent}, '{searchTerm}', '{selectedFilter}')")
+                .FromSqlRaw($"SELECT * FROM GetCourses({idStudent}, '{searchTerm}', '{selectedFilter}')")
                 .ToList();
 
             foreach (OverviewCourse courseInfo in courses)
@@ -41,7 +41,5 @@ namespace UTExLMS.Service
             string path1 = Directory.GetParent(path).Parent.Parent.FullName;
             return Path.Combine(path1, "Assets", "course.png");
         }
-
-
     }
 }

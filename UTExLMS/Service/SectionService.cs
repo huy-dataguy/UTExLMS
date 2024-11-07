@@ -33,7 +33,12 @@ namespace UTExLMS.Service
         public void UpdateSection(int idCourse, int idSection, string nameSection, string descript)
         {
        
-            _addition.Database.ExecuteSqlRaw($"EXEC UpdateSection @idCourse={idCourse}, @idSection = {idSection}, @nameSection ='{nameSection}', @descript = '{descript}'");
+            _addition.Database.ExecuteSqlRaw($"EXEC UpdateSection " +
+                $"@idCourse={idCourse}, " +
+                $"@idSection = {idSection}, " +
+                $"@nameSection ='{nameSection}', " +
+                $"@descript = '{descript}'");
         }
+        
     }
 }

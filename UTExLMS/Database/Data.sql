@@ -1,108 +1,109 @@
-﻿
+﻿USE UTExLMS;
 
-use UTExLMS
--- Insert sample data into Roles
+-- Chèn dữ liệu vào bảng Student
+INSERT INTO Student (idStudent, email, birthday, gender, lastName, firstName, phoneNum, pass)
+VALUES 
+    (1, 'student1@utex.edu', '2000-01-01', 'Male', 'Nguyen', 'An', '0912345678', 'password1'),
+    (2, 'student2@utex.edu', '2001-02-15', 'Female', 'Le', 'Binh', '0912345679', 'password2');
 
-INSERT INTO Roles (idRole, nameRole) VALUES 
-(1, 'Student'),
-(2, 'Lecturer');
+-- Chèn dữ liệu vào bảng Lecturer
+INSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, pass)
+VALUES 
+    (1, 'lecturer1@utex.edu', '1980-05-10', 'Male', 'Tran', 'Quang', '0912345680', 'password1'),
+    (2, 'lecturer2@utex.edu', '1978-08-20', 'Female', 'Do', 'Minh', '0912345681', 'password2');
 
--- Insert sample data into Student
-INSERT INTO Student (idStudent, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
-(1, 'student1@example.com', '2001-01-01', 'Male', 'Nguyen', 'Van A', '1234567890', 1, 'password1'),
-(2, 'student2@example.com', '2002-02-02', 'Female', 'Le', 'Thi B', '0987654321', 1, 'password2');
+-- Chèn dữ liệu vào bảng Semester
+INSERT INTO Semester (idSemester, nameSemester, startDate, endDate)
+VALUES 
+    (1, 'Spring 2024', '2024-01-01', '2024-05-31'),
+    (2, 'Fall 2024', '2024-09-01', '2024-12-31');
 
--- Insert sample data into Lecturer
-0I0 NSERT INTO Lecturer (idLecturer, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass) VALUES 
-(1, 'lecturer1@example.com', '1980-01-01', 'Male', 'Tran', 'Van C', '1234509876', 2, 'securepass1'),
-(2, 'lecturer2@example.com', '1985-02-02', 'Female', 'Pham', 'Thi D', '0987651234', 2, 'securepass2');
+-- Chèn dữ liệu vào bảng Subjects
+INSERT INTO Subjects (idSubject, nameSubject, idSemester)
+VALUES 
+    (1, 'Mathematics', 1),
+    (2, 'Computer Science', 2);
 
--- Insert sample data into Semester
-INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
-(1, 'Fall 2024', '2024-09-01', '2024-12-31'),
-(2, 'Spring 2025', '2025-01-15', '2025-05-31');
-INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
-(3, 'Fall 2024', '2023-09-01', '2023-12-31'),
-(4, 'Spring 2025', '2025-01-15', '2025-05-31');
-
-
-INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES 
-
-(5, 'Spring 2022', '2024-01-15', '2024-12-31');
+-- Chèn dữ liệu vào bảng Course
+INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse)
+VALUES 
+    (1, 'Calculus 101', 1, 1, 'calculus.jpg'),
+    (2, 'Introduction to Programming', 2, 2, 'programming.jpg');
 
 
--- Insert sample data into Subjects
-INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
-(1, 'Mathematics', 1),
-(2, 'Physics', 1),
-(3, 'Chemistry', 2);
-INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
-(4, 'Mathematics', 3),
-(5, 'Physics', 4),
-(6, 'Chemistry', 3);
-
-INSERT INTO Subjects (idSubject, nameSubject, idSemester) VALUES 
-(7, 'Mathematics', 5);
-
-select * from Subjects
+INSERT INTO Section (idSection, idCourse, nameSection, descript) VALUES
+	(1, 1, 'Introduction to Course', 'Overview and objectives of the course'),
+	(2, 1, 'Chapter 1: Basics', 'Introduction to fundamental concepts'),
+    (3, 1, 'Chapter 2: Advanced Topics', 'Detailed study of advanced topics'),
+    (4, 1, 'Practical Exercises', 'Hands-on practice to reinforce learning'),
+    (5, 1, 'Project Guidelines', 'Instructions for the course project'),
+    (6, 1, 'Final Review', 'Summary and revision for the course assessment');
 
 
 
--- Insert sample data into Course
-INSERT INTO Course (idCourse, nameCourse, idSubject, idLecturer, imgCourse) VALUES 
-(1, 'Math Course A', 3, 1, '/images/math_Course_a.jpg'),
-(2, 'Physics Course B', 4, 2, '/images/math_Course_a.jpg'),
-(3, 'Math Course B', 4, 1, '/images/math_Course_a.jpg'),
-(4, 'Math Course C', 3, 1, '/images/math_Course_a.jpg'),
-(5, 'Math Course D', 4, 1, '/images/math_Course_a.jpg'),
-(6, 'Math Course E', 3, 1, '/images/math_Course_a.jpg');
+Select * from Section
+-- Chèn dữ liệu vào bảng Material
+INSERT INTO Material (idMaterial, filePath, statu, nameMaterial, typeMaterial, idSection, idCourse)
+VALUES 
+    (1, 'path/to/file1.pdf', 1, 'Limits Notes', 'PDF', 1, 1),
+    (2, 'path/to/file2.pdf', 0, 'Python Basics', 'PDF', 2, 2);
 
+-- Chèn dữ liệu vào bảng Test
+INSERT INTO Test (idTest, nameTest, statu, startDate, endDate, timeLimit, descript, idSection, idCourse)
+VALUES 
+    (1, 'Limits Test', 1, '2024-02-01', '2024-02-10', 60, 'Test on limits', 1, 1),
+    (2, 'Python Basics Quiz', 1, '2024-10-01', '2024-10-15', 30, 'Quiz on Python basics', 2, 2);
 
-INSERT INTO Course (idCourse, nameCourse, idSubject, imgCourse) VALUES 
-(7, 'Math Course EE', 7, '/images/math_Course_a.jpg'),
-(8, 'Physics Course EE', 7, '/images/math_Course_a.jpg');
+-- Chèn dữ liệu vào bảng Question
+INSERT INTO Question (idQues, nameQues, A, B, C, D, trueAns, idTest, idSection, idCourse)
+VALUES 
+    (1, 'What is the limit of 1/x as x approaches 0?', '0', 'Infinity', '1', '-1', 'B', 1, 1, 1),
+    (2, 'What is the output of print(2 + 3)?', '2', '5', '23', 'Error', 'B', 2, 2, 2);
 
+-- Chèn dữ liệu vào bảng StudentAns
+INSERT INTO StudentAns (idStudent, ans, idQues, idTest, idSection, idCourse)
+VALUES 
+    (1, 'B', 1, 1, 1, 1),
+    (2, 'B', 2, 2, 2, 2);
 
+-- Chèn dữ liệu vào bảng Assignment
+INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse)
+VALUES 
+    (1, 'Limits Assignment', 1, '2024-02-11', '2024-02-20', 'Assignment on limits', 100, 1, 1),
+    (2, 'Python Project', 0, '2024-10-20', '2024-11-01', 'Simple Python project', 100, 2, 2);
 
-INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
-(1, 2, 80.0),
-(2, 2, 90.0),
-(2, 3, 95.0),
-(2, 4, 33.0),
-(1, 3, 90.0),
-(1, 1, 90.0),
-(1, 4, 33),
-(1, 5, 22),
-(1, 6, 5);
+-- Chèn dữ liệu vào bảng StudentAssignment
+INSERT INTO StudentAssignment (idSubmiss, nameFile, pathFile, typeFile, dateSubmit, idCourse, idSection, idAssign, idStudent)
+VALUES 
+    (1, 'limits_work.pdf', 'path/to/limits_work.pdf', 'PDF', '2024-02-15', 1, 1, 1, 1),
+    (2, 'python_project.zip', 'path/to/python_project.zip', 'ZIP', '2024-11-01', 2, 2, 2, 2);
 
-INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
-(1, 7, 23.0),
-(2, 8, 20.0);
+-- Chèn dữ liệu vào bảng Discussion
+INSERT INTO Discussion (idDiscuss, descript, nameDiscuss, idSection, idCourse)
+VALUES 
+    (1, 'Discussion about limits', 'Limits Discussion', 1, 1),
+    (2, 'Discussion about Python', 'Python Discussion', 2, 2);
 
-INSERT INTO CourseStudent (idStudent, idCourse, progress) VALUES 
-(1, 8, 20.0);
-select * from CourseStudent
+-- Chèn dữ liệu vào bảng LecturerDiscussion
+INSERT INTO LecturerDiscussion (content, commentDate, idCourse, idSection, idDiscuss, idLecturer)
+VALUES 
+    ('Please review the limit concepts.', '2024-02-05', 1, 1, 1, 1),
+    ('Python basics are important.', '2024-10-05', 2, 2, 2, 2);
 
+-- Chèn dữ liệu vào bảng StudentDiscussion
+INSERT INTO StudentDiscussion (content, commentDate, idCourse, idSection, idDiscuss, idStudent)
+VALUES 
+    ('I have a question about limits.', '2024-02-06', 1, 1, 1, 1),
+    ('Can someone explain Python loops?', '2024-10-06', 2, 2, 2, 2);
 
-USE UTExLMS;
+-- Chèn dữ liệu vào bảng CourseStudent
+INSERT INTO CourseStudent (idStudent, idCourse, progress)
+VALUES 
+    (1, 1, 50.0),
+    (2, 2, 75.0);
 
--- Xóa tất cả bản ghi trong bảng CourseStudent
-DELETE FROM CourseStudent;
-
--- Xóa tất cả bản ghi trong bảng Course
-DELETE FROM Course;
-
--- Xóa tất cả bản ghi trong bảng Subjects
-DELETE FROM Subjects;
-
--- Xóa tất cả bản ghi trong bảng Semester
-DELETE FROM Semester;
-
--- Xóa tất cả bản ghi trong bảng Lecturer
-DELETE FROM Lecturer;
-
--- Xóa tất cả bản ghi trong bảng Student
-DELETE FROM Student;
-
--- Xóa tất cả bản ghi trong bảng Roles
-DELETE FROM Roles;
+-- Chèn dữ liệu vào bảng CourseLecturer
+INSERT INTO CourseLecturer (idLecturer, idCourse)
+VALUES 
+    (1, 1),
+    (2, 2);

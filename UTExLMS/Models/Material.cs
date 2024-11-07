@@ -10,9 +10,9 @@ namespace UTExLMS.Models
         public bool? Statu { get; set; }
         public string? NameMaterial { get; set; }
         public string? TypeMaterial { get; set; }
-        public int? IdSection { get; set; }
-        public int? IdCourse { get; set; }
+        public int IdSection { get; set; }
+        public int IdCourse { get; set; }
 
-        public virtual Section? Id { get; set; }
+        public virtual Element Id { get; set; } = null!;
     }
 }

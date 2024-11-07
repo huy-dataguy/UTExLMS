@@ -1,17 +1,15 @@
-Create Database UTExLMS
-
+CREATE DATABASE UTExLMS;
 USE UTExLMS;
 
-
--- Bảng Roles
+-- Table Roles
 CREATE TABLE Roles (
     idRole INT PRIMARY KEY,
-    nameRole VARCHAR(100)
+    roleName VARCHAR(50)
 );
 
--- Bảng Student
-CREATE TABLE Student (
-    idStudent INT PRIMARY KEY,
+-- Table Person
+CREATE TABLE Person (
+    idPerson INT PRIMARY KEY,
     email VARCHAR(100) UNIQUE,
     birthday DATE,
     gender VARCHAR(10),
@@ -19,27 +17,14 @@ CREATE TABLE Student (
     firstName VARCHAR(50),
     phoneNum VARCHAR(15) UNIQUE,
     idRole INT,
-    pass VARCHAR(15),
-    FOREIGN KEY (idRole) REFERENCES Roles(idRole),
-    CHECK (gender IN ('Male', 'Female', 'Other'))
+    pass VARCHAR(50),
+    CHECK (gender IN ('Male', 'Female', 'Other')),
+    FOREIGN KEY (idRole) REFERENCES Roles(idRole) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
--- Bảng Lecturer
-CREATE TABLE Lecturer (
-    idLecturer INT PRIMARY KEY,
-    email VARCHAR(100) UNIQUE,
-    birthday DATE,
-    gender VARCHAR(10),
-    lastName VARCHAR(50),
-    firstName VARCHAR(50),
-    phoneNum VARCHAR(15) UNIQUE,
-    idRole INT,
-    pass VARCHAR(255),
-    FOREIGN KEY (idRole) REFERENCES Roles(idRole),
-    CHECK (gender IN ('Male', 'Female', 'Other'))
-);
-
--- Bảng Semester
+-- Table Semester
 CREATE TABLE Semester (
     idSemester INT PRIMARY KEY,
     nameSemester VARCHAR(100),
@@ -47,50 +32,72 @@ CREATE TABLE Semester (
     endDate DATE
 );
 
--- Bảng Subjects
+-- Table Subjects
 CREATE TABLE Subjects (
     idSubject INT PRIMARY KEY,
     nameSubject VARCHAR(100),
     idSemester INT,
     FOREIGN KEY (idSemester) REFERENCES Semester(idSemester)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Course
+-- Table Course
 CREATE TABLE Course (
     idCourse INT PRIMARY KEY,
     nameCourse VARCHAR(100),
     idSubject INT,
     idLecturer INT,
     imgCourse VARCHAR(255),
-    FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject),
-    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)
+    FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (idLecturer) REFERENCES Person(idPerson)
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE
 );
 
--- Bảng Section
+-- Table Section
 CREATE TABLE Section (
     idSection INT,
     idCourse INT,
     nameSection VARCHAR(100),
     descript VARCHAR(255),
-    PRIMARY KEY (idSection, idCourse),
+    PRIMARY KEY (idCourse, idSection),
     FOREIGN KEY (idCourse) REFERENCES Course(idCourse)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Material
+-- Table Element
+CREATE TABLE Element (
+    idElement INT,
+    idCourse INT,
+    idSection INT,
+    PRIMARY KEY (idElement, idCourse, idSection),
+    FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Table Material
 CREATE TABLE Material (
-    idMaterial INT PRIMARY KEY,
+    idMaterial INT,
     filePath VARCHAR(255),
     statu BIT DEFAULT 0,
     nameMaterial VARCHAR(100),
     typeMaterial VARCHAR(50),
     idSection INT,
     idCourse INT,
-    FOREIGN KEY (idSection, idCourse) REFERENCES Section(idSection, idCourse)
+    PRIMARY KEY (idMaterial, idCourse, idSection),
+    FOREIGN KEY (idMaterial, idCourse, idSection) REFERENCES Element(idElement, idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Test
+-- Table Test
 CREATE TABLE Test (
-    idTest INT PRIMARY KEY,
+    idTest INT,
     nameTest VARCHAR(100),
     statu BIT DEFAULT 0,
     startDate DATE,
@@ -99,12 +106,15 @@ CREATE TABLE Test (
     descript VARCHAR(255),
     idSection INT,
     idCourse INT,
-    FOREIGN KEY (idSection, idCourse) REFERENCES Section(idSection, idCourse)
+    PRIMARY KEY (idTest, idCourse, idSection),
+    FOREIGN KEY (idTest, idCourse, idSection) REFERENCES Element(idElement, idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Question
+-- Table Question
 CREATE TABLE Question (
-    idQues INT PRIMARY KEY,
+    idQues INT,
     nameQues VARCHAR(255),
     A VARCHAR(255),
     B VARCHAR(255),
@@ -112,22 +122,35 @@ CREATE TABLE Question (
     D VARCHAR(255),
     trueAns VARCHAR(1),
     idTest INT,
-    FOREIGN KEY (idTest) REFERENCES Test(idTest)
+    idSection INT,
+    idCourse INT,
+    PRIMARY KEY (idQues, idTest, idCourse, idSection),
+    FOREIGN KEY (idTest, idCourse, idSection) REFERENCES Test(idTest, idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng StudentAns
+-- Table StudentAns
 CREATE TABLE StudentAns (
-    idAns INT PRIMARY KEY,
-    studentAns VARCHAR(1),
-    idStudent INT,
+    idPerson INT,
+    ans VARCHAR(1),
+    isTrue BIT DEFAULT 0,
     idQues INT,
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
-    FOREIGN KEY (idQues) REFERENCES Question(idQues)
+    idTest INT,
+    idSection INT,
+    idCourse INT,
+    PRIMARY KEY (idPerson, idCourse, idSection, idTest, idQues),
+    FOREIGN KEY (idPerson) REFERENCES Person(idPerson)
+        ON DELETE NO Action
+        ON UPDATE NO Action,
+    FOREIGN KEY (idQues, idTest,idCourse, idSection ) REFERENCES Question( idQues,idTest, idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Assignment
+-- Table Assignment
 CREATE TABLE Assignment (
-    idAssign INT PRIMARY KEY,
+    idAssign INT,
     nameAssign VARCHAR(100),
     statu BIT DEFAULT 0,
     startDate DATE,
@@ -136,62 +159,118 @@ CREATE TABLE Assignment (
     grade FLOAT,
     idSection INT,
     idCourse INT,
-    FOREIGN KEY (idSection, idCourse) REFERENCES Section(idSection, idCourse)
+    PRIMARY KEY (idCourse, idSection, idAssign),
+    FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng AssignmentStudent
-CREATE TABLE AssignmentStudent (
-    idAssign INT,
+-- Table StudentTest
+CREATE TABLE StudentTest (
     idStudent INT,
-    numAttempts INT,
+    idCourse INT,
+    idSection INT,
+    idTest INT,
     totalScore FLOAT,
-    totalTimeSpent INT,
-    PRIMARY KEY (idAssign, idStudent),
-    FOREIGN KEY (idAssign) REFERENCES Assignment(idAssign),
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent)
+    PRIMARY KEY (idStudent, idCourse, idSection, idTest),
+    FOREIGN KEY (idTest,idCourse, idSection) REFERENCES Test(idTest, idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (idStudent) REFERENCES Person(idPerson)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
--- Bảng Submission
-CREATE TABLE Submission (
-    idSubmiss INT PRIMARY KEY,
+-- Table StudentAssignment
+CREATE TABLE StudentAssignment (
     nameFile VARCHAR(100),
     pathFile VARCHAR(255),
     typeFile VARCHAR(50),
     dateSubmit DATE,
+    idCourse INT,
+    idSection INT,
     idAssign INT,
     idStudent INT,
-    FOREIGN KEY (idAssign) REFERENCES Assignment(idAssign),
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent)
+    PRIMARY KEY (idStudent, idCourse, idSection, idAssign),
+    FOREIGN KEY (idCourse, idSection, idAssign) REFERENCES Assignment(idCourse, idSection, idAssign)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (idStudent) REFERENCES Person(idPerson)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
--- Bảng Discussion
+-- Table Discussion
 CREATE TABLE Discussion (
-    idDiscuss INT PRIMARY KEY,
+    idDiscuss INT,
     descript VARCHAR(255),
     nameDiscuss VARCHAR(100),
     idSection INT,
     idCourse INT,
-    FOREIGN KEY (idSection, idCourse) REFERENCES Section(idSection, idCourse)
+    PRIMARY KEY (idCourse, idSection, idDiscuss),
+    FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng Comment
+-- Table Comment
 CREATE TABLE Comment (
-    idCmt INT PRIMARY KEY,
+    idCmt INT,
     content VARCHAR(255),
+    commentDate DATETIME,
+    idCourse INT,
+    idSection INT,
     idDiscuss INT,
-    idStudent INT,
-    idLecturer INT,
-    FOREIGN KEY (idDiscuss) REFERENCES Discussion(idDiscuss),
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
-    FOREIGN KEY (idLecturer) REFERENCES Lecturer(idLecturer)
+    idPerson INT,
+    PRIMARY KEY (idCmt),
+    FOREIGN KEY (idCourse, idSection, idDiscuss) REFERENCES Discussion(idCourse, idSection, idDiscuss)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (idPerson) REFERENCES Person(idPerson)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
--- Bảng CourseStudent
+
+
+-- Table CourseStudent
 CREATE TABLE CourseStudent (
     idStudent INT,
     idCourse INT,
     progress FLOAT,
     PRIMARY KEY (idStudent, idCourse),
-    FOREIGN KEY (idStudent) REFERENCES Student(idStudent),
+    FOREIGN KEY (idStudent) REFERENCES Person(idPerson)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
     FOREIGN KEY (idCourse) REFERENCES Course(idCourse)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Table Studied
+CREATE TABLE Studied (
+    idPerson INT,
+    idCourse INT,
+    idSection INT,
+    idElement INT,
+    PRIMARY KEY (idPerson, idCourse, idSection, idElement),
+    FOREIGN KEY (idPerson) REFERENCES Person(idPerson)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (idElement,idCourse, idSection) REFERENCES Element(idElement,idCourse, idSection)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Table CourseLecturer
+Create TABLE CourseLecturer (
+    idLecturer INT,
+    idCourse INT,
+    PRIMARY KEY (idLecturer, idCourse),
+    FOREIGN KEY (idLecturer) REFERENCES Person(idPerson)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (idCourse) REFERENCES Course(idCourse)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
