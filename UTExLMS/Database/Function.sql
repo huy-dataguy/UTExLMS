@@ -1,5 +1,8 @@
 ﻿--Function--
-Alter FUNCTION GetCourses (
+
+use UTExLMS
+
+Create FUNCTION GetCourses (
     @personId INT,
     @searchTerm NVARCHAR(100),
     @selectedFilter VARCHAR(20)  -- Thêm tham số search term
@@ -37,7 +40,7 @@ RETURN (
 );
 
 
-Select * from GetCourses (1, '', 'All');
+Select * from GetCourses (3, '', 'Past');
 
 ---------------------------
 
