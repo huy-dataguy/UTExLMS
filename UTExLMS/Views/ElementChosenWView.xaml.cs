@@ -6,30 +6,32 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.Models;
 using UTExLMS.ViewModels;
+using UTExLMS.Models;
 
 namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for LectureCoursePView.xaml
+    /// Interaction logic for ElementChosenWView.xaml
     /// </summary>
-    public partial class LectureCoursePView : Page
+    public partial class ElementChosenWView : Window
     {
-        public LectureCoursePView()
+        public ElementChosenWView()
         {
             InitializeComponent();
         }
-        public LectureCoursePView(OverviewCourse overviewCourse)
+        public ElementChosenWView(Section section)
         {
             InitializeComponent();
-            DataContext = new LectureCourseViewModel(overviewCourse);
+            ElementChosenWViewModel elementViewModel = new ElementChosenWViewModel(section);
+            elementViewModel.CloseAction = () => this.Close();
+            this.DataContext = elementViewModel;
+            
         }
     }
 }

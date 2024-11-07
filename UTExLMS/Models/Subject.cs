@@ -7,7 +7,7 @@ namespace UTExLMS.Models
     {
         public Subject()
         {
-            Classes = new HashSet<Class>();
+            Courses = new HashSet<Course>();
         }
 
         public int IdSubject { get; set; }
@@ -15,6 +15,6 @@ namespace UTExLMS.Models
         public int? IdSemester { get; set; }
 
         public virtual Semester? IdSemesterNavigation { get; set; }
-        public virtual ICollection<Class> Classes { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

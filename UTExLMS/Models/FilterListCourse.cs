@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace UTExLMS.Models
 {
-    public class FilterListClass
+    public class FilterListCourse
     {
         public List<string> SelectedName { get; }
-        public FilterListClass()
+        public FilterListCourse()
         {
             this.SelectedName = new List<string>{
                 "All",

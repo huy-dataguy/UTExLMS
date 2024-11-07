@@ -22,6 +22,7 @@ namespace UTExLMS
         {
             InitializeComponent();
             DataContext = new ViewModels.MainViewModel();
+<<<<<<< HEAD
         }
         private void IconButton_Click(object sender, RoutedEventArgs e)
         {
@@ -35,6 +36,8 @@ namespace UTExLMS
         {
             ProfilePView profilePView = new ProfilePView();
             profilePView.Show();
+=======
+>>>>>>> develop
         }
     }
 }

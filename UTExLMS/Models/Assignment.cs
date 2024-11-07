@@ -7,8 +7,7 @@ namespace UTExLMS.Models
     {
         public Assignment()
         {
-            AssignmentStudents = new HashSet<AssignmentStudent>();
-            Submissions = new HashSet<Submission>();
+            StudentAssignments = new HashSet<StudentAssignment>();
         }
 
         public int IdAssign { get; set; }
@@ -18,12 +17,10 @@ namespace UTExLMS.Models
         public DateTime? EndDate { get; set; }
         public string? Descript { get; set; }
         public double? Grade { get; set; }
-        public int? IdSection { get; set; }
-        public int? IdLecturer { get; set; }
+        public int IdSection { get; set; }
+        public int IdCourse { get; set; }
 
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
-        public virtual Section? IdSectionNavigation { get; set; }
-        public virtual ICollection<AssignmentStudent> AssignmentStudents { get; set; }
-        public virtual ICollection<Submission> Submissions { get; set; }
+        public virtual Section Id { get; set; } = null!;
+        public virtual ICollection<StudentAssignment> StudentAssignments { get; set; }
     }
 }

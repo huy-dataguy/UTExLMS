@@ -8,6 +8,7 @@ namespace UTExLMS.Models
         public Test()
         {
             Questions = new HashSet<Question>();
+            StudentTests = new HashSet<StudentTest>();
         }
 
         public int IdTest { get; set; }
@@ -17,11 +18,11 @@ namespace UTExLMS.Models
         public DateTime? EndDate { get; set; }
         public int? TimeLimit { get; set; }
         public string? Descript { get; set; }
-        public int? IdSection { get; set; }
-        public int? IdLecturer { get; set; }
+        public int IdSection { get; set; }
+        public int IdCourse { get; set; }
 
-        public virtual Lecturer? IdLecturerNavigation { get; set; }
-        public virtual Section? IdSectionNavigation { get; set; }
+        public virtual Element Id { get; set; } = null!;
         public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<StudentTest> StudentTests { get; set; }
     }
 }

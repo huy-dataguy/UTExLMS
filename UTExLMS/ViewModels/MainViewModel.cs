@@ -61,7 +61,6 @@ namespace UTExLMS.ViewModels
                 OnPropertyChanged(nameof(Body));
             }
         }
-
         public MainViewModel()
         {
             Body = new ListCourseView();
