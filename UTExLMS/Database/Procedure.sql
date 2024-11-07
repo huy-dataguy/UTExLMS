@@ -65,8 +65,7 @@ END;
 
 --------------------------------------
 
-CREATE PROCEDURE AddAssignment (
-    @idAssign INT,
+Create PROCEDURE AddAssignment (
     @nameAssign VARCHAR(100),
     @statu BIT = 0,  -- Giá trị mặc định là 0
     @startDate DATE,
@@ -78,64 +77,16 @@ CREATE PROCEDURE AddAssignment (
 )
 AS
 BEGIN
-    -- Kiểm tra xem bài tập có tồn tại chưa
-    IF EXISTS (SELECT 1 FROM Assignment WHERE idAssign = @idAssign AND idCourse = @idCourse AND idSection = @idSection)
-    BEGIN
-        PRINT 'Assignment with this ID already exists for the specified course and section.';
-    END
-    ELSE
-    BEGIN
-        -- Thêm bài tập mới vào bảng Assignment
-        INSERT INTO Assignment (
-            idAssign,
-            nameAssign,
-            statu,
-            startDate,
-            endDate,
-            descript,
-            grade,
-            idSection,
-            idCourse
-        )
-        VALUES (
-            @idAssign,
-            @nameAssign,
-            @statu,  -- Nếu không truyền vào giá trị, sẽ mặc định là 0
-            @startDate,
-            @endDate,
-            @descript,
-            @grade,  -- Nếu không truyền vào giá trị, sẽ mặc định là 0
-            @idSection,
-            @idCourse
-        );
-        
-        PRINT 'Assignment added successfully.';
-    END
-END;
+	Declare @idAssign INT;
+	Select @idAssign = ISNULL(MAX(idElement),0) + 1
+	from Element 
+	where
+	Element.idCourse = @idCourse and Element.idSection = idSection;
 
--------------------------
-CREATE PROCEDURE AddAssignment (
-    @idAssign INT,
-    @nameAssign VARCHAR(100),
-    @statu BIT = 0,  -- Giá trị mặc định là 0
-    @startDate DATE,
-    @endDate DATE,
-    @descript VARCHAR(255),
-    @grade FLOAT = 0,  -- Giá trị mặc định là 0
-    @idSection INT,
-    @idCourse INT
-)
-AS
-BEGIN
-    -- Kiểm tra xem bài tập có tồn tại chưa
-    IF EXISTS (SELECT 1 FROM Assignment WHERE idAssign = @idAssign AND idCourse = @idCourse AND idSection = @idSection)
-    BEGIN
-        PRINT 'Assignment with this ID already exists for the specified course and section.';
-    END
-    ELSE
-    BEGIN
-        -- Thêm bài tập mới vào bảng Assignment
-        INSERT INTO Assignment (
+	INsert into Element (idElement, idCourse, idSection)
+	values (@idAssign,@idCourse,@idSection);
+
+		INSERT INTO Assignment (
             idAssign,
             nameAssign,
             statu,
@@ -159,5 +110,5 @@ BEGIN
         );
         
         PRINT 'Assignment added successfully.';
-    END
+    
 END;
