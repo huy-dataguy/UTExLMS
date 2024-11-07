@@ -57,7 +57,6 @@ namespace UTExLMS.ViewModels
 
             _selectedFilter = FilterOption.SelectedName[0];
             SearchCmd = new RelayCommand(OnSearch);
-
             UpdateStudentClasses();
         }
 
@@ -77,7 +76,6 @@ namespace UTExLMS.ViewModels
             UpdateStudentClasses();
 
         }
-
 
     }
 }

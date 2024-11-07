@@ -30,7 +30,7 @@ namespace UTExLMS.Service
             //    .ToList();
 
             List<OverviewClass> classes = _context.OverviewClasses
-                .FromSqlRaw($"SELECT * FROM GetStudentCoursesByStatus({idstudent}, '{status}', '{searchTerm}')")
+                .FromSqlRaw($"SELECT * FROM GetCourses({idstudent}, '{status}', '{searchTerm}')")
                 .ToList();
 
 

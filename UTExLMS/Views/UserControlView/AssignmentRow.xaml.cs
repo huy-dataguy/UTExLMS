@@ -10,29 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.Models;
-using UTExLMS.ViewModels;
 
-
-namespace UTExLMS.Views
+namespace UTExLMS.Views.UserControlView
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for AssignmentRow.xaml
     /// </summary>
-    public partial class ProfilePView : Window
+    public partial class AssignmentRow : UserControl
     {
-        public ProfilePView()
+        public AssignmentRow()
         {
             InitializeComponent();
-
         }
-        public ProfilePView(MainViewModel mainViewModel)
-        {
-            InitializeComponent();
-            this.DataContext = ProfileLecturerViewModel(mainViewModel);
-        }
-
-      
     }
 }

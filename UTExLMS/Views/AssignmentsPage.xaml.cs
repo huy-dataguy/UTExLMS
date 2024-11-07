@@ -12,27 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UTExLMS.ViewModels;
-
 namespace UTExLMS.Views
 {
-    /// <summary>
-    /// Interaction logic for LoginView.xaml
-    /// </summary>
-    public partial class LoginView : Window
+    public partial class AssignmentsPage : Window
     {
-        public LoginView()
+        public AssignmentsPage()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is LoginViewModel viewModel)
+            if (sender is DataGrid dataGrid && dataGrid.SelectedItem is UTExLMS.ViewModels.AssignmentsViewModel selectedAssignment)
             {
-                viewModel.UpdatePassword(PasswordBox.Password);
+                // Display the assignment name and score in a message box
+                //MessageBox.Show($"Tên bài tập: {selectedAssignment.Name}\nĐiểm: {selectedAssignment.Score}", "Assignment Details");
             }
         }
     }
-
 }
