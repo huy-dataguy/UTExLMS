@@ -1,0 +1,92 @@
+﻿<Page x:Class="UTExLMS.Views.HomeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UTExLMS.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1024" d:DesignWidth="1440"
+       xmlns:vm="clr-namespace:UTExLMS.ViewModels"
+      Title="HomeView">
+    <Page.DataContext>
+        <vm:MainViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <Style x:Key="Main_MenuItem"
+               TargetType="{x:Type MenuItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                        <Border x:Name="border"
+                                BorderThickness="0">
+                            <Grid>
+                                <!--// Icon //-->
+                                <ContentPresenter ContentSource="Icon"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Height="28"
+                                                  Width="34"
+                                                  Margin="8,0,0,0" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="263"/>
+                <ColumnDefinition Width="862"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="190"/>
+            </Grid.ColumnDefinitions>
+            <Menu HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Height="32" Width="554">
+                <MenuItem Header="Trang chủ" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="169"/>
+                <MenuItem Header="Bảng điều khiển"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="169"/>
+                <MenuItem Header="Khóa học của tôi"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="216"/>
+                <MenuItem>
+                    <Image Source="{Binding ringIcon}" Grid.Column="3" Margin="76,0,0,0" HorizontalAlignment="Left"/>
+                </MenuItem>
+                <MenuItem>
+                    <Image Source="{Binding avatar}" Grid.Column="3" Margin="45,0,0,0" HorizontalAlignment="Left" Width="41" />
+                </MenuItem>
+            </Menu>
+            <!--<Image Source="Assets/BellGray.png" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>-->
+            <!--<Image Source="Assets/avatar.png" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>-->
+            <Border BorderBrush="Red" BorderThickness="2">
+                <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
+                </Image>
+            </Border>
+            <Grid Grid.Column="3">
+                <Menu>
+                    <MenuItem Height="49" Style="{StaticResource Main_MenuItem}">
+                        <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+                    </MenuItem>
+
+                    <MenuItem Height="51" Style="{StaticResource Main_MenuItem}">
+                        <Image Source="{Binding avatar}" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>
+                    </MenuItem>
+                </Menu>
+            </Grid>
+        </Grid>
+
+        <!--<Frame Grid.Row="1" Background="#EEF2F8" Content="{Binding Body}" />-->
+        <Grid Grid.Row="1" Background="#EEF2F8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1350"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="1" Margin="0,10,0,20"  Background="White" Content="{Binding Body}" />
+            <!--<ContentPresenter Grid.Column="1" Margin="0,10,0,20" Content="{Binding Body}" />-->
+        </Grid>
+
+    </Grid>
+</Page>

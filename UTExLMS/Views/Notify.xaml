@@ -1,0 +1,27 @@
+﻿<Window x:Class="UTExLMS.Views.Notify"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UTExLMS.Views"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="Notify" Height="1024" Width="1440">
+
+    <Window.Resources>
+        <Style x:Key="DataGridTextCenterColumnStyle" TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellStyle}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="50,50,50,50">
+        <DataGrid hc:DataGridAttach.ShowRowNumber="True" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False" ItemsSource="{Binding ListDeadline}">
+            <DataGrid.Columns>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="2*" CanUserResize="False" Binding="{Binding nameDeadline}" Header="Deadline"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding type}" Header="Type"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding startTime}" Header="Begin"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding endTime}" Header="End"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

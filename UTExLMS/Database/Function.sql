@@ -58,6 +58,8 @@ RETURN
     WHERE 
         s.idCourse = @idCourse
 );
+---------------------------
+
 
 
 
