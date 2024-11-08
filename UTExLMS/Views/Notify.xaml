@@ -4,22 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UTExLMS.Views"
+        xmlns:vm="clr-namespace:UTExLMS.ViewModels"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="Notify" Height="1024" Width="1440">
 
-    <Window.Resources>
+    <Window.DataContext>
+        <vm:NotifyViewModel/>
+    </Window.DataContext>
+        <Window.Resources>
         <Style x:Key="DataGridTextCenterColumnStyle" TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellStyle}">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
         </Style>
     </Window.Resources>
     <Grid Margin="50,50,50,50">
         <DataGrid hc:DataGridAttach.ShowRowNumber="True" HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False" ItemsSource="{Binding ListDeadline}">
             <DataGrid.Columns>
-                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="2*" CanUserResize="False" Binding="{Binding nameDeadline}" Header="Deadline"/>
-                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding type}" Header="Type"/>
-                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding startTime}" Header="Begin"/>
-                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding endTime}" Header="End"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="2*" CanUserResize="False" Binding="{Binding NameDeadline}" Header="Deadline"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding Type}" Header="Type"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding StartTime}" Header="Begin"/>
+                <DataGridTextColumn CellStyle="{StaticResource DataGridTextCenterColumnStyle}" Width="1*" Binding="{Binding EndTime}" Header="End"/>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -13,6 +13,7 @@ namespace UTExLMS.Models
         public int IdElement { get; set; }
         public int IdCourse { get; set; }
         public int IdSection { get; set; }
+        public string? TypeElement { get; set; }
 
         public virtual Section Id { get; set; } = null!;
         public virtual Material Material { get; set; } = null!;

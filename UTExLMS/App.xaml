@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:UTExLMS"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/Notify.xaml">
 <Application.Resources>
     <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>

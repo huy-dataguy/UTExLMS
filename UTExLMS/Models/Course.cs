@@ -9,7 +9,7 @@ namespace UTExLMS.Models
         {
             CourseStudents = new HashSet<CourseStudent>();
             Sections = new HashSet<Section>();
-            IdPeople = new HashSet<Person>();
+            IdLecturers = new HashSet<Person>();
         }
 
         public int IdCourse { get; set; }
@@ -23,6 +23,6 @@ namespace UTExLMS.Models
         public virtual ICollection<CourseStudent> CourseStudents { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
 
-        public virtual ICollection<Person> IdPeople { get; set; }
+        public virtual ICollection<Person> IdLecturers { get; set; }
     }
 }

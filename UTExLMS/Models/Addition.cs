@@ -10,6 +10,7 @@ namespace UTExLMS.Models
     public class Addition: UTExLMSContext
     {
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
+        public virtual DbSet<Notify> Notifys { get; set; }
         public Addition() { }
         public Addition(DbContextOptions<UTExLMSContext> options)
         : base(options)
@@ -24,6 +25,8 @@ namespace UTExLMS.Models
             modelBuilder.Entity<OverviewCourse>()
                 .HasKey(oc => new { oc.IdPerson, oc.IdCourse }); // Đặt khóa chính cho OverviewCourse
             
+            modelBuilder.Entity<Notify>()
+                .HasKey(noti => new { noti.NameDeadline, noti.Type }); // Đặt khóa chính cho Notify
         }
     }
 }
