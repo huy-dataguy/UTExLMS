@@ -58,27 +58,27 @@
 
                 <!-- Command Binding -->
                 <hc:Card.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding FileCommand}" />
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AddFile}" />
                 </hc:Card.InputBindings>
             </hc:Card>
 
-            <!--Quiz-->
+            <!--Test-->
             <hc:Card MaxWidth="100" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8">
                 <Border CornerRadius="4,4,0,0" Width="75" Height="75">
                     <Border.Background>
-                        <ImageBrush ImageSource="{Binding IconQuiz}" />
+                        <ImageBrush ImageSource="{Binding IconTest}" />
                     </Border.Background>
                 </Border>
 
                 <hc:Card.Footer>
                     <StackPanel Margin="10" Width="75">
-                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="Quiz" HorizontalAlignment="Center" FontSize="13" />
+                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="Test" HorizontalAlignment="Center" FontSize="13" />
                     </StackPanel>
                 </hc:Card.Footer>
 
                 <!-- Command Binding -->
                 <hc:Card.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding QuizCommand}" />
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AddTest}" />
                 </hc:Card.InputBindings>
             </hc:Card>
 

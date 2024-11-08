@@ -31,7 +31,6 @@ namespace UTExLMS.Service
             {
                 courseInfo.ImgCourse = GetImagePath();
             }
-
             return new ObservableCollection<OverviewCourse>(courses);
         }
 

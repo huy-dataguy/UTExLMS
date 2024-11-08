@@ -10,6 +10,8 @@ namespace UTExLMS.Models
     public class Addition: UTExLMSContext
     {
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
+
+        public virtual DbSet<ElementPreview> ElementPreviews { get; set; }
         public Addition() { }
         public Addition(DbContextOptions<UTExLMSContext> options)
         : base(options)
@@ -23,7 +25,10 @@ namespace UTExLMS.Models
             // Cấu hình OverviewCourse
             modelBuilder.Entity<OverviewCourse>()
                 .HasKey(oc => new { oc.IdPerson, oc.IdCourse }); // Đặt khóa chính cho OverviewCourse
-            
+            modelBuilder.Entity<ElementPreview>()
+                .HasKey(oc => new { oc.IdElement, oc.IdCourse, oc.IdSection }); // Đặt khóa chính cho OverviewCourse
+
         }
+
     }
 }

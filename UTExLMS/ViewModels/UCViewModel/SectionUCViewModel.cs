@@ -11,6 +11,7 @@ using UTExLMS.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 using UTExLMS.Commands;
+using System.Collections.ObjectModel;
 
 
 namespace UTExLMS.ViewModels.UCViewModel
@@ -73,10 +74,19 @@ namespace UTExLMS.ViewModels.UCViewModel
             _idCourse= section.IdCourse;
             _nameSection = _section.NameSection;
             _descript = _section.Descript;
+            UpdateElementList();
+            
             AddNewElement = new RelayCommand(_ => AddElement());
         }
 
-        private void UpdateSection()
+        public void UpdateElementList()
+        {
+            ElementPreviewService elementPreviewService = new ElementPreviewService();
+            LectureItems = elementPreviewService.GetElementPreviews(_section);
+            OnPropertyChanged(nameof(LectureItems));
+        }
+
+        public void UpdateSection()
         {
             SectionService sectionService = new SectionService();
             sectionService.UpdateSection(_idCourse, _idSection, _nameSection, _descript);
@@ -87,8 +97,13 @@ namespace UTExLMS.ViewModels.UCViewModel
         }
         private void AddElement()
         {
-            ElementChosenWView elementChosenWView = new ElementChosenWView(_section);
+            ElementChosenWView elementChosenWView = new ElementChosenWView(_section, this);
             elementChosenWView.Show();
+            UpdateElementList();
         }
+
+        public ObservableCollection<ElementPreview>LectureItems { get; set; }
+        
+
     }
 }

@@ -11,7 +11,9 @@
       Title="LectureCoursePView">
 
     <Grid>
-        <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="50,0,50,0" Height="650">
+
+            <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="900"/>
@@ -43,7 +45,6 @@
                     </Grid>
                 </Grid>
                 <StackPanel Grid.Row="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="50,0,50,0" Height="650">
                         <!-- Chỉ định chiều cao cho ScrollViewer -->
                         <ItemsControl x:Name="sectionContainer" ItemsSource="{Binding SectionUCs}">
                             <ItemsControl.ItemTemplate>
@@ -52,8 +53,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </ScrollViewer>
-
+                    
                     <StackPanel Margin="0,30,0,10">
                         <Button Style="{StaticResource ButtonPrimary}" Command="{Binding AddSection}" Content="Add section"/>
                     </StackPanel>
@@ -61,5 +61,7 @@
 
             </Grid>
         </Grid>
+        </ScrollViewer>
+
     </Grid>
 </Page>
