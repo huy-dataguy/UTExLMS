@@ -6,34 +6,31 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using UTExLMS.ViewModels;
 using UTExLMS.ViewModels.UCViewModel;
-
 using UTExLMS.Models;
+using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for ElementChosenWView.xaml
+    /// Interaction logic for AddDocumentWView.xaml
     /// </summary>
-    public partial class ElementChosenWView : Window
+    public partial class AddDocumentWView : Window
     {
-        public ElementChosenWView()
+        public AddDocumentWView()
         {
             InitializeComponent();
         }
-        public ElementChosenWView(Section section, SectionUCViewModel sectionUCViewModel)
+        public AddDocumentWView(Section section, SectionUCViewModel sectionUCViewModel)
         {
             InitializeComponent();
-            ElementChosenWViewModel elementViewModel = new ElementChosenWViewModel(section, sectionUCViewModel);
-            elementViewModel.CloseAction = () => this.Close();
-            this.DataContext = elementViewModel;
-            
+            AddDocumentWViewModel addDocumentWViewModel = new AddDocumentWViewModel(section, sectionUCViewModel);
+            addDocumentWViewModel.closeAction = new Action(() => this.Close());
+            this.DataContext = addDocumentWViewModel;
         }
     }
 }

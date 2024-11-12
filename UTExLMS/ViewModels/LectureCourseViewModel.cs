@@ -54,6 +54,8 @@ namespace UTExLMS.ViewModels
             sectionService.AddNewSection(idCourse);
             Sections = sectionService.GetSections(idCourse);
             UpdateSections();
+
+            
         }
 
     }

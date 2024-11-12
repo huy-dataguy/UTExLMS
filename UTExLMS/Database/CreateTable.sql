@@ -100,6 +100,7 @@ CREATE TABLE Material (
         ON UPDATE CASCADE
 );
 
+
 -- Table Test
 CREATE TABLE Test (
     idTest INT,

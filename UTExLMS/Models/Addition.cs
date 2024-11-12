@@ -12,6 +12,8 @@ namespace UTExLMS.Models
     {
         public virtual DbSet<ElementSection> ElementSections { get; set; } 
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
+
+        public virtual DbSet<ElementPreview> ElementPreviews { get; set; }
         public Addition() { }
         public Addition(DbContextOptions<UTExLMSContext> options)
         : base(options)
@@ -28,6 +30,10 @@ namespace UTExLMS.Models
             modelBuilder.Entity<ElementSection>()
                 .HasKey(oc => new { oc.IdElement });
             
+            modelBuilder.Entity<ElementPreview>()
+                .HasKey(oc => new { oc.IdElement, oc.IdCourse, oc.IdSection }); // Đặt khóa chính cho OverviewCourse
+
         }
+
     }
 }
