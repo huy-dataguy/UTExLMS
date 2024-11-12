@@ -43,24 +43,62 @@ RETURN (
 Select * from GetCourses (3, '', 'Past');
 
 ---------------------------
-
-CREATE FUNCTION GetSectionsByCourseId
-(
-    @idCourse INT
+drop function GetSectionsByCourse
+CREATE FUNCTION GetSectionsByCourse (
+    @CourseId INT
 )
 RETURNS TABLE
 AS
-RETURN
+RETURN 
 (
     SELECT 
-        s.idSection,
-        s.nameSection,
-        s.descript
+        *
     FROM 
         Section s
     WHERE 
-        s.idCourse = @idCourse
+        s.idCourse = @CourseId
 );
+select * from GetSectionsByCourse(1)
+
+CREATE FUNCTION GetElementsByCourseAndSection (
+    @CourseId INT, 
+    @SectionId INT
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT 
+        e.idElement,
+        CASE 
+            WHEN e.nameType = 'Material' THEN m.nameMaterial
+            WHEN e.nameType = 'Test' THEN t.nameTest
+            WHEN e.nameType = 'Assignment' THEN a.nameAssign
+        END AS ElementName,
+        e.nameType 
+    FROM 
+        Element e
+    LEFT JOIN 
+        Material m ON e.idElement = m.idMaterial 
+            AND e.idCourse = m.idCourse 
+            AND e.idSection = m.idSection 
+            AND e.nameType = 'Material'
+    LEFT JOIN 
+        Test t ON e.idElement = t.idTest 
+            AND e.idCourse = t.idCourse 
+            AND e.idSection = t.idSection 
+            AND e.nameType = 'Test'
+    LEFT JOIN 
+        Assignment a ON e.idElement = a.idAssign 
+            AND e.idCourse = a.idCourse 
+            AND e.idSection = a.idSection 
+            AND e.nameType = 'Assignment'
+    WHERE 
+        e.idCourse = @CourseId 
+        AND e.idSection = @SectionId
+);
+
+select * from GetElementsByCourseAndSection(1, 1)
 
 
 

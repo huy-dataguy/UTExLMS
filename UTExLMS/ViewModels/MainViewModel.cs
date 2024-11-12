@@ -59,7 +59,7 @@ namespace UTExLMS.ViewModels
         }
         public MainViewModel()
         {
-            Body = new ListCourseView(this);
+            Body = new StudentCourseDetailPView();
             //Body = new ProfileView();
         }
     }

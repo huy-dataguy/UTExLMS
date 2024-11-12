@@ -1,5 +1,5 @@
 ﻿--List of procedure
-
+use UTExLMS
 CREATE PROCEDURE UpdateLecturerInfo
     @IdLecturer INT,
     @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
@@ -112,3 +112,8 @@ BEGIN
         PRINT 'Assignment added successfully.';
     
 END;
+
+
+
+
+

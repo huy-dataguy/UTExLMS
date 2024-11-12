@@ -30,9 +30,5 @@ namespace UTExLMS.ViewModels
             CloseAction();
             createAssignmentWView.Show();
         } 
-
-        
-
-        
     }
 }

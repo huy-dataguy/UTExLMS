@@ -62,43 +62,60 @@ INSERT INTO Section (idSection, idCourse, nameSection, descript) VALUES
 
 
 -- Bảng Element
-INSERT INTO Element (idElement, idCourse, idSection) VALUES
-(1, 1, 1),
-(2, 2, 2);
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(1, 1, 1, 'Material'),
+(2, 1, 1, 'Material');
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(1, 2, 2, 'Material'),
+(2, 2, 2, 'Material');
+
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(8, 1, 3, 'Material'),
+(7, 1, 3, 'Material');
+
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(3, 1, 1, 'Test'),
+(4, 1, 1, 'Test');
+
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(5, 1, 1, 'Assignment');
 
 -- Bảng Material
 INSERT INTO Material (idMaterial, filePath, statu, nameMaterial, typeMaterial, idSection, idCourse) VALUES
 (1, '/materials/algebra.pdf', 1, 'Algebra Basics', 'PDF', 1, 1),
-(2, '/materials/python_intro.pdf', 1, 'Python Intro', 'PDF', 2, 2);
-
+(2, '/materials/python_intro.pdf', 1, 'Python Intro', 'PDF', 1, 1);
+INSERT INTO Material (idMaterial, filePath, statu, nameMaterial, typeMaterial, idSection, idCourse) VALUES
+(7, '/materials/algebra.pdf', 1, 'Algebra Basics', 'PDF', 3, 1),
+(8, '/materials/python_intro.pdf', 1, 'Python Intro', 'PDF', 3, 1);
 -- Bảng Test
 INSERT INTO Test (idTest, nameTest, statu, startDate, endDate, timeLimit, descript, idSection, idCourse) VALUES
-(1, 'Algebra Test', 1, '2024-09-10', '2024-09-11', 60, 'Basic algebra test', 1, 1),
-(2, 'Python Test', 0, '2024-09-20', '2024-09-21', 90, 'Intro to Python test', 2, 2);
+(3, 'Algebra Test', 1, '2024-09-10', '2024-09-11', 60, 'Basic algebra test', 1, 1),
+(4, 'Python Test', 0, '2024-09-20', '2024-09-21', 90, 'Intro to Python test', 1, 1);
 
 -- Bảng Question
 INSERT INTO Question (idQues, nameQues, A, B, C, D, trueAns, idTest, idSection, idCourse) VALUES
-(1, 'What is 2+2?', '3', '4', '5', '6', 'B', 1, 1, 1),
-(2, 'What is the capital of France?', 'Berlin', 'Madrid', 'Paris', 'Rome', 'C', 2, 2, 2);
+(1, 'What is 2+2?', '3', '4', '5', '6', 'B', 3, 1, 1),
+(2, 'What is the capital of France?', 'Berlin', 'Madrid', 'Paris', 'Rome', 'C', 3, 1, 1);
 
 -- Bảng StudentAns
 INSERT INTO StudentAns (idPerson, ans, isTrue, idQues, idTest, idSection, idCourse) VALUES
-(3, 'B', 1, 1, 1, 1, 1),
-(3, 'C', 1, 2, 2, 2, 2);
+(3, 'B', 1, 1, 3, 1, 1),
+(3, 'C', 1, 2, 3, 1, 1);
 
 -- Bảng Assignment
 INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
 (1, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
-(2, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 2, 2);
+(2, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
 
 -- Bảng StudentTest
 INSERT INTO StudentTest (idStudent, idCourse, idSection, idTest, totalScore) VALUES
-(3, 1, 1, 1, 95.0),
-(3, 2, 2, 2, 88.0);
+(3, 1, 1, 3, 95.0),
+(3, 1, 1, 4, 88.0);
 
+--chưa làm tới đây
 -- Bảng StudentAssignment
 INSERT INTO StudentAssignment (nameFile, pathFile, typeFile, dateSubmit, idCourse, idSection, idAssign, idStudent) VALUES
-('homework1.pdf', '/submissions/algebra_homework1.pdf', 'PDF', '2024-09-04', 1, 1, 1, 3),
+('homework1.pdf', '/submissions/algebra_homework1.pdf', 'PDF', '2024-09-04', 1, 1, 1, 3);
 ('project1.zip', '/submissions/python_project1.zip', 'ZIP', '2024-09-14', 2, 2, 2, 3);
 
 -- Bảng Discussion

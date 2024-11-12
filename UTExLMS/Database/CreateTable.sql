@@ -74,11 +74,16 @@ CREATE TABLE Element (
     idElement INT,
     idCourse INT,
     idSection INT,
+	nameType VARCHAR(10),
     PRIMARY KEY (idElement, idCourse, idSection),
     FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+
+
+
 
 -- Table Material
 CREATE TABLE Material (
