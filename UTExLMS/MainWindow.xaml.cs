@@ -31,10 +31,5 @@ namespace UTExLMS
             IconContextMenu.HorizontalOffset = -50; // Điều chỉnh giá trị này theo nhu cầu của bạn
             IconContextMenu.IsOpen = true; // Mở ContextMenu
         }
-        private void OpenProfile(object sender, RoutedEventArgs e)
-        {
-            ProfilePView profilePView = new ProfilePView();
-            profilePView.Show();
-        }
     }
 }
