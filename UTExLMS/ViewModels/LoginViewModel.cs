@@ -5,17 +5,18 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UTExLMS.Commands;
+using UTExLMS.Models;
+using UTExLMS.Service;
 namespace UTExLMS.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
         private string _email;
         private string _password;
-        private bool _isStudent;
-
-        // Properties for Email, Password, and UserType (Student/Teacher)
+        private Person _person;
         public string Email
         {
             get => _email;
@@ -36,35 +37,24 @@ namespace UTExLMS.ViewModels
             }
         }
 
-        public bool IsStudent
-        {
-            get => _isStudent;
-            set
-            {
-                _isStudent = value;
-                OnPropertyChanged();
-            }
-        }
-
-        // Command to handle the Login action
         public ICommand LoginCommand { get; }
 
         public LoginViewModel()
         {
-            LoginCommand = new LoginCommand(this);
+            LoginCommand = new RelayCommand(_ => Login());
         }
 
-        // Method for the Login action
-        private void Login(object parameter)
+        private void Login()
         {
-            // Implement login logic here
-            if (IsStudent)
+            ProfileService profileService = new ProfileService();
+            _person = profileService.loginAuth(Email, Password);
+            if (_person == null)
             {
-                // Handle student login
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu");
             }
             else
             {
-                // Handle teacher login
+                MessageBox.Show("Đăng nhập thành công");
             }
         }
         public void UpdatePassword(string password)
@@ -72,13 +62,6 @@ namespace UTExLMS.ViewModels
             Password = password;
         }
 
-        // Determine if login is possible
-        private bool CanLogin(object parameter)
-        {
-            return !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password);
-        }
-
-        // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

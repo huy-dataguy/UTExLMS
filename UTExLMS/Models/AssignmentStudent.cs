@@ -26,6 +26,6 @@ namespace UTExLMS.Models
         public int? TotalTimeSpent { get; set; }
 
         public virtual Assignment IdAssignNavigation { get; set; } = null!;
-        public virtual Student IdStudentNavigation { get; set; } = null!;
+        public virtual Person  IdStudentNavigation { get; set; } = null!;
     }
 }

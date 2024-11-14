@@ -49,11 +49,6 @@
                             Command="{Binding LoginCommand}"/>
                 </Border>
 
-                <!-- User Type Selection -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30,0,20">
-                    <RadioButton GroupName="UserType" Content="Student" FontFamily="Exo" FontWeight="SemiBold" FontSize="16" Margin="0,0,20,0"/>
-                    <RadioButton GroupName="UserType" Content="Teacher" FontFamily="Exo" FontWeight="SemiBold" FontSize="16"/>
-                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

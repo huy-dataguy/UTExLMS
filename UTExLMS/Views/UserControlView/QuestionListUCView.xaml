@@ -10,38 +10,40 @@
     <!--<UserControl.DataContext>
         <vm:QuestionListUCViewModel/>
     </UserControl.DataContext>-->
-
     <Grid Margin="20">
-        <TextBlock Text="{Binding SelectedQuestion.NameQues}" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
 
-        <StackPanel Margin="0,50,0,0">
-            <RadioButton Content="{Binding SelectedQuestion.OptionA}" 
-                         GroupName="Answers" 
-                         Command="{Binding SelectAnswerCommand}" 
-                         CommandParameter="A"
-                         HorizontalAlignment="Left"
-                         FontSize="18" Margin="20,10,0,0"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding NameQues}" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <RadioButton Content="{Binding SelectedQuestion.OptionB}" 
-                         GroupName="Answers" 
-                         Command="{Binding SelectAnswerCommand}" 
-                         CommandParameter="B"
-                         HorizontalAlignment="Left"
-                         FontSize="18" Margin="20,10,0,0"/>
+        <StackPanel Grid.Row="1" Margin="0,50,0,0">
+            <RadioButton Content="{Binding A}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="A"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding B}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="B"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding C}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="C"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding D}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="D"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
 
-            <RadioButton Content="{Binding SelectedQuestion.OptionC}" 
-                         GroupName="Answers" 
-                         Command="{Binding SelectAnswerCommand}" 
-                         CommandParameter="C"
-                         HorizontalAlignment="Left"
-                         FontSize="18" Margin="20,10,0,0"/>
-
-            <RadioButton Content="{Binding SelectedQuestion.OptionD}" 
-                         GroupName="Answers" 
-                         Command="{Binding SelectAnswerCommand}" 
-                         CommandParameter="D"
-                         HorizontalAlignment="Left"
-                         FontSize="18" Margin="20,10,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -12,19 +12,19 @@ namespace UTExLMS.Service
         private readonly UTExLMSContext _context;
         public List<AssignmentStudent> AssignmentStudent { get; set; }
 
-        public AssignmentStudentService(UTExLMSContext context, int idStudent)
-        {
-            _context = context;
-            AssignmentStudent = GetAssignmentStudentsById( idStudent);
-        }
-        public List<AssignmentStudent> GetAssignmentStudentsById(int idstudent)
-        {
-            List<AssignmentStudent> assignment = _context.AssignmentStudents
-            .FromSqlRaw($"SELECT * FROM GetStudentAssignments({1})")
-            .ToList();
+        //public AssignmentStudentService(UTExLMSContext context, int idStudent)
+        //{
+        //    _context = context;
+        //    AssignmentStudent = GetAssignmentStudentsById( idStudent);
+        //}
+        //public List<AssignmentStudent> GetAssignmentStudentsById(int idstudent)
+        //{
+        ////    List<AssignmentStudent> assignment = _context.AssignmentStudents
+        ////    .FromSqlRaw($"SELECT * FROM GetStudentAssignments({1})")
+        ////    .ToList();
 
-            return assignment;
-        }
+        ////    return assignment;
+        ////}
     }
 
 

@@ -26,7 +26,7 @@ namespace UTExLMS.Service
                 new SqlParameter("@idTest", SqlDbType.Int) { Value = idTest }
             };
 
-            _addition.Database.ExecuteSqlRaw("EXEC CalculateStudentScore , @idStudent, @idCourse, @idSection, @idTest", parameters);
+            _addition.Database.ExecuteSqlRaw("EXEC CalculateStudentScore  @idStudent, @idCourse, @idSection, @idTest", parameters);
         }
     }
 

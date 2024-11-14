@@ -29,7 +29,7 @@ namespace UTExLMS.ViewModels
         {
             Submit = new RelayCommand(CalculateStudentScore);
             QuestionService questionService = new QuestionService();
-            Questions = questionService.GetQuestions(_test.IdTest, _test.IdSection, _test.IdCourse);
+            Questions = questionService.GetQuestions(1,1,1001);
             UpdateQuestions();
         }
 
@@ -46,7 +46,9 @@ namespace UTExLMS.ViewModels
         private void CalculateStudentScore()
         {
             CalculateScoreService calculateScoreService = new CalculateScoreService();
-            calculateScoreService.CalculateScore(_idStudent, _test.IdCourse, _test.IdSection, _test.IdTest);
+            //calculateScoreService.CalculateScore(_idStudent, _test.IdCourse, _test.IdSection, _test.IdTest);
+            calculateScoreService.CalculateScore(101, 1001, 1, 1);
+
         }
     }
 }

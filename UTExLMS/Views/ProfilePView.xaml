@@ -1,4 +1,4 @@
-﻿<Window x:Class="UTExLMS.Views.ProfileView"
+﻿<Window x:Class="UTExLMS.Views.ProfilePView"
       xmlns:service="clr-namespace:UTExLMS.Service"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,7 +8,10 @@
       mc:Ignorable="d"
       Title="ProfileView" Height="800" Width="1350">
 
-
+    <Window.DataContext>
+        <local:ProfileLecturerViewModel/>
+    </Window.DataContext>
+    
     <Grid Margin="40">
 		<!-- Define Columns and Rows -->
 		<Grid.ColumnDefinitions>
@@ -40,7 +43,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
                          VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                         Text="{Binding Profile.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding profile.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
 			</StackPanel>
 
 			<!-- Last Name (Tên) -->
@@ -49,7 +52,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
                          VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                         Text="{Binding Profile.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding profile.LastName, UpdateSourceTrigger=PropertyChanged}"/>
 			</StackPanel>
 		</StackPanel>
 
@@ -59,7 +62,7 @@
 		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="1" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding Profile.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding profile.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Birth Date -->
 		<TextBlock Text="Ngày sinh" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -67,7 +70,7 @@
 		<DatePicker Width="500" Height="40" HorizontalAlignment="Left"
                     Grid.Row="2" Grid.Column="1" Margin="80,50,0,0"
                     VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                    SelectedDate="{Binding Profile.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+                    SelectedDate="{Binding profile.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Gender -->
         <TextBlock Text="Giới tính" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -91,7 +94,7 @@
 		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="4" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding Profile.PhoneNum, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding profile.PhoneNum, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Password -->
 		<TextBlock Text="Password" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -99,7 +102,7 @@
         <TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="5" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding Profile.Pass, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding profile.Pass, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Cancel Button -->
 		<Button Content="Cancel" Width="180" Height="55" HorizontalAlignment="Left"

@@ -23,7 +23,9 @@ namespace UTExLMS.Models
             // Cấu hình OverviewCourse
             modelBuilder.Entity<OverviewCourse>()
                 .HasKey(oc => new { oc.IdPerson, oc.IdCourse }); // Đặt khóa chính cho OverviewCourse
-            
+            modelBuilder.Entity<OverviewCourse>()
+                .HasKey(oc => new { oc.IdPerson, oc.IdCourse }); // Đặt khóa chính cho OverviewCourse
+
         }
     }
 }

@@ -63,9 +63,7 @@ namespace UTExLMS.ViewModels
         }
         public MainViewModel()
         {
-            Body = new ListCourseView();
-            OpenProfile = new RelayCommand(OpenProfilePage);
-            //Body = new ProfileView();
+            Body = new Quiz();
         }
         private void OpenProfilePage()
         {

@@ -19,15 +19,15 @@ namespace UTExLMS.ViewModels
         public ObservableCollection<AssignmentStudent> Assignments { get; private set; }
         public AssignmentsViewModel(UTExLMSContext context)
         {
-            _context = context;
-            UpdateAssignment();
+            //_context = context;
+            //UpdateAssignment();
         }
-        private void UpdateAssignment()  
-        {
-            _assignment = new AssignmentStudentService(_context, _id);
-            Assignments = new ObservableCollection<AssignmentStudent>(_assignment.AssignmentStudent);
-            //OnPropertyChanged(nameof(StudentClasses));
-        }
+        //private void UpdateAssignment()  
+        //{
+        //    _assignment = new AssignmentStudentService(_context, _id);
+        //    Assignments = new ObservableCollection<AssignmentStudent>(_assignment.AssignmentStudent);
+        //    //OnPropertyChanged(nameof(StudentClasses));
+        //}
     }
 
 }

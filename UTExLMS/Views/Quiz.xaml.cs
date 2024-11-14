@@ -12,17 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using UTExLMS.ViewModels;
 namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for QuestionListPView.xaml
+    /// Interaction logic for Quiz.xaml
     /// </summary>
-    public partial class QuestionListPView : Page
+    public partial class Quiz : Page
     {
-        public QuestionListPView()
+        public Quiz()
         {
             InitializeComponent();
+            DataContext = new QuestionListViewModel();
         }
     }
 }

@@ -25,14 +25,16 @@ namespace UTExLMS.Views
         public ProfilePView()
         {
             InitializeComponent();
+            UTExLMSContext context = new UTExLMSContext();
+            this.DataContext = new ProfileLecturerViewModel(context);
 
         }
-        public ProfilePView(MainViewModel mainViewModel)
-        {
-            InitializeComponent();
-            this.DataContext = ProfileLecturerViewModel(mainViewModel);
-        }
+        //public ProfilePView(MainViewModel mainViewModel)
+        //{
+        //    InitializeComponent();
+        //    this.DataContext = ProfileLecturerViewModel(mainViewModel);
+        //}
 
-      
+
     }
 }

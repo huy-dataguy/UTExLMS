@@ -12,36 +12,41 @@ using System.Windows.Input;
 using UTExLMS.Commands;
 using UTExLMS.Models;
 using UTExLMS.Service;
+using System.Data.Entity;
 namespace UTExLMS.ViewModels
 {
     public class QuestionListUCViewModel : ViewModelBase
     {
-
         private string _selectedAnswer;
-        private int _idStudent;
-        
-        private Question _question{  get; set; }
-        private int _idQues;
-        private string _nameQues;
-        private string _A;
-        private string _B;
-        private string _C;
-        private string _D;
+        private Question _question;
+
+        // Properties to bind in XAML, defined as auto-properties with private setters
+        public int IdQues { get; private set; }
+        public int IdTest {  get; private set; }
+        public int IdCourse { get; private set; }
+
+        public int IdSection { get; private set; }
+        public string NameQues { get; private set; }
+        public string A { get; private set; }
+        public string B { get; private set; }
+        public string C { get; private set; }
+        public string D { get; private set; }
         private string _trueAns;
-        private int _idTest { get; set; }
-        private int _idSection { get; set; }
-        private int _idCourse { get; set; }
 
         public QuestionListUCViewModel() { }
+
         public QuestionListUCViewModel(Question question)
         {
             _question = question;
-            _idQues = question.IdQues;
-            _nameQues = question.NameQues;
-            _A = question.A;
-            _B = question.B;
-            _C = question.C;
-            _D = question.D;
+            IdQues = question.IdQues;
+            IdTest = question.IdTest;
+            IdCourse = question.IdCourse;
+            IdSection = question.IdSection;
+            NameQues = question.NameQues;
+            A = question.A;
+            B = question.B;
+            C = question.C;
+            D = question.D;
             _trueAns = question.TrueAns;
 
             SelectAnswerCommand = new RelayCommand<string>(SelectAnswer);
@@ -52,12 +57,11 @@ namespace UTExLMS.ViewModels
 
         public void SelectAnswer(string answer)
         {
-            
-            //SelectedAnswer = answer;
-            //StudentAnswerService studentAnswerService = new StudentAnswerService();
-            //studentAnswerService.AddStudentAnswer(SelectedAnswer, _idStudent, _test.IdCourse, _test.IdSection, _test.IdTest, _idQues);
-            MessageBox.Show(answer);
+            SelectedAnswer = answer;
+            QuestionService questionService = new QuestionService();
+            questionService.AddStudentAnswer(answer, 101,IdCourse, IdSection, IdTest, IdQues);
         }
+
         public string SelectedAnswer
         {
             get => _selectedAnswer;

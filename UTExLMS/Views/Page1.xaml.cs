@@ -12,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.ViewModels.UCViewModel;
-using UTExLMS.Models;
-using UTExLMS.ViewModels;
-namespace UTExLMS.Views.UserControlView
+
+namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for QuestionListUCView.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class QuestionListUCView : UserControl
+    public partial class Page1 : Page
     {
-        public QuestionListUCView()
+        public Page1()
         {
             InitializeComponent();
-            
-        }
-        public QuestionListUCView(Question question)
-        {
-            MessageBox.Show("OKOK");
-            DataContext = new QuestionListUCViewModel(question);
         }
     }
 }

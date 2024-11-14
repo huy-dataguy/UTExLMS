@@ -30,7 +30,7 @@
                         <ItemsControl x:Name="sectionContainer" ItemsSource="{Binding QuestionsList}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <uc:QuestionListUCView DataContext="{Binding}" Margin="5" HorizontalAlignment="Center" />
+                                    <uc:QuestionUCView DataContext="{Binding}" Margin="5" HorizontalAlignment="Center" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
