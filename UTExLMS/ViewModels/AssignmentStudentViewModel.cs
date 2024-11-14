@@ -130,6 +130,18 @@ namespace UTExLMS.ViewModels
                 // Sao chép tệp vào thư mục Materials
                 File.Copy(selectedFilePath, targetFilePath, true); // true để ghi đè nếu tệp đã tồn tại
 
+                if (AssignmentSubmited == null)
+                {
+                    AssignmentSubmited = new StudentAssignment
+                    {
+                        IdStudent = elementInfor.IdStudent,
+                        IdCourse = elementInfor.IdCourse,
+                        IdSection = elementInfor.IdSection,
+                        IdAssign = assignment.IdAssign,
+                        DateSubmit = DateTime.Now,
+                        PathFile = nameFile
+                    };
+                }
                 new AssignmentService().UpdateStudentAssignment(elementInfor, assignment, nameFile, DateTime.Now);
 
                 AssignmentSubmited.DateSubmit = DateTime.Now;

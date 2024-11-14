@@ -394,7 +394,8 @@ RETURN
 
 drop procedure UpdateStudentAssignment
 -- Giả sử bạn muốn cập nhật bài tập của sinh viên với ID là 123 cho khóa học, phần học, và bài tập có ID là 1
-
+use UTExLMS
+select * from StudentAssignment
 
 CREATE PROCEDURE UpdateStudentAssignment
     @nameFile VARCHAR(100),

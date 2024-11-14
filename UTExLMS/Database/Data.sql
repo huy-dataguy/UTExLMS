@@ -11,6 +11,14 @@ INSERT INTO Person (idPerson, email, birthday, gender, lastName, firstName, phon
 (1, 'admin@example.com', '1980-01-01', 'Male', 'Admin', 'System', '0123456789', 1, 'adminpass'),
 (2, 'lecturer1@example.com', '1985-05-20', 'Female', 'Smith', 'Alice', '0987654321', 2, 'lecturerpass'),
 (3, 'student1@example.com', '2000-11-15', 'Male', 'Brown', 'John', '0912345678', 3, 'studentpass');
+-- Bảng Person
+-- Bảng Person
+INSERT INTO Person (idPerson, email, birthday, gender, lastName, firstName, phoneNum, idRole, pass)
+VALUES 
+    (4, 'alice.johnson@example.com', '2000-05-10', 'Female', 'Johnson', 'Alice', '1234567890', 3, 'password123'),
+    (5, 'bob.smith@example.com', '1985-11-22', 'Male', 'Smith', 'Bob', '0987654322', 3, 'securepass456'), -- Sửa số điện thoại
+    (6, 'carol.taylor@example.com', '1990-07-15', 'Female', 'Taylor', 'Carol', '1122334455', 3, 'mypassword789'),
+    (7, 'david.brown@example.com', '1995-03-30', 'Male', 'Brown', 'David', '5566778899', 3, 'adminpass001');
 
 -- Bảng Semester
 INSERT INTO Semester (idSemester, nameSemester, startDate, endDate) VALUES
@@ -62,6 +70,10 @@ INSERT INTO Section (idSection, idCourse, nameSection, descript) VALUES
 
 
 -- Bảng Element
+
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(15, 1, 1, 'Assignment'),
+(16, 1, 1, 'Assignment');
 INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
 (1, 1, 1, 'Material'),
 (2, 1, 1, 'Material');
@@ -80,6 +92,9 @@ INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
 INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
 (5, 1, 1, 'Assignment');
 
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(21, 1, 1, 'Assignment'),
+(24, 1, 1, 'Assignment');
 -- Bảng Material
 INSERT INTO Material (idMaterial, filePath, statu, nameMaterial, typeMaterial, idSection, idCourse) VALUES
 (1, '/materials/algebra.pdf', 1, 'Algebra Basics', 'PDF', 1, 1),
@@ -102,10 +117,18 @@ INSERT INTO StudentAns (idPerson, ans, isTrue, idQues, idTest, idSection, idCour
 (3, 'B', 1, 1, 3, 1, 1),
 (3, 'C', 1, 2, 3, 1, 1);
 
+select * from Assignment
 -- Bảng Assignment
 INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
 (1, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
 (2, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
+
+INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
+(15, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
+(16, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
+INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
+(21, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
+(24, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
 
 -- Bảng StudentTest
 INSERT INTO StudentTest (idStudent, idCourse, idSection, idTest, totalScore) VALUES
@@ -156,3 +179,29 @@ INSERT INTO Studied (idPerson, idCourse, idSection, idElement) VALUES
 INSERT INTO CourseLecturer (idLecturer, idCourse) VALUES
 (2, 1),
 (2, 2);
+
+
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(7, 1, 1, 'Discussion');
+INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
+(8, 1, 1, 'Discussion');
+
+
+-- Bảng Discussion
+INSERT INTO Discussion (idDiscuss, descript, nameDiscuss, idSection, idCourse)
+VALUES 
+    (7, 'Discussion about the lecture on algebra', 'Algebra Discussion', 1, 1),
+    (8, 'Discussion about the lab experiment on optics', 'Optics Lab Discussion', 1, 1);
+
+	select * from Discussion
+
+-- Bảng Comment
+INSERT INTO Comment (idCmt, content, commentDate, idCourse, idSection, idDiscuss, idPerson)
+VALUES 
+    (1, 'I really enjoyed this algebra discussion.', '2024-11-14 10:30:00', 1, 1, 7, 4),
+    (2, 'The lab on optics was very informative.', '2024-11-14 11:00:00', 1, 1, 7, 5),
+    (3, 'Great insights on organic chemistry reactions.', '2024-11-14 12:15:00', 1, 1, 8, 3),
+    (4, 'I loved the biology workshop, it was very interactive.', '2024-11-14 13:45:00', 1, 1, 8, 4);
+
+
+	select * from Comment

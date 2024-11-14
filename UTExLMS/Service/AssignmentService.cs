@@ -50,28 +50,7 @@ namespace UTExLMS.Service
             return assignment;
         }
 
-        //public void UpdateStudentAssignment(Assignment assignment, string nameFile)
-        //{
-        //    try
-        //    {
-        //        _context.Database.ExecuteSqlRaw(
-        //   "EXEC UpdateStudentAssignment @idCourse, @idSection, @idElement, @nameAssign, @statu, @startDate, @endDate, @descript, @grade",
-        //        new SqlParameter("@idCourse", assignment.IdCourse),
-        //        new SqlParameter("@idSection", assignment.IdSection),
-        //        new SqlParameter("@idElement", assignment.IdAssign),
-        //        new SqlParameter("@nameAssign", assignment.NameAssign),
-        //        new SqlParameter("@statu", !assignment.Statu),
-        //        new SqlParameter("@startDate", assignment.StartDate),
-        //        new SqlParameter("@endDate", assignment.EndDate),
-        //        new SqlParameter("@descript", assignment.Descript),
-        //        new SqlParameter("@grade", assignment.Grade)
-
-        //    );
-        //    }
-        //    catch { 
-
-        //    }
-        //}
+     
 
 
         public void UpdateStudentAssignment(ElementSection inforElement, Assignment assignment,  string filePath, DateTime dateSubmit)
@@ -90,14 +69,10 @@ namespace UTExLMS.Service
 
         }
 
-        //@typeFile = 'PDF',  --Loại file mới
-        //@dateSubmit = '2024-11-15',  --Ngày nộp mới
-
 
 
     
 
-    //chua tao sql
     public StudentAssignment GetAssignmentSubmited(int idCourse, int idSection, int idElement, int idStudent)
         {
 

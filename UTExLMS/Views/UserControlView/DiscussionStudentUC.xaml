@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="UTExLMS.Views.UserControlView.DiscussionStudentUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UTExLMS.Views.UserControlView"
+             mc:Ignorable="d" 
+             
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="100" d:DesignWidth="800">
+    <Grid>
+        <Grid Background="AntiqueWhite" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Border Background="LightSkyBlue">
+                <TextBlock Text="{Binding Content}" FontSize="14" VerticalAlignment="Bottom" Margin="5" Grid.Column="0"/>
+            </Border>
+
+            <TextBlock FontSize="14" VerticalAlignment="Bottom" Margin="5" Grid.Column="1">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="IdPersonNavigation.LastName"/>
+                        <Binding Path="IdPersonNavigation.FirstName"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <TextBlock Text="{Binding CommentDate}" FontSize="14" VerticalAlignment="Bottom" Margin="5" Grid.Column="2"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

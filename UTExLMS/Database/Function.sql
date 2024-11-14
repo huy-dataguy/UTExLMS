@@ -83,11 +83,60 @@ RETURN
         s.idCourse = @CourseId
 );
 select * from GetSectionsByCourse(1)
+select * from Discussion
+
+--CREATE FUNCTION GetElementsByCourseAndSection (
+--    @CourseId INT, 
+--    @SectionId INT,
+--    @IdPerson INT
+--)
+--RETURNS TABLE
+--AS
+--RETURN 
+--(
+--    SELECT 
+--        e.idElement,
+--        CASE 
+--            WHEN e.nameType = 'Material' THEN m.nameMaterial
+--            WHEN e.nameType = 'Test' THEN t.nameTest
+--            WHEN e.nameType = 'Assignment' THEN a.nameAssign
+--            WHEN e.nameType = 'Discussion' THEN d.nameDiscuss
+--        END AS ElementName,
+--        e.nameType,
+--        @CourseId AS idCourse,   
+--        @SectionId AS idSection,
+--        @IdPerson AS IdStudent
+--    FROM 
+--        Element e
+--    LEFT JOIN 
+--        Material m ON e.idElement = m.idMaterial 
+--            AND e.idCourse = m.idCourse 
+--            AND e.idSection = m.idSection 
+--            AND e.nameType = 'Material'
+--    LEFT JOIN 
+--        Test t ON e.idElement = t.idTest 
+--            AND e.idCourse = t.idCourse 
+--            AND e.idSection = t.idSection 
+--            AND e.nameType = 'Test'
+--    LEFT JOIN 
+--        Assignment a ON e.idElement = a.idAssign 
+--            AND e.idCourse = a.idCourse 
+--            AND e.idSection = a.idSection 
+--            AND e.nameType = 'Assignment'
+--    LEFT JOIN 
+--        Discussion d ON e.idElement = d.idDiscuss
+--            AND e.idCourse = d.idCourse
+--            AND e.idSection = d.idSection
+--            AND e.nameType = 'Discussion'
+--    WHERE 
+--        e.idCourse = @CourseId 
+--        AND e.idSection = @SectionId
+--);
 
 CREATE FUNCTION GetElementsByCourseAndSection (
     @CourseId INT, 
     @SectionId INT,
-	@IdPerson INT
+    @IdPerson INT
 )
 RETURNS TABLE
 AS
@@ -99,11 +148,13 @@ RETURN
             WHEN e.nameType = 'Material' THEN m.nameMaterial
             WHEN e.nameType = 'Test' THEN t.nameTest
             WHEN e.nameType = 'Assignment' THEN a.nameAssign
+            WHEN e.nameType = 'Discussion' THEN d.nameDiscuss
+            ELSE NULL
         END AS ElementName,
         e.nameType,
-		@CourseId AS idCourse,   
+        @CourseId AS idCourse,   
         @SectionId AS idSection,
-		@IdPerson AS IdStudent
+        @IdPerson AS IdStudent
     FROM 
         Element e
     LEFT JOIN 
@@ -121,12 +172,18 @@ RETURN
             AND e.idCourse = a.idCourse 
             AND e.idSection = a.idSection 
             AND e.nameType = 'Assignment'
+    LEFT JOIN 
+        Discussion d ON e.idElement = d.idDiscuss
+            AND e.idCourse = d.idCourse
+            AND e.idSection = d.idSection
+            AND e.nameType = 'Discussion'
     WHERE 
         e.idCourse = @CourseId 
         AND e.idSection = @SectionId
 );
 
 select * from GetElementsByCourseAndSection(1, 1, 3)
+select * from Assignment
 
 drop function GetElementsByCourseAndSection
 CREATE FUNCTION GetElementPreviews(
@@ -298,3 +355,128 @@ RETURN
         AND sa.idStudent = @idStudent;
 
 select * from GetAssignmentSubmited (1,1,1,3)
+
+
+
+
+
+
+CREATE FUNCTION GetDiscussion (
+    @idCourse INT,
+    @idSection INT,
+    @idElement INT
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT *
+    FROM Discussion
+    WHERE idCourse = @idCourse 
+      AND idSection = @idSection 
+      AND idDiscuss = @idElement
+);
+
+
+select * from GetDiscussion(1,1,8)
+CREATE FUNCTION GetAllComment(
+    @idCourse INT,
+    @idSection INT,
+    @idDiscuss INT
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT 
+        c.idCmt,
+        c.content,
+        c.commentDate,
+        c.idCourse,
+        c.idSection,
+        c.idDiscuss,
+        c.idPerson,
+        p.firstName AS PersonFirstName,
+        p.lastName AS PersonLastName,
+        d.nameDiscuss AS DiscussionName,
+        d.descript AS DiscussionDescription
+    FROM 
+        Comment c
+    JOIN 
+        Person p ON c.idPerson = p.idPerson
+    JOIN 
+        Discussion d ON c.idCourse = d.idCourse 
+                     AND c.idSection = d.idSection 
+                     AND c.idDiscuss = d.idDiscuss
+    WHERE 
+        c.idCourse = @idCourse 
+        AND c.idSection = @idSection 
+        AND c.idDiscuss = @idDiscuss
+);
+
+drop function GetAllComment
+select * from GetAllComment(1,1,8);
+
+
+CREATE FUNCTION GetPersonInfoById
+(
+    @idPerson INT
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT 
+        idPerson,
+        email,
+        birthday,
+        gender,
+        lastName,
+        firstName,
+        phoneNum,
+        idRole,
+        pass
+    FROM 
+        Person
+    WHERE 
+        idPerson = @idPerson
+);
+
+
+select * from GetPersonInfoById(3);
+
+
+CREATE PROCEDURE CreateNewComment
+    @content VARCHAR(255),
+    @commentDate DATETIME,
+    @idCourse INT,
+    @idSection INT,
+    @idDiscuss INT,
+    @idPerson INT
+AS
+BEGIN
+    DECLARE @NewIdCmt INT;
+
+    -- Lấy giá trị idCmt lớn nhất hiện tại và tăng lên 1
+    SELECT @NewIdCmt = COALESCE(MAX(idCmt), 0) + 1 FROM Comment;
+
+    -- Chèn bình luận mới với idCmt mới
+    INSERT INTO Comment (idCmt, content, commentDate, idCourse, idSection, idDiscuss, idPerson)
+    VALUES (@NewIdCmt, @content, @commentDate, @idCourse, @idSection, @idDiscuss, @idPerson);
+
+    -- In ra idCmt mới để xác nhận chèn thành công
+    SELECT @NewIdCmt AS NewCommentId;
+END;
+
+-- Gọi thủ tục để tạo một bình luận mới
+EXEC CreateNewComment 
+    @content = 'This is a sample comment',
+    @commentDate = '2024-11-14 15:45:00',
+    @idCourse = 1,
+    @idSection = 1,
+    @idDiscuss = 7,
+    @idPerson = 3;
+
+	select * from Discussion
+
+
+
