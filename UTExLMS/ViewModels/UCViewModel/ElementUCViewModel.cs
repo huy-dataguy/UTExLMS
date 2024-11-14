@@ -40,15 +40,11 @@ namespace UTExLMS.ViewModels.UCViewModel
 
 
                 case "Assignment":
-
-
-
-                    new AssignmentStudentPView(inforElement).Show();
+                    new AssignmentStudentWView(inforElement).Show();
                      break;
 
                 case "Discussion":
-                    // Handle Discussion case
-                    MessageBox.Show("discuss");
+                    new DiscussionStudentWView(inforElement).Show();
                     break;
 
                 default:

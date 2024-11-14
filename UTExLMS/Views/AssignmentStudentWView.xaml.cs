@@ -20,9 +20,9 @@ namespace UTExLMS.Views
     /// <summary>
     /// Interaction logic for AssignmentStudentPView.xaml
     /// </summary>
-    public partial class AssignmentStudentPView : Window
+    public partial class AssignmentStudentWView : Window
     {
-        public AssignmentStudentPView(ElementSection elementInfor)
+        public AssignmentStudentWView(ElementSection elementInfor)
         {
             InitializeComponent();
             DataContext = new AssignmentStudentViewModel(elementInfor );

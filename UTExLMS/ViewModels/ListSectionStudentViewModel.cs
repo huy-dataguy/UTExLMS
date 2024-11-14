@@ -28,22 +28,24 @@ namespace UTExLMS.ViewModels
             {
                 ObservableCollection<ElementSection> elements = new ListElementService().GetListElement(overviewCourse.IdCourse, section.IdSection, overviewCourse.IdPerson);
 
-                var sectionToggle = new SectionToggle
-                {
-                    HeaderSections = section,
-                    ElementSections = elements
-                };
+            
 
-                SectionToggles.Add(sectionToggle);
+                    var sectionToggle = new SectionToggle
+                    {
+                        HeaderSections = section,
+                        ElementSections = elements
+                    };
+
+                    SectionToggles.Add(sectionToggle);
+                
             }
         }
 
-        private void LoadElement(ElementSection elementInfor)
-        {
-            new ElementUCViewModel(elementInfor);
-        }
-
-   
+            private void LoadElement(ElementSection elementInfor)
+            {
+                new ElementUCViewModel(elementInfor);
+            }
 
     }
+
 }
