@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UTExLMS.Models;
 using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
@@ -21,9 +22,10 @@ namespace UTExLMS.Views
     /// </summary>
     public partial class ListSectionStudentPView : Page
     {
-        public ListSectionStudentPView()
+        public ListSectionStudentPView(OverviewCourse overviewCourse)
         {
             InitializeComponent();
+            DataContext = new ListSectionStudentViewModel(overviewCourse);
 
         }
     }

@@ -13,20 +13,20 @@ namespace UTExLMS.ViewModels
         public ICommand ElementSelectedCommand { get; set; }
         public ObservableCollection<SectionToggle> SectionToggles { get; set; }
 
-        public ListSectionStudentViewModel()
+        public ListSectionStudentViewModel(OverviewCourse overviewCourse)
         {
             SectionToggles = new ObservableCollection<SectionToggle>();
-            LoadSectionsAndElements();
-            ElementSelectedCommand = new RelayCommand<int>(new ElementUCViewModel().ShowTestt);
+            LoadSectionsAndElements(overviewCourse);
+            ElementSelectedCommand = new RelayCommand<ElementSection>(LoadElement);
         }
 
-        private void LoadSectionsAndElements()
+        private void LoadSectionsAndElements(OverviewCourse overviewCourse)
         {
-            var sections = new ListSectionService().GetListSection(1);
+            var sections = new ListSectionService().GetListSection(overviewCourse.IdCourse);
 
             foreach (var section in sections)
             {
-                var elements = new ListElementService().GetListElement(1, section.IdSection);
+                ObservableCollection<ElementSection> elements = new ListElementService().GetListElement(overviewCourse.IdCourse, section.IdSection, overviewCourse.IdPerson);
 
                 var sectionToggle = new SectionToggle
                 {
@@ -37,6 +37,12 @@ namespace UTExLMS.ViewModels
                 SectionToggles.Add(sectionToggle);
             }
         }
+
+        private void LoadElement(ElementSection elementInfor)
+        {
+            new ElementUCViewModel(elementInfor);
+        }
+
    
 
     }

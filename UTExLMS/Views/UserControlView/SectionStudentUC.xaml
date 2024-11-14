@@ -31,14 +31,16 @@
                         </StackPanel>
                         
                     </Expander.Header>
+                    <!--<ItemsControl ItemsSource="{Binding ElementSections}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">-->
                     <ItemsControl ItemsSource="{Binding ElementSections}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
 
 
                                 <Button Width="auto" Height="auto" 
                                     Command="{Binding DataContext.ElementSelectedCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                    CommandParameter="{Binding IdElement}">
+                                    CommandParameter="{Binding}">
                                     
                                 <!--<Button Width="850" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent" BorderBrush="Transparent">-->
                                     <uc:ElementSectionStudentUC Width="750" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />

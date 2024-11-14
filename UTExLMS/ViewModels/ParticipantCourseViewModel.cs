@@ -9,13 +9,14 @@ using UTExLMS.Service;
 
 namespace UTExLMS.ViewModels
 {
-    public class ParticipantCourseViewModel
+    public class ParticipantCourseViewModel : ViewModelBase
     {
-        public ObservableCollection<StudentWithRole> Paticipants { get; set; }
+        public ObservableCollection<Person> Paticipants { get; set; }
 
-        public ParticipantCourseViewModel()
+        public ParticipantCourseViewModel(OverviewCourse overviewCourse)
         {
-            //Paticipants = new ParticipantCourseService().GetParticipantStudent(2);
+            Paticipants = new ParticipantStudentService().GetParticipantStudent(overviewCourse.IdCourse);
         }
+
     }
 }

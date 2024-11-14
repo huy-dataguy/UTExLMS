@@ -11,10 +11,10 @@ namespace UTExLMS.Service
 {
     internal class MaterialService
     {
-        private Addition _addition { get; set; }
+        private UTExLMSContext _context { get; set; }
         public MaterialService()
         {
-            _addition = new Addition();
+            _context = new UTExLMSContext();
         }
         public void AddNewDocument(string filePath, bool statu, string nameMaterial, string typeMaterial, int idSection, int idCourse)
         {
@@ -29,7 +29,17 @@ namespace UTExLMS.Service
                 new SqlParameter("@IdCourse", idCourse)
             };
 
-            _addition.Database.ExecuteSqlRaw(sql, parameters);
+            _context.Database.ExecuteSqlRaw(sql, parameters);
         }
+
+        public Material GetDocument(int idCourse, int idSection, int idElement)
+        {
+            var document = _context.Materials
+                .FromSqlRaw("SELECT * FROM GetMaterialByElement({0}, {1}, {2})", idCourse, idSection, idElement)
+                .FirstOrDefault();
+
+            return document;
+        }
+
     }
 }

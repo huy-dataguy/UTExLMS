@@ -18,12 +18,28 @@ namespace UTExLMS.Service
 
         }
 
-        public ObservableCollection<ElementSection> GetListElement(int idCourse, int idSection)
+        public ObservableCollection<ElementSection> GetListElement(int idCourse, int idSection, int idStudent)
         {
-            var listElements = new ObservableCollection<ElementSection>(
-                _context.ElementSections.FromSqlRaw($"Select * from GetElementsByCourseAndSection({idCourse}, {idSection})").ToList()
+            var tmplistElements = new ObservableCollection<ElementSection>(
+                _context.ElementSections.FromSqlRaw($"Select * from GetElementsByCourseAndSection({idCourse}, {idSection}, {idStudent})").ToList()
             );
-            return listElements;
+
+
+            //var listElements = new ObservableCollection<ElementSection>();
+
+
+            //foreach (var item in tmplistElements)
+            //{
+            //    listElements.Add(new ElementSection
+            //    {
+            //        IdElement = item.IdElement,
+            //        ElementName = item.ElementName,
+            //        NameType = item.NameType,
+            //        section = new Section(idCourse, idSection, null, null),
+            //    });
+            //}
+
+            return tmplistElements;
         }
 
     }

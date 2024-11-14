@@ -20,26 +20,17 @@ namespace UTExLMS.Service
         }
 
 
-        //public ObservableCollection<Student> GetParticipantStudent(int idClass)
-        //{
-        //    ObservableCollection<Student> participantsStudent = new ObservableCollection<Student>(_context.Students
-        //        .FromSqlRaw($"SELECT * FROM GetStudentsByClass({idClass})").ToList());
+        public ObservableCollection<Person> GetParticipantStudent(int idCourse)
+        {
 
+            ObservableCollection<Person> participantsStudent = new ObservableCollection < Person > (_context.People
+        .FromSqlRaw($"SELECT * FROM GetStudentsByCourse({idCourse})")
+        .Include(p => p.IdRoleNavigation)  
+        .ToList());
 
-        //    return participantsStudent;
-        //}
+            return participantsStudent;
+        }
 
-
-        //public ObservableCollection<StudentWithRole> GetParticipantStudent(int idCourse)
-        //{
-        //    //var studentWithRoles = new ObservableCollection<StudentWithRole>(
-        //    //    _context.CourseStudents
-        //    //        .FromSqlRaw("EXEC GetStudentsByCourse @idCourse = {0}", idCourse)
-        //    //        .ToList()
-        //    //);
-
-        //    return studentWithRoles;
-        //}
 
     }
 }

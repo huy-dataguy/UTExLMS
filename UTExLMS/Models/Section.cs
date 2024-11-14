@@ -12,6 +12,16 @@ namespace UTExLMS.Models
             Elements = new HashSet<Element>();
         }
 
+
+        public Section(int idSection, int idCourse, string? nameSection, string? descript)
+        {
+            IdSection = idSection;
+            IdCourse = idCourse;
+            NameSection = nameSection;
+            Descript = descript;
+    
+        }
+
         public int IdSection { get; set; }
         public int IdCourse { get; set; }
         public string? NameSection { get; set; }

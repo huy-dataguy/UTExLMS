@@ -3,27 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UTExLMS.Models;
 using UTExLMS.Views;
-
+using UTExLMS.Commands;
 namespace UTExLMS.ViewModels
 {
     public class StudentCourseDetailViewModel : ViewModelBase
     {
-        private object _content;
-        public object Content
+        private object _contentCourse;
+        public OverviewCourse OverviewCourses { get; }
+        public object ContentCourse
         {
-            get => _content;
+            get => _contentCourse;
             set
             {
-                _content = value;
-                OnPropertyChanged(nameof(Content));
+                _contentCourse = value;
+                OnPropertyChanged(nameof(ContentCourse));
             }
         }
 
-        public StudentCourseDetailViewModel()
+        public ICommand ShowCourseCommand { get; }
+        public ICommand ShowParticipantsCommand { get; }
+        public ICommand ShowGradesCommand { get; }
+        public StudentCourseDetailViewModel(OverviewCourse overviewCourse)
         {
-            //Content = new ParticipantCoursePView();
-            Content = new ListSectionStudentPView();
+            OverviewCourses = overviewCourse;
+            ContentCourse = new ListSectionStudentPView(OverviewCourses);
+            ShowCourseCommand = new RelayCommand<OverviewCourse>(ShowCourse);
+            ShowParticipantsCommand = new RelayCommand<OverviewCourse>(ShowParticipants);
+            ShowGradesCommand = new RelayCommand<OverviewCourse>(ShowGrades);
+        }
+
+        private void ShowCourse(OverviewCourse overviewCourse)
+        {
+            ContentCourse = new ListSectionStudentPView(overviewCourse);
+        }
+
+        private void ShowParticipants(OverviewCourse overviewCourse)
+        {
+            ContentCourse = new ParticipantCoursePView(overviewCourse); 
+        }
+
+        private void ShowGrades(OverviewCourse overviewCourse)
+        {
+            ContentCourse = new GradeStudentCoursePView(overviewCourse);
         }
     }
 }

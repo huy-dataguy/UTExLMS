@@ -9,7 +9,19 @@ namespace UTExLMS.Models
 {
     public class SectionToggle
     {
-        public Section HeaderSections { get; set; }    
-        public ObservableCollection<ElementSection> ElementSections { get; set; }  
+        public Section HeaderSections { get; set; }
+        public ObservableCollection<ElementSection> ElementSections { get; set; }
+
+
+
+        public SectionToggle() { }
     }
 }
+
+
+//public class ElementSection
+//{
+//    public int IdElement { get; set; }
+//    public string? ElementName { get; set; }
+//    public string? NameType { get; set; }
+//}

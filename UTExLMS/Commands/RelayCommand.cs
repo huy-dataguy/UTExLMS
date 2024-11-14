@@ -38,6 +38,7 @@ namespace UTExLMS.Commands
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;
+        //private Action openFileDialog;
 
         public event EventHandler CanExecuteChanged
         {
@@ -50,6 +51,11 @@ namespace UTExLMS.Commands
             _execute = execute;
             _canExecute = canExecute;
         }
+
+        //public RelayCommand(Action openFileDialog)
+        //{
+        //    this.openFileDialog = openFileDialog;
+        //}
 
         public bool CanExecute(object parameter)
         {

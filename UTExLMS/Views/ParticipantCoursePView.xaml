@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1000">
 
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <local:ParticipantCourseViewModel />
-    </Page.DataContext>
+    </Page.DataContext>-->
 
     <Grid>
         <DataGrid HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False" ItemsSource="{Binding Paticipants}">
@@ -19,7 +19,7 @@
                 <DataGridTextColumn IsReadOnly="True" Width="200" Binding="{Binding LastName}" Header="Last Name"/>
                 <DataGridTextColumn IsReadOnly="True" Width="250" Binding="{Binding Email}" Header="Email"/>
                 <DataGridTextColumn IsReadOnly="True" Width="150" Binding="{Binding PhoneNum}" Header="Phone"/>
-                <DataGridTextColumn IsReadOnly="True" Width="100" Binding="{Binding NameRole}" Header="Role"/>
+                <DataGridTextColumn IsReadOnly="True" Width="100" Binding="{Binding IdRoleNavigation.RoleName}" Header="Role"/>
 
             </DataGrid.Columns>
         </DataGrid>

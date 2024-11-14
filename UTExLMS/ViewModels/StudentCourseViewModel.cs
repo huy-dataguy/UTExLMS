@@ -90,7 +90,9 @@ namespace UTExLMS.ViewModels
 
         private void GoCourse(OverviewCourse overviewCourse)
         {
-            _mainViewModel.Body = new LectureCoursePView(overviewCourse);
+            //_mainViewModel.Body = new LectureCoursePView(overviewCourse);
+
+            _mainViewModel.Body = new StudentCourseDetailPView(overviewCourse);
         }
     }
 }
