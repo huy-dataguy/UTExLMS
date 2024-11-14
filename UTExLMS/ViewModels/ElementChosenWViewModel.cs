@@ -19,9 +19,9 @@ namespace UTExLMS.ViewModels
 
         public Action CloseAction { get; set; }
         public ICommand CreateNewAssignment { get; set; }
-        
+
         public ICommand AddFile { get; set; }
-       
+
         public ICommand AddTest { get; set; }
 
 
@@ -38,10 +38,10 @@ namespace UTExLMS.ViewModels
         private void CreateAssignment()
         {
             CreateAssignmentWView createAssignmentWView = new CreateAssignmentWView(_section, _sectionUCViewModel);
-            
+
             CloseAction();
             createAssignmentWView.Show();
-        } 
+        }
         private void AddNewFile()
         {
             AddDocumentWView addDocumentWView = new AddDocumentWView(_section, _sectionUCViewModel);

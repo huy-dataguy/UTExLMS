@@ -1,5 +1,5 @@
 ﻿--List of procedure
-
+use UTExLMS
 CREATE PROCEDURE UpdateLecturerInfo
     @IdLecturer INT,
     @FirstName NVARCHAR(50),  -- Cập nhật kích thước để phù hợp với bảng
@@ -112,6 +112,9 @@ BEGIN
         PRINT 'Assignment added successfully.';
     
 END;
+
+---HHHHHHHHHHHHHHHHHHHHHHHHHHEAD
+
 
 
 --------------------
@@ -350,3 +353,97 @@ RETURN
 		idCourse = @idCourse AND idSection = @idSection
 
 );
+
+
+
+
+--CREATE PROCEDURE UpdateStudentAssignment
+--    @nameFile VARCHAR(100),
+--    @pathFile VARCHAR(255),
+--    @typeFile VARCHAR(50),
+--    @dateSubmit DATE,
+--    @idCourse INT,
+--    @idSection INT,
+--    @idAssign INT,
+--    @idStudent INT
+--AS
+--BEGIN
+--    -- Cập nhật thông tin bài tập đã nộp của sinh viên
+--    UPDATE StudentAssignment
+--    SET 
+--        nameFile = @nameFile,
+--        pathFile = @pathFile,
+--        typeFile = @typeFile,
+--        dateSubmit = @dateSubmit
+--    WHERE 
+--        idCourse = @idCourse
+--        AND idSection = @idSection
+--        AND idAssign = @idAssign
+--        AND idStudent = @idStudent;
+
+--    -- Kiểm tra nếu không có bản ghi nào được cập nhật (không tìm thấy bản ghi hợp lệ)
+--    IF @@ROWCOUNT = 0
+--    BEGIN
+--        PRINT 'Không tìm thấy bài tập của sinh viên với các tham số trên.';
+--    END
+--    ELSE
+--    BEGIN
+--        PRINT 'Cập nhật thành công bài tập của sinh viên.';
+--    END
+--END;
+
+drop procedure UpdateStudentAssignment
+-- Giả sử bạn muốn cập nhật bài tập của sinh viên với ID là 123 cho khóa học, phần học, và bài tập có ID là 1
+
+
+CREATE PROCEDURE UpdateStudentAssignment
+    @nameFile VARCHAR(100),
+    @pathFile VARCHAR(255),
+    @typeFile VARCHAR(50),
+    @dateSubmit DATE,
+    @idCourse INT,
+    @idSection INT,
+    @idAssign INT,
+    @idStudent INT
+AS
+BEGIN
+    -- Cập nhật thông tin bài tập đã nộp của sinh viên
+    UPDATE StudentAssignment
+    SET 
+        nameFile = @nameFile,
+        pathFile = @pathFile,
+        typeFile = @typeFile,
+        dateSubmit = @dateSubmit
+    WHERE 
+        idCourse = @idCourse
+        AND idSection = @idSection
+        AND idAssign = @idAssign
+        AND idStudent = @idStudent;
+
+    -- Kiểm tra nếu không có bản ghi nào được cập nhật (không tìm thấy bản ghi hợp lệ)
+    IF @@ROWCOUNT = 0
+    BEGIN
+        -- Tạo mới bản ghi nếu không có bản ghi nào được cập nhật
+        INSERT INTO StudentAssignment (nameFile, pathFile, typeFile, dateSubmit, idCourse, idSection, idAssign, idStudent)
+        VALUES (@nameFile, @pathFile, @typeFile, @dateSubmit, @idCourse, @idSection, @idAssign, @idStudent);
+
+        PRINT 'Không tìm thấy bài tập của sinh viên, tạo mới bản ghi thành công.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Cập nhật thành công bài tập của sinh viên.';
+    END
+END;
+
+EXEC UpdateStudentAssignment
+    @nameFile = 'UpdatedAssignment.pdf',  -- Tên file mới
+    @pathFile = 'C:\Assignments\UpdatedAssignment.pdf',  -- Đường dẫn file mới
+    @typeFile = 'PDF',  -- Loại file mới
+    @dateSubmit = '2024-11-15',  -- Ngày nộp mới
+    @idCourse = 1,  -- ID của khóa học
+    @idSection = 1,  -- ID của phần học
+    @idAssign = 5,  -- ID của bài tập
+    @idStudent = 3;  -- ID của sinh viên
+
+
+	select * from StudentAssignment

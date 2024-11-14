@@ -1,5 +1,8 @@
 ﻿--Function--
-Alter FUNCTION GetCourses (
+
+use UTExLMS
+
+Create FUNCTION GetCourses (
     @personId INT,
     @searchTerm NVARCHAR(100),
     @selectedFilter VARCHAR(20)  -- Thêm tham số search term
@@ -37,29 +40,95 @@ RETURN (
 );
 
 
-Select * from GetCourses (1, '', 'All');
+Select * from GetCourses (3, '', 'Past');
+
+
+
+
+CREATE FUNCTION GetStudentsByCourse(@CourseId INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT 
+        p.idPerson,
+		p.email,
+		p.birthday,
+		p.gender,
+		p.lastName,
+        p.firstName,
+		p.phoneNum,
+		p.idRole,
+		p.pass
+    FROM Person p
+    JOIN CourseStudent cs ON cs.IdStudent = p.IdPerson
+    WHERE cs.IdCourse = @CourseId
+);
+
+select * from GetStudentsByCourse (1)
 
 ---------------------------
-
-CREATE FUNCTION GetSectionsByCourseId
-(
-    @idCourse INT
+drop function GetStudentsByCourse
+CREATE FUNCTION GetSectionsByCourse (
+    @CourseId INT
 )
 RETURNS TABLE
 AS
-RETURN
+RETURN 
 (
     SELECT 
-        s.idSection,
-        s.nameSection,
-        s.descript
+        *
     FROM 
         Section s
     WHERE 
-        s.idCourse = @idCourse
+        s.idCourse = @CourseId
+);
+select * from GetSectionsByCourse(1)
+
+CREATE FUNCTION GetElementsByCourseAndSection (
+    @CourseId INT, 
+    @SectionId INT,
+	@IdPerson INT
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT 
+        e.idElement,
+        CASE 
+            WHEN e.nameType = 'Material' THEN m.nameMaterial
+            WHEN e.nameType = 'Test' THEN t.nameTest
+            WHEN e.nameType = 'Assignment' THEN a.nameAssign
+        END AS ElementName,
+        e.nameType,
+		@CourseId AS idCourse,   
+        @SectionId AS idSection,
+		@IdPerson AS IdStudent
+    FROM 
+        Element e
+    LEFT JOIN 
+        Material m ON e.idElement = m.idMaterial 
+            AND e.idCourse = m.idCourse 
+            AND e.idSection = m.idSection 
+            AND e.nameType = 'Material'
+    LEFT JOIN 
+        Test t ON e.idElement = t.idTest 
+            AND e.idCourse = t.idCourse 
+            AND e.idSection = t.idSection 
+            AND e.nameType = 'Test'
+    LEFT JOIN 
+        Assignment a ON e.idElement = a.idAssign 
+            AND e.idCourse = a.idCourse 
+            AND e.idSection = a.idSection 
+            AND e.nameType = 'Assignment'
+    WHERE 
+        e.idCourse = @CourseId 
+        AND e.idSection = @SectionId
 );
 
+select * from GetElementsByCourseAndSection(1, 1, 3)
 
+drop function GetElementsByCourseAndSection
 CREATE FUNCTION GetElementPreviews(
     @input_idSection INT,
     @input_idCourse INT
@@ -113,3 +182,119 @@ RETURN
 		q.idTest = @idTest AND q.idCourse = @idCourse AND q.idSection = @idSection
 );
 
+
+
+--Huyyyyyyyyyyyyyyyyyyy
+CREATE FUNCTION GetMaterialByElement (
+    @idCourse INT,
+    @idSection INT,
+    @idElement INT
+)
+RETURNS TABLE
+AS
+RETURN
+    SELECT m.idMaterial, m.filePath, m.statu, m.nameMaterial, m.typeMaterial, m.idSection, m.idCourse
+    FROM Material m
+    INNER JOIN Element e ON m.idCourse = e.idCourse AND m.idSection = e.idSection AND m.idMaterial = e.idElement
+    WHERE e.idCourse = @idCourse
+      AND e.idSection = @idSection
+      AND e.idElement = @idElement;
+
+select * from GetMaterialByElement(1, 1, 1)
+
+
+
+CREATE FUNCTION GetAssignmentByElement (
+    @idCourse INT,
+    @idSection INT,
+    @idElement INT
+)
+RETURNS TABLE
+AS
+RETURN
+    SELECT a.idAssign, a.nameAssign, a.statu, a.startDate, a.endDate, a.descript, a.grade, a.idSection, a.idCourse
+    FROM Assignment a
+    INNER JOIN Element e ON a.idCourse = e.idCourse AND a.idSection = e.idSection
+    WHERE e.idCourse = @idCourse
+      AND e.idSection = @idSection
+      AND e.idElement = @idElement;
+
+select * from GetAssignmentByElement(1,1,1)
+
+
+
+--CREATE PROCEDURE UpdateAssignmentByElement (
+--    @idCourse INT,
+--    @idSection INT,
+--    @idElement INT,
+--    @nameAssign NVARCHAR(255),  -- Tên bài tập
+--    @statu NVARCHAR(50),        -- Trạng thái
+--    @startDate DATETIME,        -- Ngày bắt đầu
+--    @endDate DATETIME,          -- Ngày kết thúc
+--    @descript NVARCHAR(500),    -- Mô tả
+--    @grade INT                  -- Điểm
+--)
+--AS
+--BEGIN
+--    -- Cập nhật thông tin bài tập
+--    UPDATE a
+--    SET
+--        a.nameAssign = @nameAssign,
+--        a.statu = @statu,
+--        a.startDate = @startDate,
+--        a.endDate = @endDate,
+--        a.descript = @descript,
+--        a.grade = @grade
+--    FROM Assignment a
+--    INNER JOIN Element e ON a.idCourse = e.idCourse AND a.idSection = e.idSection
+--    WHERE e.idCourse = @idCourse
+--      AND e.idSection = @idSection
+--      AND e.idElement = @idElement;
+
+--    -- Kiểm tra xem có bản ghi nào được cập nhật không
+--    IF @@ROWCOUNT = 0
+--    BEGIN
+--        PRINT 'Không tìm thấy bài tập để cập nhật.';
+--    END
+--    ELSE
+--    BEGIN
+--        PRINT 'Cập nhật bài tập thành công.';
+--    END
+--END
+----pahir xoa thoiiiiiiiiiiii
+
+
+CREATE FUNCTION GetAssignmentSubmited (
+    @idCourse INT,
+    @idSection INT,
+    @idElement INT,
+    @idStudent INT
+)
+RETURNS TABLE
+AS
+RETURN
+    SELECT 
+        sa.nameFile,
+        sa.pathFile,
+        sa.typeFile,
+        sa.dateSubmit,
+        sa.idCourse,
+        sa.idSection,
+        sa.idAssign,
+        sa.idStudent
+    FROM 
+        StudentAssignment sa
+    INNER JOIN Assignment a 
+        ON sa.idCourse = a.idCourse
+        AND sa.idSection = a.idSection
+        AND sa.idAssign = a.idAssign
+    INNER JOIN Element e 
+        ON a.idCourse = e.idCourse
+        AND a.idSection = e.idSection
+        AND e.idElement = @idElement
+    WHERE 
+        sa.idCourse = @idCourse
+        AND sa.idSection = @idSection
+        AND sa.idStudent = @idStudent;
+
+select * from GetAssignmentSubmited (1,1,1,3)

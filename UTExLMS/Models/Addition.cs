@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UTExLMS.Models;
 
 namespace UTExLMS.Models
 {
     public class Addition: UTExLMSContext
     {
+        public virtual DbSet<ElementSection> ElementSections { get; set; } 
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
 
         public virtual DbSet<ElementPreview> ElementPreviews { get; set; }
@@ -24,7 +26,10 @@ namespace UTExLMS.Models
 
             // Cấu hình OverviewCourse
             modelBuilder.Entity<OverviewCourse>()
-                .HasKey(oc => new { oc.IdPerson, oc.IdCourse }); // Đặt khóa chính cho OverviewCourse
+                .HasKey(oc => new { oc.IdPerson, oc.IdCourse });
+            modelBuilder.Entity<ElementSection>()
+                .HasKey(oc => new { oc.IdElement });
+            
             modelBuilder.Entity<ElementPreview>()
                 .HasKey(oc => new { oc.IdElement, oc.IdCourse, oc.IdSection }); // Đặt khóa chính cho OverviewCourse
 

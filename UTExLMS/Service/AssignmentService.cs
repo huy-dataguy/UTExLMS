@@ -1,21 +1,25 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using UTExLMS.Models;
 
 namespace UTExLMS.Service
 {
     class AssignmentService
     {
-        private Addition _additon;
+        private UTExLMSContext _context;
         public AssignmentService()
         {
-            _additon = new Addition();
+            _context = new UTExLMSContext();
         }
         public void CreateAssignment(int idSection, int idCourse, string nameAssign, string descript, DateTime startDate, DateTime endDate)
         {
@@ -33,8 +37,75 @@ namespace UTExLMS.Service
     };
 
             // Thực thi thủ tục
-            _additon.Database.ExecuteSqlRaw("EXEC AddAssignment @nameAssign, @statu, @startDate, @endDate, @descript, @grade, @idSection, @idCourse", parameters);
+            _context.Database.ExecuteSqlRaw("EXEC AddAssignment @nameAssign, @statu, @startDate, @endDate, @descript, @grade, @idSection, @idCourse", parameters);
         }
 
+
+        public Assignment GetAssignment(int idCourse, int idSection, int idElement)
+        {
+            var assignment = _context.Assignments
+                .FromSqlRaw("SELECT * FROM GetAssignmentByElement({0}, {1}, {2})", idCourse, idSection, idElement)
+                .FirstOrDefault();
+
+            return assignment;
+        }
+
+        //public void UpdateStudentAssignment(Assignment assignment, string nameFile)
+        //{
+        //    try
+        //    {
+        //        _context.Database.ExecuteSqlRaw(
+        //   "EXEC UpdateStudentAssignment @idCourse, @idSection, @idElement, @nameAssign, @statu, @startDate, @endDate, @descript, @grade",
+        //        new SqlParameter("@idCourse", assignment.IdCourse),
+        //        new SqlParameter("@idSection", assignment.IdSection),
+        //        new SqlParameter("@idElement", assignment.IdAssign),
+        //        new SqlParameter("@nameAssign", assignment.NameAssign),
+        //        new SqlParameter("@statu", !assignment.Statu),
+        //        new SqlParameter("@startDate", assignment.StartDate),
+        //        new SqlParameter("@endDate", assignment.EndDate),
+        //        new SqlParameter("@descript", assignment.Descript),
+        //        new SqlParameter("@grade", assignment.Grade)
+
+        //    );
+        //    }
+        //    catch { 
+
+        //    }
+        //}
+
+
+        public void UpdateStudentAssignment(ElementSection inforElement, Assignment assignment,  string filePath, DateTime dateSubmit)
+        {
+            _context.Database.ExecuteSqlRaw(
+                "EXEC UpdateStudentAssignment @nameFile = {0}, @pathFile = {1}, @typeFile = {2}, @dateSubmit = {3}, @idCourse = {4}, @idSection = {5}, @idAssign = {6}, @idStudent = {7}",
+                assignment.NameAssign, // Lấy tên file từ đường dẫn
+                filePath,
+                Path.GetExtension(filePath),
+                dateSubmit,
+                inforElement.IdCourse,
+                inforElement.IdSection,
+                assignment.IdAssign,
+                inforElement.IdStudent
+            );
+
+        }
+
+        //@typeFile = 'PDF',  --Loại file mới
+        //@dateSubmit = '2024-11-15',  --Ngày nộp mới
+
+
+
+    
+
+    //chua tao sql
+    public StudentAssignment GetAssignmentSubmited(int idCourse, int idSection, int idElement, int idStudent)
+        {
+
+            var assignmentSubmited = _context.StudentAssignments
+              .FromSqlRaw("SELECT * FROM GetAssignmentSubmited({0}, {1}, {2}, {3})", idCourse, idSection, idElement, idStudent)
+              .FirstOrDefault();
+
+            return assignmentSubmited;
+        }
     }
 }
