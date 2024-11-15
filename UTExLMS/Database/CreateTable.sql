@@ -74,11 +74,20 @@ CREATE TABLE Element (
     idElement INT,
     idCourse INT,
     idSection INT,
+	nameType VARCHAR(10),
     PRIMARY KEY (idElement, idCourse, idSection),
     FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+use UTExLMS
+
+alter table Element
+add nameType INT
+
+
+drop table Material
 
 -- Table Material
 CREATE TABLE Material (
@@ -94,6 +103,7 @@ CREATE TABLE Material (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
 
 -- Table Test
 CREATE TABLE Test (
@@ -148,7 +158,25 @@ CREATE TABLE StudentAns (
         ON UPDATE CASCADE
 );
 
--- Table Assignment
+---- Table Assignment
+--CREATE TABLE Assignment (
+--    idAssign INT,
+--    nameAssign VARCHAR(100),
+--    statu BIT DEFAULT 0,
+--    startDate DATE,
+--    endDate DATE,
+--    descript VARCHAR(255),
+--    grade FLOAT,
+--    idSection INT,
+--    idCourse INT,
+--    PRIMARY KEY (idCourse, idSection, idAssign),
+--    FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
+--        ON DELETE CASCADE
+--        ON UPDATE CASCADE
+--);
+
+drop table Assignment
+
 CREATE TABLE Assignment (
     idAssign INT,
     nameAssign VARCHAR(100),
@@ -160,12 +188,17 @@ CREATE TABLE Assignment (
     idSection INT,
     idCourse INT,
     PRIMARY KEY (idCourse, idSection, idAssign),
+
     FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+	FOREIGN KEY (idAssign, idCourse, idSection) REFERENCES Element(idElement, idCourse, idSection)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
--- Table StudentTest
+drop table Assignment
+--able StudentTest
 CREATE TABLE StudentTest (
     idStudent INT,
     idCourse INT,
@@ -182,6 +215,8 @@ CREATE TABLE StudentTest (
 );
 
 -- Table StudentAssignment
+
+
 CREATE TABLE StudentAssignment (
     nameFile VARCHAR(100),
     pathFile VARCHAR(255),
@@ -200,7 +235,20 @@ CREATE TABLE StudentAssignment (
         ON UPDATE NO ACTION
 );
 
+drop table StudentAssignment
+
 -- Table Discussion
+--CREATE TABLE Discussion (
+--    idDiscuss INT,
+--    descript VARCHAR(255),
+--    nameDiscuss VARCHAR(100),
+--    idSection INT,
+--    idCourse INT,
+--    PRIMARY KEY (idCourse, idSection, idDiscuss),
+--    FOREIGN KEY (idCourse, idSection, idDiscuss) REFERENCES Element(idCourse, idSection, idElement)
+--        ON DELETE CASCADE
+--        ON UPDATE CASCADE
+--);
 CREATE TABLE Discussion (
     idDiscuss INT,
     descript VARCHAR(255),
@@ -209,11 +257,17 @@ CREATE TABLE Discussion (
     idCourse INT,
     PRIMARY KEY (idCourse, idSection, idDiscuss),
     FOREIGN KEY (idCourse, idSection) REFERENCES Section(idCourse, idSection)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (idDiscuss, idCourse, idSection) REFERENCES Element(idElement, idCourse, idSection)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
+use UTExLMS
+drop table Discussion
 -- Table Comment
+
 CREATE TABLE Comment (
     idCmt INT,
     content VARCHAR(255),
@@ -230,6 +284,8 @@ CREATE TABLE Comment (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+drop table Comment
 
 
 
@@ -274,3 +330,11 @@ Create TABLE CourseLecturer (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+
+
+
+
+
+
+

@@ -2,11 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.IO;
+using System.Printing;
 using System.Linq;
 using HandyControl.Tools.Extension;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Xaml.Behaviors.Media;
 using UTExLMS.Models;
+using System.Windows;
 
 namespace UTExLMS.Service
 {
@@ -31,9 +33,25 @@ namespace UTExLMS.Service
             {
                 courseInfo.ImgCourse = GetImagePath();
             }
-
             return new ObservableCollection<OverviewCourse>(courses);
         }
+
+
+        public ObservableCollection<OverviewLectureCourse> GetCoursesLecture(int idStudent, string searchTerm = "", string selectedFilter = "All")
+        {
+            MessageBox.Show($"SELECT * FROM GetCourseLecture({idStudent}, '{searchTerm}', '{selectedFilter}')");
+            
+            var courses = _addition.OverviewLectureCourses
+                .FromSqlRaw($"SELECT * FROM GetCourseLecture({idStudent}, '{searchTerm}', '{selectedFilter}')")
+                .ToList();
+
+            foreach (OverviewLectureCourse courseInfo in courses)
+            {
+                courseInfo.ImgCourse = GetImagePath();
+            }
+            return new ObservableCollection<OverviewLectureCourse>(courses);
+        }
+
 
         private string GetImagePath()
         {

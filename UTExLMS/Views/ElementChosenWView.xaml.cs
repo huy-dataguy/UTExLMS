@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UTExLMS.ViewModels;
+using UTExLMS.ViewModels.UCViewModel;
+
 using UTExLMS.Models;
 
 namespace UTExLMS.Views
@@ -25,10 +27,10 @@ namespace UTExLMS.Views
         {
             InitializeComponent();
         }
-        public ElementChosenWView(Section section)
+        public ElementChosenWView(Section section, SectionUCViewModel sectionUCViewModel)
         {
             InitializeComponent();
-            ElementChosenWViewModel elementViewModel = new ElementChosenWViewModel(section);
+            ElementChosenWViewModel elementViewModel = new ElementChosenWViewModel(section, sectionUCViewModel);
             elementViewModel.CloseAction = () => this.Close();
             this.DataContext = elementViewModel;
             

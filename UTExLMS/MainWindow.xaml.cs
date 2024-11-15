@@ -18,11 +18,15 @@ namespace UTExLMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Person person)
         {
             InitializeComponent();
-            DataContext = new ViewModels.MainViewModel();
+            DataContext = new ViewModels.MainViewModel(person);
         }
+
+
+    
+
         private void IconButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("HELOOO");

@@ -38,7 +38,8 @@
 
                 <!-- Login Button -->
                 <Border Background="#5692FE" CornerRadius="5" Height="40" Width="395" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Button Content="Login" 
+                    <Button 
+                         Height="40" Width="400" Content="Login" 
                             FontFamily="Exo" 
                             FontWeight="SemiBold" 
                             FontSize="16" 

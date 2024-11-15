@@ -16,7 +16,7 @@ namespace UTExLMS.ViewModels
 {
     class LectureCourseViewModel : ViewModelBase
     {
-        private OverviewCourse _overviewCourse { get; set; }
+        private OverviewLectureCourse _overviewCourse { get; set; }
 
         public ObservableCollection<Section> Sections { get; set; }
 
@@ -29,7 +29,7 @@ namespace UTExLMS.ViewModels
         public LectureCourseViewModel() { }
 
         public int idCourse = 1;
-        public LectureCourseViewModel(OverviewCourse overviewCourse)
+        public LectureCourseViewModel(OverviewLectureCourse overviewCourse)
         {
             AddSection = new RelayCommand(AddNewSection);
             SectionService sectionService = new SectionService();
@@ -54,6 +54,8 @@ namespace UTExLMS.ViewModels
             sectionService.AddNewSection(idCourse);
             Sections = sectionService.GetSections(idCourse);
             UpdateSections();
+
+            
         }
 
     }

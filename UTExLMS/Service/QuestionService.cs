@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace UTExLMS.Service
         }
         public void AddQuestion(string nameQues, string A, string B, string C, string D, string trueAns, int idTest, int idCourse, int idSection)
         {
-            _addition.Database.ExecuteSqlRaw($"exec AddQuestion " +
+            
+            _addition.Database.ExecuteSqlRaw($"exec [dbo].[AddQuestion] " +
                 $"@nameQues = '{nameQues}', " +
                 $"@A = '{A}', " +
                 $"@B = '{B}', " +
@@ -55,6 +57,23 @@ namespace UTExLMS.Service
             $"@idTest = {idTest}, " +
             $"@idQues= {idQues}");
 
+        }
+
+     
+
+        public void UpdateQuestion(int idQues, string nameQues, string A, string B, string C, string D, string trueAns, int idTest, int idCourse, int idSection)
+        {
+            _addition.Database.ExecuteSqlRaw($"exec UpdateQuestion " +
+                $"@idQues = {idQues}, " +
+                $"@nameQues = '{nameQues}', " +
+                $"@A = '{A}', " +
+                $"@B = '{B}', " +
+                $"@C = '{C}', " +
+                $"@D = '{D}', " +
+                $"@trueAns = '{trueAns}', " +
+                $"@idTest = {idTest}, " +
+                $"@idCourse = {idCourse}, " +
+                $"@idSection = {idSection}");
         }
     }
 }

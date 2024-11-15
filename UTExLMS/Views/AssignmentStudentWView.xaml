@@ -1,0 +1,123 @@
+﻿<Window x:Class="UTExLMS.Views.AssignmentStudentWView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UTExLMS.Views"
+      xmlns:model="clr-namespace:UTExLMS.Models"
+
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="380" d:DesignWidth="600"
+      Title="AssignmentStudentWView">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+
+            <RowDefinition Height="40"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock  Text="{Binding Assignment.NameAssign}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Text="Mô tả bài tập: " Style="{StaticResource TextBlockDefault}"/>
+
+            <TextBlock Grid.Column="1" Text="{Binding Assignment.Descript}" FontSize="16" HorizontalAlignment="Left"></TextBlock>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Text="Trạng thái: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding InforAssignment}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Text="Điểm số: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding Assignment.Grade}" HorizontalAlignment="Left"/>
+
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  FontSize="16" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Text="Ngày bắt đầu: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding Assignment.StartDate}" HorizontalAlignment="Left"/>
+
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  FontSize="16" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Text="Ngày kết thúc: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding Assignment.EndDate}" HorizontalAlignment="Left"/>
+
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  FontSize="16" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Text="Ngày nộp bài: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding AssignmentSubmited.DateSubmit}" HorizontalAlignment="Left"/>
+
+        </Grid>
+
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  FontSize="16" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Text="Tệp đã nộp: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Column="1" Text="{Binding AssignmentSubmited.PathFile}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+        </Grid>
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Height="32" FontSize="16" Background="LightSkyBlue" Margin="2" VerticalAlignment="Center" Content="Chọn tệp" VerticalContentAlignment="Center" HorizontalAlignment="Left" Command="{Binding ChooseFile}" />
+            <TextBlock Grid.Column="1" Text="{Binding ChosenFilePath}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+        </Grid>
+        <Grid Grid.Row="9">
+
+            <Button Command="{Binding SubmitFile}" Height="40" Background="LightGreen" Content="Nộp bài" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Column="1" HorizontalAlignment="Center" Margin="112,0,0,0">
+
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>
+

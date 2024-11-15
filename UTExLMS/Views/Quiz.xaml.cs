@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UTExLMS.Models;
 using UTExLMS.ViewModels;
 namespace UTExLMS.Views
 {
     /// <summary>
     /// Interaction logic for Quiz.xaml
     /// </summary>
-    public partial class Quiz : Page
+    public partial class Quiz : Window
     {
-        public Quiz()
+        public Quiz(ElementSection inforElement)
         {
             InitializeComponent();
-            DataContext = new QuestionListViewModel();
+            DataContext = new QuestionListViewModel(inforElement);
         }
     }
 }

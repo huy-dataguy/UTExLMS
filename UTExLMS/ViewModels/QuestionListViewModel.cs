@@ -25,11 +25,11 @@ namespace UTExLMS.ViewModels
 
         public ICommand Submit {  get; set; }
 
-        public QuestionListViewModel()  
+        public QuestionListViewModel(ElementSection inforElement)  
         {
             Submit = new RelayCommand(CalculateStudentScore);
             QuestionService questionService = new QuestionService();
-            Questions = questionService.GetQuestions(1,1,1001);
+            Questions = questionService.GetQuestions(inforElement.IdElement, inforElement.IdSection, inforElement.IdCourse);
             UpdateQuestions();
         }
 

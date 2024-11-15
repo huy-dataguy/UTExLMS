@@ -32,7 +32,6 @@ namespace UTExLMS.Service
 
         public Person loginAuth(string Email, string Pass)
         {
-            MessageBox.Show($"select * from LoginAuth({Email},{Pass})");
             var person = _context.People.FromSqlRaw($"select * from LoginAuth('{Email}','{Pass}')").FirstOrDefault();
             return person;
             

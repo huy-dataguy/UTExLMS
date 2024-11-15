@@ -1,0 +1,27 @@
+﻿<Page x:Class="UTExLMS.Views.ParticipantCoursePView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:UTExLMS.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000">
+
+    <!--<Page.DataContext>
+        <local:ParticipantCourseViewModel />
+    </Page.DataContext>-->
+
+    <Grid>
+        <DataGrid HeadersVisibility="All" RowHeaderWidth="60" AutoGenerateColumns="False" ItemsSource="{Binding Paticipants}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Width="100" CanUserResize="False" Binding="{Binding FirstName}" Header="First Name"/>
+                <DataGridTextColumn IsReadOnly="True" Width="200" Binding="{Binding LastName}" Header="Last Name"/>
+                <DataGridTextColumn IsReadOnly="True" Width="250" Binding="{Binding Email}" Header="Email"/>
+                <DataGridTextColumn IsReadOnly="True" Width="150" Binding="{Binding PhoneNum}" Header="Phone"/>
+                <DataGridTextColumn IsReadOnly="True" Width="100" Binding="{Binding IdRoleNavigation.RoleName}" Header="Role"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

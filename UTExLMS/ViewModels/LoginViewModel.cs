@@ -55,6 +55,9 @@ namespace UTExLMS.ViewModels
             else
             {
                 MessageBox.Show("Đăng nhập thành công");
+
+                new MainWindow(_person).Show();
+                
             }
         }
         public void UpdatePassword(string password)

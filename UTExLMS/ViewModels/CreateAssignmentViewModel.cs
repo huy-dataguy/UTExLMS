@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Input;
 using UTExLMS.Models;
 using UTExLMS.Service;
+using UTExLMS.ViewModels.UCViewModel;
+
 
 namespace UTExLMS.ViewModels
 {
@@ -47,21 +49,25 @@ namespace UTExLMS.ViewModels
             set => _endDate = value;
         }
 
+        private SectionUCViewModel _sectionUCViewModel { get; set; }
+
         public ICommand CreateAssignment {  get; set; } 
         public CreateAssignmentViewModel() { }
 
-        public CreateAssignmentViewModel(Section section)
+        public CreateAssignmentViewModel(Section section, SectionUCViewModel sectionUCViewModel)
         {
             _section = section;
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;
             CreateAssignment = new RelayCommand(CreateNewAssignment);
+            _sectionUCViewModel = sectionUCViewModel;
         } 
         public void CreateNewAssignment()
         {
             AssignmentService assignmentService = new AssignmentService();
             assignmentService.CreateAssignment(_section.IdSection,_section.IdCourse,_assignName,_descript,_startDate, _endDate);
             MessageBox.Show("Create assignment sucessful");
+            _sectionUCViewModel.UpdateElementList();
             CloseAction();
         }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using UTExLMS.Models;
 using UTExLMS.Views;
 
 namespace UTExLMS.ViewModels
@@ -61,9 +62,13 @@ namespace UTExLMS.ViewModels
                 OnPropertyChanged(nameof(Body));
             }
         }
-        public MainViewModel()
+        public MainViewModel(Person person)
         {
-            Body = new ResultPView();
+            if (person.IdRole == 2)
+                Body = new ListCourseLecturePView(this, person);
+            else 
+                Body = new ListCourseView(this, person);
+
         }
         private void OpenProfilePage()
         {

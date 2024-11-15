@@ -27,10 +27,10 @@ namespace UTExLMS.Views
             InitializeComponent();
             this.DataContext = new StudentCourseViewModel();
         }
-        public ListCourseView(MainViewModel mainViewModel)
+        public ListCourseView(MainViewModel mainViewModel, Person person)
         {
             InitializeComponent();
-            this.DataContext = new StudentCourseViewModel(mainViewModel);
+            this.DataContext = new StudentCourseViewModel(mainViewModel, person);
         }
     }
 }
