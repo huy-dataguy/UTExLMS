@@ -16,23 +16,14 @@ using UTExLMS.ViewModels;
 namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for QuestionListWView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class QuestionListWView : Window
     {
-        public LoginView()
+        public QuestionListWView()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is LoginViewModel viewModel)
-            {
-                viewModel.UpdatePassword(PasswordBox.Password);
-            }
+            DataContext = new QuestionListViewModel();
         }
     }
-
 }

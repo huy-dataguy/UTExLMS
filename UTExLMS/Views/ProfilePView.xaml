@@ -1,163 +1,118 @@
-﻿<Page x:Class="UTExLMS.Views.ProfileView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UTExLMS.ViewModels"
-        mc:Ignorable="d"
-        Title="ProfileView" Height="800" Width="1350">
+﻿<Window x:Class="UTExLMS.Views.ProfilePView"
+      xmlns:service="clr-namespace:UTExLMS.Service"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:UTExLMS.ViewModels"
+      mc:Ignorable="d"
+      Title="ProfileView" Height="800" Width="1350">
 
-    <Page.DataContext>
+    <Window.DataContext>
         <local:ProfileLecturerViewModel/>
-    </Page.DataContext>
+    </Window.DataContext>
+    
+    <Grid Margin="40">
+		<!-- Define Columns and Rows -->
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
+		<!-- Profile Image -->
+		<Image Source="/Assets/avatar.png" Width="300" Height="300"
+           Grid.Row="0" Grid.RowSpan="7" Grid.Column="0"
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Margin="0" Stretch="UniformToFill" ClipToBounds="True"/>
 
-        <Grid Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="15*"/>
-            </Grid.RowDefinitions>
+		<!-- Name -->
+		<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="80,50,0,0" HorizontalAlignment="Left">
+			<!-- First Name (Họ) -->
+			<StackPanel Orientation="Vertical" Margin="0,0,10,0">
+				<TextBlock Text="Họ" FontFamily="Roboto" FontSize="16" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
+                         VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                         Text="{Binding profile.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+			</StackPanel>
 
-            <Grid Grid.Row="0">
-                <TextBlock Text="Thông tin cá nhân" FontSize="40" VerticalAlignment="Bottom" 
-                    FontFamily="Bahnschrift" FontWeight="Bold" 
-                    Foreground="#FF002B5B"/>
-            </Grid>
+			<!-- Last Name (Tên) -->
+			<StackPanel Orientation="Vertical" Margin="30,0,10,0">
+				<TextBlock Text="Tên" FontFamily="Roboto" FontSize="16" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
+                         VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                         Text="{Binding profile.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+			</StackPanel>
+		</StackPanel>
 
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+		<!-- Email -->
+		<TextBlock Text="Email" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
+                   Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="80,0,0,30"/>
+		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
+                 Grid.Row="1" Grid.Column="1" Margin="80,50,0,0"
+                 VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                 Text="{Binding profile.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
+		<!-- Birth Date -->
+		<TextBlock Text="Ngày sinh" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
+                   Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="80,0,0,30"/>
+		<DatePicker Width="500" Height="40" HorizontalAlignment="Left"
+                    Grid.Row="2" Grid.Column="1" Margin="80,50,0,0"
+                    VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                    SelectedDate="{Binding profile.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Label Content="Họ và tên" Grid.Row="0" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift" />
+        <!-- Gender -->
+        <TextBlock Text="Giới tính" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
+           Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="80,0,0,30"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+            Grid.Row="3" Grid.Column="1" Margin="80,50,0,0">
+            <!-- Male Radio Button -->
+            <RadioButton Content="Nam" FontFamily="Roboto" FontSize="16" Margin="30,0,50,0"
+                 IsChecked="{Binding IsMale, Mode=TwoWay}"/>
 
-                <Label Content="Email" Grid.Row="1" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift" />
-
-                <Label Content="Ngày sinh" Grid.Row="2" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift" />
-
-                <Label Content="Giới tính" Grid.Row="3" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift" />
-
-                <Label Content="Số điện thoại" Grid.Row="4" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift" />
-
-                <Label Content="Mật khẩu" Grid.Row="5" Grid.Column="0" 
-                FontSize="28" VerticalAlignment="Center" 
-                FontFamily="Bahnschrift"/>
-
-                <!-- Các ô nhập liệu với Border -->
+            <!-- Female Radio Button -->
+            <RadioButton Content="Nữ" FontFamily="Roboto" FontSize="16"
+                 IsChecked="{Binding IsFemale, Mode=TwoWay}"/>
+        </StackPanel>
 
 
 
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+        <!-- Phone Number -->
+		<TextBlock Text="Số điện thoại" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
+                   Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="80,0,0,30"/>
+		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
+                 Grid.Row="4" Grid.Column="1" Margin="80,50,0,0"
+                 VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                 Text="{Binding profile.PhoneNum, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBox x:Name="LastName" 
-                          Text="{Binding Path=Profile.LastName}" 
-                          Grid.Column="0" 
-                          Width="250"
-                          FontSize="28" VerticalAlignment="Center" 
-                          TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                          Foreground="#FFEA5455"
-                          BorderBrush="Black" BorderThickness="1" />
+		<!-- Password -->
+		<TextBlock Text="Password" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
+                   Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="80,0,0,30"/>
+        <TextBox Width="500" Height="40" HorizontalAlignment="Left"
+                 Grid.Row="5" Grid.Column="1" Margin="80,50,0,0"
+                 VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
+                 Text="{Binding profile.Pass, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBox x:Name="FirstName" 
-                          Text="{Binding Path=Profile.FirstName}" 
-                          Grid.Column="1" 
-                          Width="200"
-                          FontSize="28" VerticalAlignment="Center" 
-                          TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                          Foreground="#FFEA5455"
-                          BorderBrush="Black" BorderThickness="1"/>
-                </Grid>
+        <!-- Cancel Button -->
+		<Button Content="Cancel" Width="180" Height="55" HorizontalAlignment="Left"
+                Grid.Row="7" Grid.Column="1" Margin="80,80,100,0" VerticalAlignment="Top"
+                FontSize="28" Foreground="#4D96FF" BorderBrush="#4D96FF" Background="White"/>
 
-                <TextBox x:Name="Email" 
-                  
-                  Text="{Binding Path=Profile.Email}" 
-                  Grid.Row="1" Grid.Column="1" 
-                  FontSize="28" VerticalAlignment="Center" 
-                  TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                  Foreground="#FFEA5455"
-                  BorderBrush="Black" BorderThickness="1"/>
-
-                <TextBox x:Name="Birthday" 
-                  Text="{Binding Path=Profile.Birthday}" 
-                  Grid.Row="2" Grid.Column="1" 
-                  FontSize="28" VerticalAlignment="Center" 
-                  TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                  Foreground="#FFEA5455"
-                  BorderBrush="Black" BorderThickness="1"/>
-
-                <TextBox x:Name="Gender" 
-                  Text="{Binding Path=Profile.Gender}" 
-                  Grid.Row="3" Grid.Column="1" 
-                  FontSize="28" VerticalAlignment="Center" 
-                  TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                  Foreground="#FFEA5455"
-                  BorderBrush="Black" BorderThickness="1"/>
-
-                <TextBox x:Name="PhoneNum" 
-                  Text="{Binding Path=Profile.PhoneNum }" 
-                  Grid.Row="4" Grid.Column="1" 
-                  FontSize="28" VerticalAlignment="Center" 
-                  TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                  Foreground="#FFEA5455"
-                  BorderBrush="Black" BorderThickness="1"/>
-
-                <TextBox x:Name="Password" 
-                  Text="{Binding Path=Profile.Password}" 
-                  Grid.Row="5" Grid.Column="1" 
-                  FontSize="28" VerticalAlignment="Center" 
-                  TextWrapping="Wrap" FontFamily="Bahnschrift" 
-                  Foreground="#FFEA5455"
-                  BorderBrush="Black" BorderThickness="1"/>
-
-                <!-- Nút Save và Edit -->
-                <Grid Grid.Row="6">
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button Style="{StaticResource ButtonPrimary}" 
-                         Command="{Binding SaveProfile}" 
-                         Content="Save" />
-
-                        <Button Grid.Column="1" Style="{StaticResource ButtonPrimary}" 
-                         Command="{Binding EditCommand}" 
-                         Content="Edit" />
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-    </Grid>
-</Page>
+		<!-- Save Button -->
+		<Button Content="Save" Width="180" Height="55" HorizontalAlignment="Left"
+                Grid.Row="7" Grid.Column="1" Margin="280,80,0,0" VerticalAlignment="Top"
+                FontSize="28" Foreground="White" Background="#4D96FF"
+                Command="{Binding SaveProfile}"/>
+	</Grid>
+</Window>

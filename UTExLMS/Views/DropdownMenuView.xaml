@@ -1,0 +1,24 @@
+﻿<Window x:Class="UTExLMS.Views.DropdownMenuView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UTExLMS.Views"
+        mc:Ignorable="d"
+        Title="DropdownMenuView" Height="450" Width="800">
+    <Grid>
+        <!-- Icon Button -->
+        <Button x:Name="IconButton" Width="50" Height="50" Click="IconButton_Click">
+            <Button.Content>
+                <Image Source="/Assets/avatar.png" Width="30" Height="30" />
+            </Button.Content>
+            <Button.ContextMenu>
+                <ContextMenu x:Name="IconContextMenu">
+                    <MenuItem Header="Hồ sơ" />
+                    <MenuItem Header="Điểm" />
+                    <MenuItem Header="Thoát" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+    </Grid>
+</Window>

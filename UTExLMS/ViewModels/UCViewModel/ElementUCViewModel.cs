@@ -35,7 +35,7 @@ namespace UTExLMS.ViewModels.UCViewModel
 
 
                 case "Test":
-                    MessageBox.Show("heelo test");
+                    new Quiz(inforElement).Show();
                     break;
 
 

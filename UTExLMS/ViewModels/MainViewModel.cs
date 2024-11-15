@@ -1,11 +1,14 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using UTExLMS.Models;
 using UTExLMS.Views;
 
 namespace UTExLMS.ViewModels
@@ -14,6 +17,8 @@ namespace UTExLMS.ViewModels
     {
         private object _body;
         private string _logoUtex;
+
+        public ICommand OpenProfile {  get; set; }
         public string logoUtex
         {
             get
@@ -57,10 +62,19 @@ namespace UTExLMS.ViewModels
                 OnPropertyChanged(nameof(Body));
             }
         }
-        public MainViewModel()
+        public MainViewModel(Person person)
         {
-            Body = new ListCourseView(this);
-            //Body = new ProfileView();
+            if (person.IdRole == 2)
+                Body = new ListCourseLecturePView(this, person);
+            else 
+                Body = new ListCourseView(this, person);
+
+        }
+        private void OpenProfilePage()
+        {
+            ProfilePView profilePView = new ProfilePView();
+            profilePView.Show();
+            
         }
     }
 }

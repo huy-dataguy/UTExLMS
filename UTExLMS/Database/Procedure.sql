@@ -65,7 +65,7 @@ END;
 
 --------------------------------------
 
-Create PROCEDURE AddAssignment (
+Alter PROCEDURE AddAssignment (
     @nameAssign VARCHAR(100),
     @statu BIT = 0,  -- Giá trị mặc định là 0
     @startDate DATE,
@@ -83,8 +83,8 @@ BEGIN
 	where
 	Element.idCourse = @idCourse and Element.idSection = idSection;
 
-	INsert into Element (idElement, idCourse, idSection)
-	values (@idAssign,@idCourse,@idSection);
+	INsert into Element (idElement, idCourse, idSection,nameType)
+	values (@idAssign,@idCourse,@idSection,'Assignment');
 
 		INSERT INTO Assignment (
             idAssign,
@@ -119,7 +119,7 @@ END;
 
 --------------------
 
-Create procedure AddFile (
+Alter procedure AddFile (
     @filePath VARCHAR(255),
     @statu BIT = 0,  -- Giá trị mặc định là 0
     @nameMaterial VARCHAR(100),
@@ -135,8 +135,8 @@ Create procedure AddFile (
 		where
 		Element.idCourse = @idCourse and Element.idSection = idSection;
 	
-		INsert into Element (idElement, idCourse, idSection)
-		values (@idMaterial,@idCourse,@idSection);
+		INsert into Element (idElement, idCourse, idSection,nameType)
+		values (@idMaterial,@idCourse,@idSection,'Material');
 	
 			INSERT INTO Material (
 				idMaterial,
@@ -177,8 +177,8 @@ Create procedure AddFile (
 	)
     AS
     BEGIN
-    Insert into Element (idElement, idCourse, idSection)
-    values (@idTest,@idCourse,@idSection);
+    Insert into Element (idElement, idCourse, idSection,nameType)
+    values (@idTest,@idCourse,@idSection,'Test');
     INSERT INTO Test (
 		idTest,
 		nameTest,

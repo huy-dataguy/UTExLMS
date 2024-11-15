@@ -40,10 +40,47 @@ RETURN (
 );
 
 
+Create FUNCTION GetCourseLecture(
+    @personId INT,
+    @searchTerm NVARCHAR(100),
+    @selectedFilter VARCHAR(20)  -- Thêm tham số search term
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT 
+        p.idPerson,  -- Dùng idPerson thay vì idStudent
+        cs.idCourse,
+        p.firstName,
+        p.lastName,
+        cs.nameCourse,
+        sem.startDate,
+        sem.endDate,
+        cs.imgCourse
+    FROM 
+        Course cs
+        JOIN Subjects sub ON cs.idSubject = sub.idSubject  -- Liên kết bảng Subjects bằng idSubject
+        JOIN Semester sem ON sub.idSemester = sem.idSemester
+        JOIN Person p ON cs.idLecturer = p.idPerson  -- Thay bảng Student bằng bảng Person
+    WHERE 
+        p.idPerson = @personId  -- Dùng idPerson thay vì idStudent
+        AND (
+            @selectedFilter = 'All' 
+            OR (@selectedFilter = 'Past' AND GETDATE() > sem.endDate)
+            OR (@selectedFilter = 'In Progress' AND GETDATE() BETWEEN sem.startDate AND sem.endDate)
+        )
+        AND (
+            @searchTerm IS NULL
+            OR cs.nameCourse LIKE '%' + @searchTerm + '%'
+        )
+);
+
+
+
 Select * from GetCourses (3, '', 'Past');
 
 
-
+use UTExLMS
 
 CREATE FUNCTION GetStudentsByCourse(@CourseId INT)
 RETURNS TABLE

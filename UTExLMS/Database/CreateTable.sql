@@ -81,9 +81,13 @@ CREATE TABLE Element (
         ON UPDATE CASCADE
 );
 
+use UTExLMS
+
+alter table Element
+add nameType INT
 
 
-
+drop table Material
 
 -- Table Material
 CREATE TABLE Material (
@@ -171,6 +175,8 @@ CREATE TABLE StudentAns (
 --        ON UPDATE CASCADE
 --);
 
+drop table Assignment
+
 CREATE TABLE Assignment (
     idAssign INT,
     nameAssign VARCHAR(100),
@@ -209,6 +215,8 @@ CREATE TABLE StudentTest (
 );
 
 -- Table StudentAssignment
+
+
 CREATE TABLE StudentAssignment (
     nameFile VARCHAR(100),
     pathFile VARCHAR(255),

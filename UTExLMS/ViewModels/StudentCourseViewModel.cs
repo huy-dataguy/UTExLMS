@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Input;
 using UTExLMS.Models;
@@ -16,6 +17,9 @@ namespace UTExLMS.ViewModels
     {
         public ObservableCollection<OverviewCourse> StudentCourses { get; private set; }
 
+        public ObservableCollection<OverviewLectureCourse> LectureCourses { get; private set; }
+
+
         private MainViewModel _mainViewModel;
 
         public MainViewModel MainViewModel
@@ -27,7 +31,7 @@ namespace UTExLMS.ViewModels
             }
         }
 
-        private int _id = 3;
+        private Person _person { get; set; }
 
         private string _selectedFilter;
 
@@ -36,6 +40,7 @@ namespace UTExLMS.ViewModels
         public ICommand SearchCmd { get; }
 
         public ICommand GoToCourse { get; }
+        public ICommand GoToCourseLecture { get; }
 
         public FilterListCourse FilterOption { get; private set; }
 
@@ -68,31 +73,65 @@ namespace UTExLMS.ViewModels
         }
 
 
+
         public StudentCourseViewModel() { }
 
-        public StudentCourseViewModel(MainViewModel mainViewModel)
-        { 
+        public StudentCourseViewModel(MainViewModel mainViewModel, Person person)
+        {
+            _person = person;
             FilterOption = new FilterListCourse();
             _selectedFilter = FilterOption.SelectedName[0];
             SearchCmd = new RelayCommand(UpdateStudentCourses);
+
             GoToCourse = new RelayCommand<OverviewCourse>(GoCourse);
+
+            GoToCourseLecture = new RelayCommand<OverviewLectureCourse>(GoCourseLecture);
             _mainViewModel = mainViewModel;
-            StudentCourseService studentCourseService = new StudentCourseService();
-            StudentCourses = studentCourseService.GetCourses(_id);
+
+            if (_person.IdRole == 2)
+                LectureCourses = new StudentCourseService().GetCoursesLecture(_person.IdPerson);
+            else
+
+                StudentCourses = new StudentCourseService().GetCourses(_person.IdPerson);
+
+
+
+
         }
 
         private void UpdateStudentCourses()
         {
+
             StudentCourseService studentCourseService = new StudentCourseService();
-            StudentCourses = studentCourseService.GetCourses(_id, _searchTerm, SelectedFilter);
-            OnPropertyChanged(nameof(StudentCourses));
+            if (_person.IdRole == 2)
+            {
+                LectureCourses = studentCourseService.GetCoursesLecture(_person.IdPerson, _searchTerm, SelectedFilter);
+                OnPropertyChanged(nameof(LectureCourses));
+            }
+            else
+            {
+                StudentCourses = studentCourseService.GetCourses(_person.IdPerson, _searchTerm, SelectedFilter);
+                OnPropertyChanged(nameof(StudentCourses));
+            }
+
+
+
         }
 
         private void GoCourse(OverviewCourse overviewCourse)
         {
-            //_mainViewModel.Body = new LectureCoursePView(overviewCourse);
 
-            _mainViewModel.Body = new StudentCourseDetailPView(overviewCourse);
+          
+                _mainViewModel.Body = new StudentCourseDetailPView(overviewCourse);
+            
+
+
+        }
+        private void GoCourseLecture(OverviewLectureCourse overviewCourse)
+        {
+
+            _mainViewModel.Body = new LectureCoursePView(overviewCourse);
+            MessageBox.Show("HELLOO");
         }
     }
 }
