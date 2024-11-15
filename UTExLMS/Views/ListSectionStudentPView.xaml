@@ -1,0 +1,36 @@
+﻿
+
+<Page x:Class="UTExLMS.Views.ListSectionStudentPView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UTExLMS.ViewModels"
+      xmlns:uc="clr-namespace:UTExLMS.Views.UserControlView"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="900"
+      Title="ListSectionStudentPView">
+
+    <!--<Page.DataContext>
+        <local:ListSectionStudentViewModel />
+    </Page.DataContext>-->
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding SectionToggles}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <!--<Button Width="900" Height="60" VerticalContentAlignment="Stretch" 
+                            Command="{Binding DataContext.SectionSelectedCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                CommandParameter="{Binding HeaderSections.IdSection}">-->
+                            
+                            <uc:SectionStudentUC Width="800" VerticalContentAlignment="Stretch" Margin="5"/>
+                            
+                        <!--</Button>-->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

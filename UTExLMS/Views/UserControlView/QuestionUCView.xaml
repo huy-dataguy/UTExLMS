@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="UTExLMS.Views.UserControlView.QuestionUCView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UTExLMS.Views.UserControlView"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="800">
+    <Grid Background="White" Margin="10" Height="400" Width="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock HorizontalAlignment="Left" Margin="5" Text="{Binding QuestionNumber}" Style="{StaticResource TextBlockLargeBold}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Question: " Style="{StaticResource TextBlockDefault}" TextWrapping="WrapWithOverflow"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Option A: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Option B: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Option C: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Option D: " Style="{StaticResource TextBlockDefault}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="5" Text="Correct answer: " Style="{StaticResource TextBlockDefault}"/>
+
+            <TextBox Text="{Binding NameQues}" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" Width="500"  HorizontalAlignment="Left"/>
+            <TextBox Text="{Binding A}" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" Width="500"  HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+            <TextBox Text="{Binding B}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Width="500"  HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+            <TextBox Text="{Binding C}" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" Width="500"  HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+            <TextBox Text="{Binding D}" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" Width="500"  HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+            <hc:ComboBox Text="{Binding Options[0]}" SelectedItem="{Binding TrueAns}" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Options}" SelectedIndex="0" VerticalAlignment="Center"/>
+            
+        </Grid>
+        <Grid Grid.Row="2" Visibility="Visible">
+            <Button Command="{Binding DeleteQuestion}" Style="{StaticResource ButtonDanger}" Content="Delete" HorizontalAlignment="Center" Margin="5" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,107 @@
+﻿<Window x:Class="UTExLMS.Views.ElementChosenWView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UTExLMS.Views"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="ElementChosenWView" Height="450" Width="800">
+    <Grid Background="#f0f0f0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="5" Text="Thêm đối tượng" Style="{StaticResource TextBlockLargeBold}" />
+
+        <ListBox Grid.Row="1" Margin="10" BorderThickness="0" Style="{DynamicResource WrapPanelHorizontalListBox}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <!--Assignment-->
+            
+            <hc:Card MaxWidth="100" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8" >
+                <Border CornerRadius="4,4,0,0" Width="75" Height="75">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding IconAssignment}" />
+                    </Border.Background>
+                </Border>
+
+                <hc:Card.Footer>
+                    <StackPanel Margin="10" Width="75">
+                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="Assignment" HorizontalAlignment="Center" FontSize="13" />
+                    </StackPanel>
+                </hc:Card.Footer>
+
+                <!-- Command Binding -->
+                <hc:Card.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding CreateNewAssignment}" />
+                </hc:Card.InputBindings>
+            </hc:Card>
+
+            <!--File-->
+            <hc:Card MaxWidth="100" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8">
+                <Border CornerRadius="4,4,0,0" Width="75" Height="75">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding IconFile}" />
+                    </Border.Background>
+                </Border>
+
+                <hc:Card.Footer>
+                    <StackPanel Margin="10" Width="75">
+                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="File" HorizontalAlignment="Center" FontSize="13" />
+                    </StackPanel>
+                </hc:Card.Footer>
+
+                <!-- Command Binding -->
+                <hc:Card.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AddFile}" />
+                </hc:Card.InputBindings>
+            </hc:Card>
+
+            <!--Test-->
+            <hc:Card MaxWidth="100" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8">
+                <Border CornerRadius="4,4,0,0" Width="75" Height="75">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding IconTest}" />
+                    </Border.Background>
+                </Border>
+
+                <hc:Card.Footer>
+                    <StackPanel Margin="10" Width="75">
+                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="Test" HorizontalAlignment="Center" FontSize="13" />
+                    </StackPanel>
+                </hc:Card.Footer>
+
+                <!-- Command Binding -->
+                <hc:Card.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AddTest}" />
+                </hc:Card.InputBindings>
+            </hc:Card>
+
+            <!--Forum-->
+            <hc:Card MaxWidth="100" BorderThickness="0" Effect="{DynamicResource EffectShadow2}" Margin="8">
+                <Border CornerRadius="4,4,0,0" Width="75" Height="75">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding IconForum}" />
+                    </Border.Background>
+                </Border>
+
+                <hc:Card.Footer>
+                    <StackPanel Margin="10" Width="75">
+                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockLargeBold}" TextTrimming="CharacterEllipsis" Text="Forum" HorizontalAlignment="Center" FontSize="13" />
+                    </StackPanel>
+                </hc:Card.Footer>
+
+                <!-- Command Binding -->
+                <hc:Card.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ForumCommand}" />
+                </hc:Card.InputBindings>
+            </hc:Card>
+
+        </ListBox>
+    </Grid>
+</Window>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="UTExLMS.Views.UserControlView.FilePreviewUCView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UTExLMS.Views.UserControlView"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="800">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="{Binding fileIcon}"></Image>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="5" Text="{Binding fileName}" Style="{StaticResource TextBlockDefaultBold}"/>
+        <Button Command="{Binding toggleStatus}" Grid.Column="2" Height="30" Padding="10,0" Background="Black" Margin="5" Foreground="White" Content="{Binding status}" />
+    </Grid>
+</UserControl>

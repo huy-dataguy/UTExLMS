@@ -5,9 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UTExLMS"
         xmlns:views="clr-namespace:UTExLMS.Views.UserControlView"
+        xmlns:vm="clr-namespace:UTExLMS.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="1024" Width="1440">
     <Grid>
-        <views:TestUCView/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="263"/>
+                <ColumnDefinition Width="169"/>
+                <ColumnDefinition Width="216"/>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+
+            <!--<Image Source="Assets/ute_logo.png" Grid.Column="0" Margin="10,5,10,5"/>-->
+            <Button Grid.Column="1" Height="60" BorderThickness="0">
+                <TextBlock Text="Trang chủ"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
+
+            </Button>
+            <Button Grid.Column="2" Height="60" BorderThickness="0">
+                <TextBlock Text="Bảng điều khiển" VerticalAlignment="Top" HorizontalAlignment="Center" />
+
+            </Button>
+            <Button Grid.Column="3" Height="60" BorderThickness="0" >
+                <TextBlock Text="Khóa học của tôi"   />
+
+            </Button>
+            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+            <Image Source="{Binding avatar}" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>
+            
+                <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
+                </Image>
+            
+            <!-- Icon Button -->
+            <Button x:Name="IconButton" Width="60" Height="50" Click="IconButton_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Grid.Column="5"
+                    BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
+                <Button.Content>
+                    <Image Source="{Binding avatar}" Margin="0,0,0,0" HorizontalAlignment="Center" />
+                </Button.Content>
+                <Button.ContextMenu>
+                    <ContextMenu x:Name="IconContextMenu">
+                        <MenuItem Header="Hồ sơ" Click="OpenProfile"/>
+                        <MenuItem Header="Điểm" />
+                        <MenuItem Header="Thoát" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+
+
+            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right">
+            </Image>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#EEF2F8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1350"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="1" Margin="0,10,0,20"  Background="White" Content="{Binding Body}" />
+
+        </Grid>
+
     </Grid>
 </Window>
