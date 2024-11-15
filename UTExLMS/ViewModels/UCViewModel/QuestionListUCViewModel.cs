@@ -35,8 +35,10 @@ namespace UTExLMS.ViewModels
 
         public QuestionListUCViewModel() { }
 
-        public QuestionListUCViewModel(Question question)
+        private ElementSection _elementInfor {  get;  set; }
+        public QuestionListUCViewModel(Question question, ElementSection elementInfor)
         {
+            _elementInfor = elementInfor;
             _question = question;
             IdQues = question.IdQues;
             IdTest = question.IdTest;
@@ -59,7 +61,7 @@ namespace UTExLMS.ViewModels
         {
             SelectedAnswer = answer;
             QuestionService questionService = new QuestionService();
-            questionService.AddStudentAnswer(answer, 101,IdCourse, IdSection, IdTest, IdQues);
+            questionService.AddStudentAnswer(answer, _elementInfor.IdStudent, _elementInfor.IdCourse, _elementInfor.IdSection, _elementInfor.IdElement, IdQues);
         }
 
         public string SelectedAnswer

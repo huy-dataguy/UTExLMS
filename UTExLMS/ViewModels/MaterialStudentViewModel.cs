@@ -32,21 +32,16 @@ namespace UTExLMS.ViewModels
 
             string pathFile = material.FilePath;
 
-            ////////////// 
 
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; // Thư mục hiện tại của ứng dụng (bin)
-            string projectRootDirectory = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..")); // Thư mục gốc của dự án
+    
 
-            string relativePath = Path.Combine("Database", "Materials", "Bài 1 - Tổng quan về ATTT.pptx"); // Đường dẫn tương đối đến tệp Excel
-            string fullPath = Path.Combine(projectRootDirectory, relativePath); // Đường dẫn tuyệt đối từ thư mục gốc đến tệp Excel
-
-            if (File.Exists(fullPath))
+            if (File.Exists(pathFile))
             {
                 try
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                     {
-                        FileName = fullPath,
+                        FileName = pathFile,
                         UseShellExecute = true
                     });
                 }
@@ -57,7 +52,7 @@ namespace UTExLMS.ViewModels
             }
             else
             {
-                System.Windows.MessageBox.Show("Tệp không tồn tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Tệp không còn tồn tại.");
             }
 
         }

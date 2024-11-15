@@ -37,8 +37,9 @@
                 <TextBlock Text="Khóa học của tôi"   />
 
             </Button>
-            <!--<Image Source="Assets/BellGray.png" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>-->
-            <!--<Image Source="Assets/avatar.png" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>-->
+            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+            <Image Source="{Binding avatar}" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>
+            
                 <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
                 </Image>
             

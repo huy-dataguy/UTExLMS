@@ -448,3 +448,64 @@ EXEC UpdateStudentAssignment
 
 
 	select * from StudentAssignment
+
+
+
+	CREATE PROCEDURE [dbo].[AddStudentAnswer]
+    @ans VARCHAR(1),
+    @idStudent INT,
+    @idCourse INT,
+    @idSection INT,
+    @idTest INT,
+    @idQues INT  
+AS
+BEGIN
+    DECLARE @trueAns VARCHAR(1);
+    DECLARE @isCorrect BIT;
+
+    -- Lấy đáp án đúng 
+    SELECT @trueAns = trueAns
+    FROM Question
+    WHERE idQues = @idQues
+      AND idTest = @idTest
+      AND idCourse = @idCourse
+      AND idSection = @idSection;
+
+    -- Tính toán giá trị isTrue
+    SET @isCorrect = CASE
+        WHEN @ans = @trueAns THEN 1
+        ELSE 0
+    END;
+
+    -- Kiểm tra hàng đó đã có tồn tại trong bảng StudentAns
+    IF EXISTS (
+        SELECT 1 
+        FROM StudentAns
+        WHERE idPerson = @idStudent
+          AND idQues = @idQues
+          AND idTest = @idTest
+          AND idCourse = @idCourse
+          AND idSection = @idSection
+    )
+    BEGIN
+        -- Nếu đã tồn tại thì update
+        UPDATE StudentAns
+        SET ans = @ans,
+            isTrue = @isCorrect
+        WHERE idPerson = @idStudent
+          AND idQues = @idQues
+          AND idTest = @idTest
+          AND idCourse = @idCourse
+          AND idSection = @idSection;
+    END
+    ELSE
+    BEGIN
+        -- Chưa tồn tại thì insert
+        INSERT INTO StudentAns (idPerson, idQues, ans, isTrue, idTest, idCourse, idSection)
+        VALUES (@idStudent, @idQues, @ans, @isCorrect, @idTest, @idCourse, @idSection);
+    END
+END;
+
+
+
+

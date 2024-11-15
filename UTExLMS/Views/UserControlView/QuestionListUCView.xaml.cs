@@ -27,10 +27,10 @@ namespace UTExLMS.Views.UserControlView
             InitializeComponent();
             
         }
-        public QuestionListUCView(Question question)
+        public QuestionListUCView(Question question, ElementSection elemenInfor)
         {
             MessageBox.Show("OKOK");
-            DataContext = new QuestionListUCViewModel(question);
+            DataContext = new QuestionListUCViewModel(question, elemenInfor);
         }
     }
 }

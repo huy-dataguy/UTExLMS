@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HandyControl.Tools.Extension;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace UTExLMS.ViewModels
 {
     internal class QuestionListViewModel : ViewModelBase
     {
+
+        private ElementSection _elementInfor {  get; set; }
         private Test _test { get; set; }
         private int _idStudent {  get; set; }
         public ObservableCollection<Question> Questions {  get; set; }
@@ -27,6 +30,7 @@ namespace UTExLMS.ViewModels
 
         public QuestionListViewModel(ElementSection inforElement)  
         {
+            _elementInfor = inforElement;
             Submit = new RelayCommand(CalculateStudentScore);
             QuestionService questionService = new QuestionService();
             Questions = questionService.GetQuestions(inforElement.IdElement, inforElement.IdSection, inforElement.IdCourse);
@@ -38,7 +42,7 @@ namespace UTExLMS.ViewModels
             QuestionsList = new ObservableCollection<QuestionListUCViewModel>();
             foreach (Question question in Questions)
             {
-                QuestionsList.Add(new QuestionListUCViewModel(question));
+                QuestionsList.Add(new QuestionListUCViewModel(question, _elementInfor));
             }
             OnPropertyChanged(nameof(QuestionsList));
         }
@@ -46,8 +50,7 @@ namespace UTExLMS.ViewModels
         private void CalculateStudentScore()
         {
             CalculateScoreService calculateScoreService = new CalculateScoreService();
-            //calculateScoreService.CalculateScore(_idStudent, _test.IdCourse, _test.IdSection, _test.IdTest);
-            calculateScoreService.CalculateScore(101, 1001, 1, 1);
+            calculateScoreService.CalculateScore(_elementInfor.IdStudent, _elementInfor.IdCourse, _elementInfor.IdSection, _elementInfor.IdElement);
 
         }
     }

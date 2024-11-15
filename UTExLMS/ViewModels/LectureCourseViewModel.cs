@@ -40,6 +40,8 @@ namespace UTExLMS.ViewModels
 
         public void UpdateSections()
         {
+            SectionService sectionService = new SectionService();
+            Sections = sectionService.GetSections(idCourse);
             SectionUCs = new ObservableCollection<SectionUCViewModel>();
             foreach (Section section in Sections)
             {

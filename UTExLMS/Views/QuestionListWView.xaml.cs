@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UTExLMS.Models;
 using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
@@ -20,10 +21,11 @@ namespace UTExLMS.Views
     /// </summary>
     public partial class QuestionListWView : Window
     {
-        public QuestionListWView()
+        public QuestionListWView(ElementSection inforElement)
         {
             InitializeComponent();
-            DataContext = new QuestionListViewModel();
-        }
+
+            DataContext = new QuestionListViewModel(inforElement);
+     }
     }
 }
