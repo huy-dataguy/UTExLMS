@@ -3,57 +3,73 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows.Input;
 using UTExLMS.Models;
-using UTExLMS.Models;
 using UTExLMS.Commands;
 using System.Windows;
-
+using UTExLMS.Service;
+using System.Data.Entity;
+using System;
 namespace UTExLMS.ViewModels
 {
     public class ProfileLecturerViewModel : ViewModelBase
     {
-        public Lecturer Profile { get; set; }
+        public Person profile { get; set; }
         private readonly UTExLMSContext _context;
-
-        // ICommand để thực thi cập nhật hồ sơ
         public ICommand SaveProfile { get; set; }
-        public ProfileLecturerViewModel() { }
+        private MainViewModel _mainViewModel {  get; set; }   
+
+        public ProfileLecturerViewModel()
+        {
+
+        }
         public ProfileLecturerViewModel(UTExLMSContext context)
         {
             _context = context;
-            //Profile = LoadProfile();
-
-            //SaveProfile = new RelayCommand<Lecturer>(UpdateLecturer);
+            profile = LoadProfile();
+            //_mainViewModel = mainViewModel;
+            SaveProfile = new RelayCommand(_ => UpdatePersonProfile());
         }
 
-        // Tải thông tin giảng viên từ cơ sở dữ liệu
-        //private Lecturer LoadProfile()
-        //{
-        //    var idLecturer = 1; // Thay đổi ID theo yêu cầu
-
-        //    // Lấy thông tin giảng viên
-        //    Lecturer profile = _context.Persons
-        //            .Where(c => c.IdLecturer == idLecturer)
-        //            .FirstOrDefault();
-
-        //    return profile;
-        //}
-
-        public void UpdateLecturer(Lecturer lecturer)
+        private Person LoadProfile()
         {
-            _context.Database.ExecuteSqlRaw(
-                "EXEC UpdateLecturerInfo @IdLecturer, @FirstName, @LastName, @Email, @Birthday, @Gender, @PhoneNum, @Password",
-                new SqlParameter("IdLecturer", lecturer.IdPerson),
-                new SqlParameter("FirstName", lecturer.FirstName),
-                new SqlParameter("LastName", lecturer.LastName),
-                new SqlParameter("Email", lecturer.Email),
-                new SqlParameter("Birthday", lecturer.Birthday),
-                new SqlParameter("Gender", lecturer.Gender),
-                new SqlParameter("PhoneNum", lecturer.PhoneNum),
-                new SqlParameter("Password", lecturer.Pass)
-            );
-            MessageBox.Show("Save success!!!");
+            var idPerson = 102; 
+            ProfileService profileService = new ProfileService();
+            profile = profileService.GetProfile(idPerson);
+            return profile;
         }
 
+        public void UpdatePersonProfile() { 
+            ProfileService profileService = new ProfileService();
+            profileService.UpdateProfile(profile);
+        }
+
+
+    public bool IsMale
+        {
+            get => profile != null &&profile.Gender == "Male";
+            set
+            {
+                if (value)
+                {
+                    profile.Gender = "Male";
+                    OnPropertyChanged(nameof(IsMale));
+                    OnPropertyChanged(nameof(IsFemale));
+                }
+            }
+        }
+
+        public bool IsFemale
+        {
+            get => profile != null && profile.Gender == "Female";
+            set
+            {
+                if (value)
+                {
+                    profile.Gender = "Female";
+                    OnPropertyChanged(nameof(IsMale));
+                    OnPropertyChanged(nameof(IsFemale));
+                }
+            }
+        }
 
     }
 }

@@ -10,29 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.ViewModels;
 
 namespace UTExLMS.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class Page1 : Page
     {
-        public LoginView()
+        public Page1()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is LoginViewModel viewModel)
-            {
-                viewModel.UpdatePassword(PasswordBox.Password);
-            }
         }
     }
-
 }

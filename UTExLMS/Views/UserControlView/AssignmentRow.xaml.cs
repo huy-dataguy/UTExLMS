@@ -12,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UTExLMS.Models;
-using UTExLMS.ViewModels;
 
-namespace UTExLMS.Views
+namespace UTExLMS.Views.UserControlView
 {
     /// <summary>
-    /// Interaction logic for ListCourseView.xaml
+    /// Interaction logic for AssignmentRow.xaml
     /// </summary>
-    public partial class ListCourseView : Page
+    public partial class AssignmentRow : UserControl
     {
-        public ListCourseView()
+        public AssignmentRow()
         {
             InitializeComponent();
-            this.DataContext = new StudentCourseViewModel();
-        }
-        public ListCourseView(MainViewModel mainViewModel, Person person)
-        {
-            InitializeComponent();
-            this.DataContext = new StudentCourseViewModel(mainViewModel, person);
         }
     }
 }

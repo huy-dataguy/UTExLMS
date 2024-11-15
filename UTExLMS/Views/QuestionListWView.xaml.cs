@@ -26,6 +26,6 @@ namespace UTExLMS.Views
             InitializeComponent();
 
             DataContext = new QuestionListViewModel(inforElement);
-        }
+     }
     }
 }

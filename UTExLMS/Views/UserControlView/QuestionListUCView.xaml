@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="UTExLMS.Views.UserControlView.QuestionListUCView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UTExLMS.Views.UserControlView"
+             xmlns:vm="clr-namespace:UTExLMS.ViewModels.UCViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="400">
+    <!--<UserControl.DataContext>
+        <vm:QuestionListUCViewModel/>
+    </UserControl.DataContext>-->
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding NameQues}" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="1" Margin="0,50,0,0">
+            <RadioButton Content="{Binding A}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="A"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding B}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="B"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding C}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="C"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+            <RadioButton Content="{Binding D}"
+                 GroupName="{Binding IdQues}"
+                 Command="{Binding SelectAnswerCommand}"
+                 CommandParameter="D"
+                 HorizontalAlignment="Left"
+                 FontSize="18" Margin="20,10,0,0"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

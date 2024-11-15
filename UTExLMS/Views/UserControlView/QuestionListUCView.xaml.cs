@@ -10,29 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UTExLMS.ViewModels.UCViewModel;
+using UTExLMS.Models;
 using UTExLMS.ViewModels;
-
-namespace UTExLMS.Views
+namespace UTExLMS.Views.UserControlView
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for QuestionListUCView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class QuestionListUCView : UserControl
     {
-        public LoginView()
+        public QuestionListUCView()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
+            
         }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        public QuestionListUCView(Question question, ElementSection elemenInfor)
         {
-            if (DataContext is LoginViewModel viewModel)
-            {
-                viewModel.UpdatePassword(PasswordBox.Password);
-            }
+            MessageBox.Show("OKOK");
+            DataContext = new QuestionListUCViewModel(question, elemenInfor);
         }
     }
-
 }

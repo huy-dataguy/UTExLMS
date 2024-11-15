@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UTExLMS.Models;
 using UTExLMS.ViewModels;
-using UTExLMS.Models;
 
 
 namespace UTExLMS.Views
@@ -21,17 +20,21 @@ namespace UTExLMS.Views
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class ProfileView : Page
+    public partial class ProfilePView : Window
     {
-        public ProfileView()
+        public ProfilePView()
         {
             InitializeComponent();
             UTExLMSContext context = new UTExLMSContext();
             this.DataContext = new ProfileLecturerViewModel(context);
 
-
         }
+        //public ProfilePView(MainViewModel mainViewModel)
+        //{
+        //    InitializeComponent();
+        //    this.DataContext = ProfileLecturerViewModel(mainViewModel);
+        //}
 
-      
+
     }
 }

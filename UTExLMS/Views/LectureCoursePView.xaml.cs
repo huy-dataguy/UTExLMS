@@ -26,7 +26,7 @@ namespace UTExLMS.Views
         {
             InitializeComponent();
         }
-        public LectureCoursePView(OverviewCourse overviewCourse)
+        public LectureCoursePView(OverviewLectureCourse overviewCourse)
         {
             InitializeComponent();
             DataContext = new LectureCourseViewModel(overviewCourse);

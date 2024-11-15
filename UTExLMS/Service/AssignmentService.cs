@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -17,9 +18,18 @@ namespace UTExLMS.Service
     class AssignmentService
     {
         private UTExLMSContext _context;
+        private Addition _addition;
+
         public AssignmentService()
         {
             _context = new UTExLMSContext();
+            _addition = new Addition();
+        }
+        public ObservableCollection<AssignmentStudent> GetAssignmentStudents(int idStudent, int idCourse, int idSection, int idAssignment )
+        {
+            var assignments = _addition.AssignmentStudents.FromSqlRaw($"select * from GetStudentAssignment({idStudent},{idCourse},{idSection},{idAssignment})").ToList();
+            MessageBox.Show($"select * from GetStudentAssignment({idStudent},{idCourse},{idSection},{idAssignment}");
+            return new ObservableCollection<AssignmentStudent>(assignments);
         }
         public void CreateAssignment(int idSection, int idCourse, string nameAssign, string descript, DateTime startDate, DateTime endDate)
         {
