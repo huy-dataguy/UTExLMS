@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using UTExLMS.Models;
 namespace UTExLMS.Service
 {
@@ -27,6 +28,7 @@ namespace UTExLMS.Service
             };
 
             _addition.Database.ExecuteSqlRaw("EXEC CalculateStudentScore  @idStudent, @idCourse, @idSection, @idTest", parameters);
+            MessageBox.Show("Nộp bài thành công ");
         }
     }
 

@@ -19,6 +19,7 @@ namespace UTExLMS.Views
         public AssignmentsPage()
         {
             InitializeComponent();
+            DataContext = new AssignmentsViewModel();
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

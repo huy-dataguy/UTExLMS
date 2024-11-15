@@ -12,29 +12,16 @@ namespace UTExLMS.ViewModels
 {
     public class AssignmentsViewModel: ViewModelBase
     {
-        private readonly UTExLMSContext _context;
 
-        private AssignmentStudentService _assignment;
         private int _id = 1;
         public ObservableCollection<AssignmentStudent> Assignments { get; private set; }
-        public AssignmentsViewModel(UTExLMSContext context)
+
+        public AssignmentsViewModel()
         {
-            //_context = context;
-            //UpdateAssignment();
+            AssignmentService assignmentService = new AssignmentService();
+            Assignments = assignmentService.GetAssignmentStudents(101, 1001, 1, 1);
         }
-        //private void UpdateAssignment()  
-        //{
-        //    _assignment = new AssignmentStudentService(_context, _id);
-        //    Assignments = new ObservableCollection<AssignmentStudent>(_assignment.AssignmentStudent);
-        //    //OnPropertyChanged(nameof(StudentClasses));
-        //}
     }
 
 }
 
-//private void UpdateStudentClasses()
-//{
-//    _studentClasses = new StudentClassService(_context, _id, SelectedFilter, SearchTerm);
-//    StudentClasses = new ObservableCollection<OverviewClass>(_studentClasses.OverviewClasses);
-//    OnPropertyChanged(nameof(StudentClasses));
-//}

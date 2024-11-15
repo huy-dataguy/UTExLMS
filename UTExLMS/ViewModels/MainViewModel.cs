@@ -63,7 +63,7 @@ namespace UTExLMS.ViewModels
         }
         public MainViewModel()
         {
-            Body = new Quiz();
+            Body = new ResultPView();
         }
         private void OpenProfilePage()
         {

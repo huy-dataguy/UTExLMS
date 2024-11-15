@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using UTExLMS.Models;
 
 namespace UTExLMS.Service
@@ -36,6 +37,12 @@ namespace UTExLMS.Service
             
             var questions = _addition.Questions.FromSqlRaw($"select * from GetQuestions({idTest},{idSection},{idCourse})").ToList();
             return new ObservableCollection<Question>(questions);
+        }
+        public ObservableCollection<Result> GetResults(int idStudent,int idCourse, int idSection, int idTest)
+        {
+
+            var results = _addition.Results.FromSqlRaw($"select * from GetStudentAns({idStudent},{idCourse},{idSection},{idTest})").ToList();
+            return new ObservableCollection<Result>(results);
         }
 
         public void AddStudentAnswer(string ans, int idStudent, int idCourse, int idSection, int idTest, int idQues)
