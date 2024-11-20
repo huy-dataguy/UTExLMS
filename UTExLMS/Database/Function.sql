@@ -73,7 +73,7 @@ RETURN
             WHEN a.idAssign IS NOT NULL THEN 'Assignment'  -- Đặt biểu tượng cho Assignment
             WHEN t.idTest IS NOT NULL THEN 'Test'          -- Đặt biểu tượng cho Test
             ELSE NULL
-        END AS Test, 
+        END AS Deadline, 
         CASE 
             WHEN a.idAssign IS NOT NULL THEN a.startDate
             WHEN t.idTest IS NOT NULL THEN t.startDate

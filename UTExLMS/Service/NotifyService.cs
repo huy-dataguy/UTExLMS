@@ -19,7 +19,7 @@ namespace UTExLMS.Service
         public ObservableCollection<Notify> GetUpcomingDeadlinesForStudent(int idStudent)
         {
             var notifications = _addition.Notifys
-                .FromSqlRaw($"SELECT * FROM GetUpcomingDeadlinesForStudent({idStudent})")
+                .FromSqlRaw($"SELECT * FROM GetAllDeadlinesForStudent({idStudent})")
                 .ToList();
 
             return new ObservableCollection<Notify>(notifications);
