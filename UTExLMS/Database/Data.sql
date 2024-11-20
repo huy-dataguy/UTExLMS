@@ -141,6 +141,7 @@ INSERT INTO StudentAssignment (nameFile, pathFile, typeFile, dateSubmit, idCours
 ('homework1.pdf', '/submissions/algebra_homework1.pdf', 'PDF', '2024-09-04', 1, 1, 1, 3);
 ('project1.zip', '/submissions/python_project1.zip', 'ZIP', '2024-09-14', 2, 2, 2, 3);
 
+
 -- Bảng Discussion
 INSERT INTO Discussion (idDiscuss, descript, nameDiscuss, idSection, idCourse) VALUES
 (1, 'Discuss Algebra topics', 'Algebra Discussion', 1, 1),

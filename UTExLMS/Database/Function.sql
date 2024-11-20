@@ -77,7 +77,7 @@ RETURN (
 
 
 
-Select * from GetCourses (3, '', 'Past');
+--Select * from GetCourses (3, '', 'Past');
 
 
 use UTExLMS
@@ -101,10 +101,10 @@ RETURN (
     WHERE cs.IdCourse = @CourseId
 );
 
-select * from GetStudentsByCourse (1)
+--select * from GetStudentsByCourse (1)
 
 ---------------------------
-drop function GetStudentsByCourse
+--drop function GetStudentsByCourse
 CREATE FUNCTION GetSectionsByCourse (
     @CourseId INT
 )
@@ -119,8 +119,8 @@ RETURN
     WHERE 
         s.idCourse = @CourseId
 );
-select * from GetSectionsByCourse(1)
-select * from Discussion
+--select * from GetSectionsByCourse(1)
+--select * from Discussion
 
 --CREATE FUNCTION GetElementsByCourseAndSection (
 --    @CourseId INT, 
@@ -219,10 +219,10 @@ RETURN
         AND e.idSection = @SectionId
 );
 
-select * from GetElementsByCourseAndSection(1, 1, 3)
-select * from Assignment
+--select * from GetElementsByCourseAndSection(1, 1, 3)
+--select * from Assignment
 
-drop function GetElementsByCourseAndSection
+--drop function GetElementsByCourseAndSection
 CREATE FUNCTION GetElementPreviews(
     @input_idSection INT,
     @input_idCourse INT
@@ -391,7 +391,7 @@ RETURN
         AND sa.idSection = @idSection
         AND sa.idStudent = @idStudent;
 
-select * from GetAssignmentSubmited (1,1,1,3)
+--select * from GetAssignmentSubmited (1,1,1,3)
 
 
 
@@ -450,8 +450,8 @@ RETURN
         AND c.idDiscuss = @idDiscuss
 );
 
-drop function GetAllComment
-select * from GetAllComment(1,1,8);
+--drop function GetAllComment
+--select * from GetAllComment(1,1,8);
 
 
 CREATE FUNCTION GetPersonInfoById
@@ -479,7 +479,7 @@ RETURN
 );
 
 
-select * from GetPersonInfoById(3);
+--select * from GetPersonInfoById(3);
 
 
 CREATE PROCEDURE CreateNewComment
@@ -514,6 +514,40 @@ EXEC CreateNewComment
     @idPerson = 3;
 
 	select * from Discussion
+
+
+
+CREATE FUNCTION GetAllDeadlinesForStudent (
+    @studentId INT
+)
+RETURNS TABLE
+AS
+RETURN
+    SELECT 
+        cs.idStudent,
+        cs.idCourse,
+        a.nameAssign AS nameDeadline,       -- Tên deadline từ bảng Assignment
+        'Assignment' AS Type,       -- Loại deadline là Assignment
+        a.startDate AS startTime,           -- Thời gian bắt đầu
+        a.endDate AS endTime                -- Thời gian kết thúc
+    FROM CourseStudent cs
+    LEFT JOIN Assignment a ON cs.idCourse = a.idCourse
+    WHERE cs.idStudent = @studentId
+
+    UNION ALL
+
+    SELECT 
+        cs.idStudent,
+        cs.idCourse,
+        t.nameTest AS nameDeadline,         -- Tên deadline từ bảng Test
+        'Test' AS Type,             -- Loại deadline là Test
+        t.startDate AS startTime,           -- Thời gian bắt đầu
+        t.endDate AS endTime                -- Thời gian kết thúc
+    FROM CourseStudent cs
+    LEFT JOIN Test t ON cs.idCourse = t.idCourse
+    WHERE cs.idStudent = @studentId;
+
+
 
 
 

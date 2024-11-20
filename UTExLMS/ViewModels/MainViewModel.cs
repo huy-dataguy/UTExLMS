@@ -19,6 +19,8 @@ namespace UTExLMS.ViewModels
         private string _logoUtex;
 
         public ICommand OpenProfile {  get; set; }
+        public ICommand Notify { get; set; }
+        private Person _person { get; set; }
         public string logoUtex
         {
             get
@@ -64,10 +66,13 @@ namespace UTExLMS.ViewModels
         }
         public MainViewModel(Person person)
         {
+           _person = person;
             if (person.IdRole == 2)
                 Body = new ListCourseLecturePView(this, person);
-            else 
+            else {
                 Body = new ListCourseView(this, person);
+                Notify = new RelayCommand(OpenNotifyPage);
+            }
 
         }
         private void OpenProfilePage()
@@ -76,5 +81,12 @@ namespace UTExLMS.ViewModels
             profilePView.Show();
             
         }
+
+        private void OpenNotifyPage()
+        {
+            NotifyView notifyView = new NotifyView(_person.IdPerson);
+            notifyView.Show();
+        }
+
     }
 }
