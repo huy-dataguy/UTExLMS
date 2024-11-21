@@ -517,12 +517,18 @@ EXEC CreateNewComment
 
 
 
+
+	SELECT * FROM GetAllDeadlinesForStudent(3)
+
+
+drop function GetAllDeadlinesForStudent
 CREATE FUNCTION GetAllDeadlinesForStudent (
     @studentId INT
 )
 RETURNS TABLE
 AS
 RETURN
+    -- Lấy các deadlines cho Assignment
     SELECT 
         cs.idStudent,
         cs.idCourse,
@@ -533,9 +539,12 @@ RETURN
     FROM CourseStudent cs
     LEFT JOIN Assignment a ON cs.idCourse = a.idCourse
     WHERE cs.idStudent = @studentId
+    AND a.startDate IS NOT NULL     -- Lọc các bản ghi có startDate không phải NULL
+    AND a.endDate IS NOT NULL       -- Lọc các bản ghi có endDate không phải NULL
 
     UNION ALL
 
+    -- Lấy các deadlines cho Test
     SELECT 
         cs.idStudent,
         cs.idCourse,
@@ -545,9 +554,21 @@ RETURN
         t.endDate AS endTime                -- Thời gian kết thúc
     FROM CourseStudent cs
     LEFT JOIN Test t ON cs.idCourse = t.idCourse
-    WHERE cs.idStudent = @studentId;
+    WHERE cs.idStudent = @studentId
+    AND t.startDate IS NOT NULL     -- Lọc các bản ghi có startDate không phải NULL
+    AND t.endDate IS NOT NULL       -- Lọc các bản ghi có endDate không phải NULL;
 
-
-
-
-
+CREATE FUNCTION[dbo].[LoginAuth] (
+    @Email VARCHAR(50),
+	@Pass VARCHAR(50)
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT *
+    FROM 
+        Person p
+    WHERE 
+        p.email = @Email
+		and p.pass = @Pass
+);
