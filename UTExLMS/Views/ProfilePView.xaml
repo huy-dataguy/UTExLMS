@@ -43,7 +43,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
                          VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                         Text="{Binding profile.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding _profile.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
 			</StackPanel>
 
 			<!-- Last Name (Tên) -->
@@ -52,7 +52,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 				<TextBox Width="230" Height="40" HorizontalAlignment="Left"
                          VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                         Text="{Binding profile.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding _profile.LastName, UpdateSourceTrigger=PropertyChanged}"/>
 			</StackPanel>
 		</StackPanel>
 
@@ -62,7 +62,7 @@
 		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="1" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding profile.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding _profile.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Birth Date -->
 		<TextBlock Text="Ngày sinh" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -70,7 +70,7 @@
 		<DatePicker Width="500" Height="40" HorizontalAlignment="Left"
                     Grid.Row="2" Grid.Column="1" Margin="80,50,0,0"
                     VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                    SelectedDate="{Binding profile.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+                    SelectedDate="{Binding _profile.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Gender -->
         <TextBlock Text="Giới tính" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -94,7 +94,7 @@
 		<TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="4" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding profile.PhoneNum, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding _profile.PhoneNum, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Password -->
 		<TextBlock Text="Password" FontFamily="Roboto" FontSize="26" FontWeight="SemiBold"
@@ -102,7 +102,7 @@
         <TextBox Width="500" Height="40" HorizontalAlignment="Left"
                  Grid.Row="5" Grid.Column="1" Margin="80,50,0,0"
                  VerticalAlignment="Top" FontSize="16" BorderThickness="2" BorderBrush="Gray"
-                 Text="{Binding profile.Pass, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding _profile.Pass, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Cancel Button -->
 		<Button Content="Cancel" Width="180" Height="55" HorizontalAlignment="Left"

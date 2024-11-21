@@ -17,6 +17,7 @@ namespace UTExLMS.Models
         public virtual DbSet<AssignmentStudent> AssignmentStudents { get; set; }
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<Notify> Notifys { get; set; }
+        public virtual DbSet<Score> StudentScoreResults { get; set; }
 
         public virtual DbSet<ElementPreview> ElementPreviews { get; set; }
         public Addition() { }
@@ -49,6 +50,8 @@ namespace UTExLMS.Models
              .HasKey(oc => new { oc.IdNotification }); 
             modelBuilder.Entity<Notify>()
             .HasKey(noti => new { noti.NameDeadline, noti.Type }); // Đặt khóa chính cho Notify	
+            modelBuilder.Entity<Score>()
+            .HasKey(noti => new { noti.score });
 
         }
 

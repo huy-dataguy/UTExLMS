@@ -54,7 +54,7 @@
                 </Image>
             
             <!-- Icon Button -->
-            <!--<Button x:Name="IconButton" Width="60" Height="50" Click="IconButton_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Grid.Column="5"
+            <Button x:Name="IconButton" Width="60" Height="50" Click="IconButton_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Grid.Column="5"
                     BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                 <Button.Content>
                     <Image Source="{Binding avatar}" Margin="0,0,0,0" HorizontalAlignment="Center" />
@@ -62,11 +62,11 @@
                 <Button.ContextMenu>
                     <ContextMenu x:Name="IconContextMenu">
                         <MenuItem Header="Hồ sơ" Click="OpenProfile"/>
-                        <MenuItem Header="Điểm" />
-                        <MenuItem Header="Thoát" />
+                        <MenuItem Header="Điểm"  />
+                        <MenuItem Header="Thoát" Click="OpenLogin"/>
                     </ContextMenu>
                 </Button.ContextMenu>
-            </Button>-->
+            </Button>
 
 
 

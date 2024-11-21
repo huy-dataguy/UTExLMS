@@ -51,7 +51,8 @@ namespace UTExLMS.ViewModels
         {
             CalculateScoreService calculateScoreService = new CalculateScoreService();
             calculateScoreService.CalculateScore(_elementInfor.IdStudent, _elementInfor.IdCourse, _elementInfor.IdSection, _elementInfor.IdElement);
-
+            ResultPView resultPView= new ResultPView(_elementInfor);
+            resultPView.Show();
         }
     }
 }

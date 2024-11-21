@@ -22,11 +22,11 @@ namespace UTExLMS.Views
     /// </summary>
     public partial class ProfilePView : Window
     {
-        public ProfilePView()
+        public ProfilePView(Person person)
         {
             InitializeComponent();
             UTExLMSContext context = new UTExLMSContext();
-            this.DataContext = new ProfileLecturerViewModel(context);
+            this.DataContext = new ProfileLecturerViewModel(person);
 
         }
         //public ProfilePView(MainViewModel mainViewModel)

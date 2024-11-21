@@ -28,14 +28,14 @@
                     
                     <!-- Main Content Row -->
                 </Grid.RowDefinitions>
-                <TextBlock Text="Bài kiểm tra số 1"
+                <!--<TextBlock Text="Bài kiểm tra số 1"
                    Grid.Row="0"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    FontSize="25"
                    FontWeight="Bold"
                    Margin="20"
-                    />
+                    />-->
 
                 <!-- Scrollable Questions -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
@@ -49,7 +49,7 @@
                 </ScrollViewer>
                 <Button Grid.Row="2" Content="Nộp bài"
                         Command="{Binding Submit}"
-                        Background="#FFB3B3"
+                        Background="#FF00"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Margin="0,30,30,10"

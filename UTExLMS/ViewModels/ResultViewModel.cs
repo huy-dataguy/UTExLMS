@@ -17,17 +17,22 @@ namespace UTExLMS.ViewModels
 {
     internal class ResultViewModel : ViewModelBase
     {
+        private ElementSection _infor { get; set; }
         private Test _test { get; set; }
-        private int _idStudent { get; set; }
+        private int _score { get; set; }   
         public ObservableCollection<Result> Results { get; set; }
         public ObservableCollection<ResultUCViewModel> ResultList { get; set; }
 
 
-        public ResultViewModel()
+        public ResultViewModel(ElementSection infor)
         {
+            _infor = infor;
             QuestionService questionService = new QuestionService();
-            Results = questionService.GetResults(101, 1001, 1, 1);
+            Results = questionService.GetResults(_infor.IdStudent, _infor.IdCourse,_infor.IdSection,_infor.IdElement);
+            CalculateScoreService calculateScoreService = new CalculateScoreService();
+            _score = calculateScoreService.GetStudentScore(_infor.IdStudent, _infor.IdCourse, _infor.IdSection, _infor.IdElement);
             UpdateQuestions();
+            
         }
 
         public void UpdateQuestions()
@@ -38,7 +43,10 @@ namespace UTExLMS.ViewModels
                 ResultList.Add(new ResultUCViewModel(result));
             }
         }
-
+        public int Score
+        {
+            get => _score;
+        }
 
     }
 }

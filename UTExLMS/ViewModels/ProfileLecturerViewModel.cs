@@ -12,7 +12,7 @@ namespace UTExLMS.ViewModels
 {
     public class ProfileLecturerViewModel : ViewModelBase
     {
-        public Person profile { get; set; }
+        public Person _profile { get; set; }
         private readonly UTExLMSContext _context;
         public ICommand SaveProfile { get; set; }
         private MainViewModel _mainViewModel {  get; set; }   
@@ -21,11 +21,10 @@ namespace UTExLMS.ViewModels
         {
 
         }
-        public ProfileLecturerViewModel(UTExLMSContext context)
+        public ProfileLecturerViewModel(Person person)
         {
-            _context = context;
-            profile = LoadProfile();
-            //_mainViewModel = mainViewModel;
+            _profile = person;
+           // _profile = LoadProfile();
             SaveProfile = new RelayCommand(_ => UpdatePersonProfile());
         }
 
@@ -33,24 +32,24 @@ namespace UTExLMS.ViewModels
         {
             var idPerson = 102; 
             ProfileService profileService = new ProfileService();
-            profile = profileService.GetProfile(idPerson);
-            return profile;
+            _profile = profileService.GetProfile(idPerson);
+            return _profile;
         }
 
         public void UpdatePersonProfile() { 
             ProfileService profileService = new ProfileService();
-            profileService.UpdateProfile(profile);
+            profileService.UpdateProfile(_profile);
         }
 
 
     public bool IsMale
         {
-            get => profile != null &&profile.Gender == "Male";
+            get => _profile != null &&_profile.Gender == "Male";
             set
             {
                 if (value)
                 {
-                    profile.Gender = "Male";
+                    _profile.Gender = "Male";
                     OnPropertyChanged(nameof(IsMale));
                     OnPropertyChanged(nameof(IsFemale));
                 }
@@ -59,12 +58,12 @@ namespace UTExLMS.ViewModels
 
         public bool IsFemale
         {
-            get => profile != null && profile.Gender == "Female";
+            get => _profile != null && _profile.Gender == "Female";
             set
             {
                 if (value)
                 {
-                    profile.Gender = "Female";
+                    _profile.Gender = "Female";
                     OnPropertyChanged(nameof(IsMale));
                     OnPropertyChanged(nameof(IsFemale));
                 }

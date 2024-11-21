@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UTExLMS.Models;
 using UTExLMS.ViewModels;
 namespace UTExLMS.Views
 {
     /// <summary>
     /// Interaction logic for ResultPView.xaml
     /// </summary>
-    public partial class ResultPView : Page
+    public partial class ResultPView : Window
     {
-        public ResultPView()
+        public ResultPView(ElementSection inforElement)
         {
             InitializeComponent();
-            DataContext = new ResultViewModel();
+            DataContext = new ResultViewModel(inforElement);
         }
     }
 }

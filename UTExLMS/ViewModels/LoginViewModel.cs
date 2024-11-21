@@ -14,6 +14,7 @@ namespace UTExLMS.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+        private readonly Window _window;
         private string _email;
         private string _password;
         private Person _person;
@@ -39,9 +40,10 @@ namespace UTExLMS.ViewModels
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(Window window)
         {
             LoginCommand = new RelayCommand(_ => Login());
+            _window = window;
         }
 
         private void Login()
@@ -55,9 +57,9 @@ namespace UTExLMS.ViewModels
             else
             {
                 MessageBox.Show("Đăng nhập thành công");
-
-                new MainWindow(_person).Show();
                 
+                new MainWindow(_person).Show();
+                _window.Close();
             }
         }
         public void UpdatePassword(string password)

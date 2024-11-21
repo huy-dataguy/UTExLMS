@@ -111,13 +111,6 @@ namespace UTExLMS.ViewModels
 
 
 
-        private void OpenProfilePage()
-        {
-            ProfilePView profilePView = new ProfilePView();
-            profilePView.Show();
-            
-        }
-
         private void OpenNotifyPage()
         {
             NotifyView notifyView = new NotifyView(_person.IdPerson);
