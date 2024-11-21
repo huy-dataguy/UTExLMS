@@ -15,6 +15,7 @@ namespace UTExLMS.Models
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
         public virtual DbSet<AssignmentStudent> AssignmentStudents { get; set; }
         public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<Notify> Notifys { get; set; }
 
         public virtual DbSet<ElementPreview> ElementPreviews { get; set; }
         public Addition() { }
@@ -43,6 +44,8 @@ namespace UTExLMS.Models
             
             modelBuilder.Entity<ElementPreview>()
                 .HasKey(oc => new { oc.IdElement, oc.IdCourse, oc.IdSection }); // Đặt khóa chính cho OverviewCourse
+            modelBuilder.Entity<Notify>()
+            .HasKey(noti => new { noti.NameDeadline, noti.Type }); // Đặt khóa chính cho Notify	
 
         }
 

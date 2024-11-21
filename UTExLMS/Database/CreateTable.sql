@@ -83,11 +83,6 @@ CREATE TABLE Element (
 
 use UTExLMS
 
-alter table Element
-add nameType INT
-
-
-drop table Material
 
 -- Table Material
 CREATE TABLE Material (
@@ -175,8 +170,6 @@ CREATE TABLE StudentAns (
 --        ON UPDATE CASCADE
 --);
 
-drop table Assignment
-
 CREATE TABLE Assignment (
     idAssign INT,
     nameAssign VARCHAR(100),
@@ -197,7 +190,6 @@ CREATE TABLE Assignment (
         ON UPDATE NO ACTION
 );
 
-drop table Assignment
 --able StudentTest
 CREATE TABLE StudentTest (
     idStudent INT,
@@ -235,7 +227,6 @@ CREATE TABLE StudentAssignment (
         ON UPDATE NO ACTION
 );
 
-drop table StudentAssignment
 
 -- Table Discussion
 --CREATE TABLE Discussion (
@@ -264,8 +255,6 @@ CREATE TABLE Discussion (
         ON UPDATE NO ACTION
 );
 
-use UTExLMS
-drop table Discussion
 -- Table Comment
 
 CREATE TABLE Comment (
