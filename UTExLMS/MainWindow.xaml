@@ -37,9 +37,18 @@
                 <TextBlock Text="Khóa học của tôi"   />
 
             </Button>
-            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+            <!--<Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>-->
+            <Button Grid.Column="4" Margin="40,0,0,0" Height="60" BorderThickness="0" Command="{Binding Notify}">
+                <Image Source="{Binding ringIcon}"  Margin="0,0,10,0" HorizontalAlignment="Right"/>
+
+            </Button>
+
+            <Button Grid.Column="5" Margin="0,0,30,0" Height="60" BorderThickness="0" Width="50">
+                <Image Source="{Binding avatar}"  Margin="0,0,10,0" HorizontalAlignment="Right"/>
+
+            </Button>
             
-            <Image Source="{Binding avatar}" Grid.Column="5" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+           
             
             <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
                 </Image>
@@ -60,8 +69,7 @@
             </Button>-->
 
 
-            <!--<Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right">
-            </Image>-->
+
         </Grid>
 
         <Grid Grid.Row="1" Background="#EEF2F8">
