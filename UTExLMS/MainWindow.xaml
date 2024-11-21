@@ -25,26 +25,36 @@
             </Grid.ColumnDefinitions>
 
             <!--<Image Source="Assets/ute_logo.png" Grid.Column="0" Margin="10,5,10,5"/>-->
-            <Button Grid.Column="1" Height="60" BorderThickness="0">
-                <TextBlock Text="Trang chủ"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
+            <Button Command="{Binding Home}" Grid.Column="1" Height="60" BorderThickness="0">
+                <TextBlock Text="Trang chủ"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
 
             </Button>
-            <Button Grid.Column="2" Height="60" BorderThickness="0">
+            <Button Command="{Binding ControlPanel}" Grid.Column="2" Height="60" BorderThickness="0">
                 <TextBlock Text="Bảng điều khiển" VerticalAlignment="Top" HorizontalAlignment="Center" />
 
             </Button>
-            <Button Grid.Column="3" Height="60" BorderThickness="0" >
+            <Button Command="{Binding MyCourse}" Grid.Column="3" Height="60" BorderThickness="0" >
                 <TextBlock Text="Khóa học của tôi"   />
 
             </Button>
-            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>
-            <Image Source="{Binding avatar}" Grid.Column="5" Margin="0,0,30,0" HorizontalAlignment="Right"/>
+            <!--<Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right"/>-->
+            <Button Grid.Column="4" Margin="40,0,0,0" Height="60" BorderThickness="0" Command="{Binding Notify}">
+                <Image Source="{Binding ringIcon}"  Margin="0,0,10,0" HorizontalAlignment="Right"/>
+
+            </Button>
+
+            <Button Grid.Column="5" Margin="0,0,30,0" Height="60" BorderThickness="0" Width="50">
+                <Image Source="{Binding avatar}"  Margin="0,0,10,0" HorizontalAlignment="Right"/>
+
+            </Button>
             
-                <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
+           
+            
+            <Image Source="{Binding logoUtex}" Grid.Column="0" Margin="0, 10, 0, 10">
                 </Image>
             
             <!-- Icon Button -->
-            <Button x:Name="IconButton" Width="60" Height="50" Click="IconButton_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Grid.Column="5"
+            <!--<Button x:Name="IconButton" Width="60" Height="50" Click="IconButton_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Grid.Column="5"
                     BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                 <Button.Content>
                     <Image Source="{Binding avatar}" Margin="0,0,0,0" HorizontalAlignment="Center" />
@@ -56,11 +66,10 @@
                         <MenuItem Header="Thoát" />
                     </ContextMenu>
                 </Button.ContextMenu>
-            </Button>
+            </Button>-->
 
 
-            <Image Source="{Binding ringIcon}" Grid.Column="4" Margin="0,0,10,0" HorizontalAlignment="Right">
-            </Image>
+
         </Grid>
 
         <Grid Grid.Row="1" Background="#EEF2F8">

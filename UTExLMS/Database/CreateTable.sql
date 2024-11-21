@@ -1,4 +1,4 @@
-CREATE DATABASE UTExLMS;
+﻿CREATE DATABASE UTExLMS;
 USE UTExLMS;
 
 -- Table Roles
@@ -83,11 +83,6 @@ CREATE TABLE Element (
 
 use UTExLMS
 
-alter table Element
-add nameType INT
-
-
-drop table Material
 
 -- Table Material
 CREATE TABLE Material (
@@ -175,8 +170,6 @@ CREATE TABLE StudentAns (
 --        ON UPDATE CASCADE
 --);
 
-drop table Assignment
-
 CREATE TABLE Assignment (
     idAssign INT,
     nameAssign VARCHAR(100),
@@ -197,7 +190,6 @@ CREATE TABLE Assignment (
         ON UPDATE NO ACTION
 );
 
-drop table Assignment
 --able StudentTest
 CREATE TABLE StudentTest (
     idStudent INT,
@@ -235,7 +227,6 @@ CREATE TABLE StudentAssignment (
         ON UPDATE NO ACTION
 );
 
-drop table StudentAssignment
 
 -- Table Discussion
 --CREATE TABLE Discussion (
@@ -264,8 +255,6 @@ CREATE TABLE Discussion (
         ON UPDATE NO ACTION
 );
 
-use UTExLMS
-drop table Discussion
 -- Table Comment
 
 CREATE TABLE Comment (
@@ -338,3 +327,37 @@ Create TABLE CourseLecturer (
 
 
 
+
+
+
+
+
+
+use UTExLMS
+--Quốc Huy: thông báo deadline
+
+
+CREATE INDEX IDX_Element_Course_Section_Element
+ON Element (idCourse, idSection, idElement);
+-- Thêm một khóa ứng cử viên vào ba cột
+ALTER TABLE Element
+ADD CONSTRAINT PK_Element_Course_Section_Element UNIQUE (idCourse, idSection, idElement);
+
+
+CREATE TABLE NotificationPanel (
+    idNotification INT PRIMARY KEY IDENTITY(1,1),
+    idStudent INT,
+    idCourse INT,
+    idSection INT,
+    idElement INT,
+    typeElement VARCHAR(20), -- "Assignment" or "Test"
+    nameElement VARCHAR(100),
+    startDate DATE,
+    endDate DATE,
+    notificationDate DATE,
+    isCompleted BIT DEFAULT 0, -- 0: not completed, 1: completed
+    FOREIGN KEY (idStudent) REFERENCES Person(idPerson)
+        ON DELETE CASCADE,
+    FOREIGN KEY (idCourse, idSection, idElement) REFERENCES Element(idCourse, idSection, idElement)
+        ON DELETE CASCADE
+);

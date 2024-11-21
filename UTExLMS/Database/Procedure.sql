@@ -65,7 +65,7 @@ END;
 
 --------------------------------------
 
-Alter PROCEDURE AddAssignment (
+create PROCEDURE AddAssignment (
     @nameAssign VARCHAR(100),
     @statu BIT = 0,  -- Giá trị mặc định là 0
     @startDate DATE,
@@ -119,7 +119,7 @@ END;
 
 --------------------
 
-Alter procedure AddFile (
+Create procedure AddFile (
     @filePath VARCHAR(255),
     @statu BIT = 0,  -- Giá trị mặc định là 0
     @nameMaterial VARCHAR(100),
@@ -164,7 +164,7 @@ Alter procedure AddFile (
 
     --------------------
 
-    alter procedure AddTest (
+    create procedure AddTest (
         @idTest INT,
         @nameTest VARCHAR(100),
 		@statu BIT = 0,  -- Giá trị mặc định là 0
@@ -509,3 +509,68 @@ END;
 
 
 
+
+CREATE PROCEDURE [dbo].[CalculateStudentScore]
+    @p_idStudent INT,
+    @p_idCourse INT,
+    @p_idSection INT,
+    @p_idTest INT
+AS
+BEGIN
+    DECLARE @correctAnswers INT = 0;
+    DECLARE @totalQuestions INT = 0;
+    DECLARE @finalScore FLOAT = 0.0;
+
+    -- Đếm tổng số câu trả lời chính xác
+    SELECT @correctAnswers = COUNT(*)
+    FROM StudentAns
+    WHERE idPerson = @p_idStudent
+      AND idCourse = @p_idCourse
+      AND idSection = @p_idSection
+      AND idTest = @p_idTest
+      AND isTrue = 1;
+
+    -- Đếm tổng số câu trả lời
+    SELECT @totalQuestions = COUNT(*)
+    FROM Question
+    WHERE idTest = @p_idTest
+      AND idCourse = @p_idCourse
+      AND idSection = @p_idSection;
+
+    -- Tính toán điểm số cuối cùng 
+IF @totalQuestions > 0
+    BEGIN
+        SET @finalScore = ROUND(CAST(@correctAnswers AS FLOAT) / @totalQuestions * 10, 1);
+    END
+    ELSE
+    BEGIN
+        SET @finalScore = 0;
+    END;
+
+    -- Kiểm tra đã tồn tại chưa 
+    IF EXISTS (
+        SELECT 1
+        FROM StudentTest
+        WHERE idStudent = @p_idStudent
+          AND idCourse = @p_idCourse
+          AND idSection = @p_idSection
+          AND idTest = @p_idTest
+    )
+    BEGIN
+        -- Nếu đã có thì update
+        UPDATE StudentTest
+        SET totalScore = @finalScore
+        WHERE idStudent = @p_idStudent
+          AND idCourse = @p_idCourse
+          AND idSection = @p_idSection
+          AND idTest = @p_idTest;
+    END
+    ELSE
+    BEGIN
+        -- Chưa thì insert
+        INSERT INTO StudentTest (idStudent, idCourse, idSection, idTest, totalScore)
+        VALUES (@p_idStudent, @p_idCourse, @p_idSection, @p_idTest, @finalScore);
+    END
+END;
+
+select * from StudentTest

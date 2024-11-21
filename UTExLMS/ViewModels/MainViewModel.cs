@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using UTExLMS.Models;
+using UTExLMS.ViewModels;
 using UTExLMS.Views;
 
 namespace UTExLMS.ViewModels
@@ -19,6 +20,8 @@ namespace UTExLMS.ViewModels
         private string _logoUtex;
 
         public ICommand OpenProfile {  get; set; }
+        public ICommand Notify { get; set; }
+        private Person _person { get; set; }
         public string logoUtex
         {
             get
@@ -53,6 +56,11 @@ namespace UTExLMS.ViewModels
 
 
 
+        public ICommand Home { get; }
+        public ICommand MyCourse { get; }
+        public ICommand ControlPanel { get; }
+
+
         public object Body
         {
             get => _body;
@@ -63,18 +71,62 @@ namespace UTExLMS.ViewModels
             }
         }
         public MainViewModel(Person person)
+
         {
+            _person = person;
+
             if (person.IdRole == 2)
+            {
                 Body = new ListCourseLecturePView(this, person);
-            else 
+
+
+            }
+            else
+            {
                 Body = new ListCourseView(this, person);
+                Home = new RelayCommand(HomePage);
+                MyCourse = new RelayCommand(MyCoursePage);
+                ControlPanel = new RelayCommand(ControlPanelPage);
+                Notify = new RelayCommand(OpenNotifyPage);
+
+
+            }
+
 
         }
+        private void HomePage()
+        {
+            Body = new HomePView();
+        }
+
+        private void ControlPanelPage()
+        {
+            Body = new ControlPanelPView(_person);
+        }
+
+        private void MyCoursePage()
+        {
+            Body = new ListCourseView(this, _person);
+        }
+
+
+
         private void OpenProfilePage()
         {
             ProfilePView profilePView = new ProfilePView();
             profilePView.Show();
             
         }
+
+        private void OpenNotifyPage()
+        {
+            NotifyView notifyView = new NotifyView(_person.IdPerson);
+            notifyView.Show();
+        }
+
     }
 }
+
+
+
+
