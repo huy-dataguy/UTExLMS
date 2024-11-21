@@ -1,0 +1,36 @@
+﻿<Page x:Class="UTExLMS.Views.ControlPanelPView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UTExLMS.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1000"
+      Title="ControlPanelPView">
+
+    <Grid>
+        <DataGrid 
+            HeadersVisibility="All" 
+            RowHeaderWidth="60" 
+            AutoGenerateColumns="False" 
+            ItemsSource="{Binding NotificationPanels}" 
+            SelectedItem="{Binding SelectedNotification, Mode=TwoWay}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn FontSize="20" IsReadOnly="True" Width="200" Binding="{Binding TypeElement}" Header="Ghi chú"/>
+                <DataGridTextColumn FontSize="20" IsReadOnly="True" Width="250" Binding="{Binding NameElement}" Header="Bài tập"/>
+                <DataGridTextColumn FontSize="20" IsReadOnly="True" Width="300" Binding="{Binding StartDate}" Header="Bắt đầu"/>
+                <DataGridTextColumn FontSize="20" IsReadOnly="True" Width="250" Binding="{Binding EndDate}" Header="Kết thúc"/>
+            </DataGrid.Columns>
+
+            <!-- MouseBinding truyền SelectedNotification -->
+            <DataGrid.InputBindings>
+                <MouseBinding 
+            Gesture="LeftClick" 
+            Command="{Binding SelectedNotificationCommand}" 
+            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+            </DataGrid.InputBindings>
+        </DataGrid>
+
+    </Grid>
+</Page>

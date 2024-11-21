@@ -72,8 +72,10 @@ INSERT INTO Section (idSection, idCourse, nameSection, descript) VALUES
 -- Bảng Element
 
 INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
-(15, 1, 1, 'Assignment'),
-(16, 1, 1, 'Assignment');
+(144, 1, 1, 'Assignment'),
+(164, 1, 1, 'Assignment');
+
+select *from Element
 INSERT INTO Element (idElement, idCourse, idSection, nameType) VALUES
 (1, 1, 1, 'Material'),
 (2, 1, 1, 'Material');
@@ -120,8 +122,8 @@ INSERT INTO StudentAns (idPerson, ans, isTrue, idQues, idTest, idSection, idCour
 select * from Assignment
 -- Bảng Assignment
 INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
-(1, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
-(2, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
+(144, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
+(164, 'Python Project', 0, '2024-09-10', '2024-09-15', 'Introductory Python project', NULL, 1, 1);
 
 INSERT INTO Assignment (idAssign, nameAssign, statu, startDate, endDate, descript, grade, idSection, idCourse) VALUES
 (15, 'Algebra Homework', 1, '2024-09-01', '2024-09-05', 'Solve basic algebra problems', NULL, 1, 1),
