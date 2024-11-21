@@ -10,6 +10,7 @@ namespace UTExLMS.Models
 {
     public class Addition: UTExLMSContext
     {
+        public virtual DbSet<NotificationPanel> NotificationPanels { get; set; }
         public virtual DbSet<ElementSection> ElementSections { get; set; }
         public virtual DbSet<OverviewLectureCourse> OverviewLectureCourses { get; set; }    
         public virtual DbSet<OverviewCourse> OverviewCourses { get; set; }
@@ -43,6 +44,8 @@ namespace UTExLMS.Models
             
             modelBuilder.Entity<ElementPreview>()
                 .HasKey(oc => new { oc.IdElement, oc.IdCourse, oc.IdSection }); // Đặt khóa chính cho OverviewCourse
+            modelBuilder.Entity<NotificationPanel>()
+             .HasKey(oc => new { oc.IdNotification }); 
 
         }
 

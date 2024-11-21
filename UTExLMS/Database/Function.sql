@@ -39,6 +39,22 @@ RETURN (
         )
 );
 
+select * from NotificationPanel
+create FUNCTION[dbo].[LoginAuth] (
+    @Email VARCHAR(50),
+	@Pass VARCHAR(50)
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT *
+    FROM 
+        Person p
+    WHERE 
+        p.email = @Email
+		and p.pass = @Pass
+);
+
 
 Create FUNCTION GetCourseLecture(
     @personId INT,
@@ -515,5 +531,33 @@ EXEC CreateNewComment
 
 	select * from Discussion
 
+    drop function GetNotificationsByStudentAndDateRange
+
+CREATE FUNCTION GetNotificationsByStudentAndDateRange (
+    @idStudent INT,      
+    @days INT           
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT 
+        np.idNotification,
+        np.idStudent,
+        np.idCourse,
+        np.idSection,
+        np.idElement,
+        np.typeElement,
+        np.nameElement,
+        np.startDate,
+        np.endDate,
+        np.notificationDate,
+        np.isCompleted
+    FROM NotificationPanel np
+    WHERE np.idStudent = @idStudent
+    AND np.endDate BETWEEN GETDATE() AND DATEADD(DAY, @days, GETDATE()) 
+    AND np.isCompleted = 0 
+);
+select * from GetNotificationsByStudentAndDateRange(3, 1000)
 
 
